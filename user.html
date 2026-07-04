@@ -322,10 +322,11 @@ td.actions{ text-align:right; }
   <div id="editOverlay" class="edit-overlay" style="display:none;"></div>
 
 <script type="module">
+  import { requireLogin, isAdmin as authIsAdmin, logout } from "./auth.js";
+
   // ===== 登入檢查 =====
-  const rawAppUser = sessionStorage.getItem("appUser");
-  if (!rawAppUser) location.href = "login.html";
-  const appUser = JSON.parse(rawAppUser);
+  const appUser = await requireLogin();
+  if (!appUser) throw new Error("Login required");
 
   // ✅ 顯示右上角名稱：優先 display_name，沒有就 username
   const welcomeNameEl = document.getElementById("welcomeName");
@@ -334,10 +335,7 @@ td.actions{ text-align:right; }
 
   // 導航與登出
   document.getElementById("gotoDashboard").onclick = () => location.href = "index.html";
-  document.getElementById("logoutBtn").onclick = () => {
-    sessionStorage.removeItem("appUser");
-    location.href = "login.html";
-  };
+  document.getElementById("logoutBtn").onclick = () => { logout(); };
 
   // Sidebar nav
   const sideNav = document.getElementById("sideNav");
@@ -347,7 +345,7 @@ td.actions{ text-align:right; }
     { href:"history.html", icon:"歷", text:"歷史資料", active:false },
     { href:"change_password.html", icon:"密", text:"修改密碼", active:false },
   ];
-  if (appUser.role === "admin"){
+  if (authIsAdmin(appUser)){
     navItems.push({ href:"user.html", icon:"人", text:"使用者管理", active:true });
   }
   sideNav.innerHTML = navItems.map(it => {
@@ -356,11 +354,7 @@ td.actions{ text-align:right; }
     </a>`;
   }).join("");
 
-  function doLogout(){
-    sessionStorage.removeItem("appUser");
-    location.href = "login.html";
-  }
-  document.getElementById("sideLogout").onclick = (e)=>{ e.preventDefault(); doLogout(); };
+  document.getElementById("sideLogout").onclick = (e)=>{ e.preventDefault(); logout(); };
 
   const btnMenu = document.getElementById("btnMenu");
   const sidebar = document.querySelector(".sidebar");
@@ -405,7 +399,7 @@ td.actions{ text-align:right; }
   const emptyMsg = document.getElementById("emptyMsg");
   const editOverlay = document.getElementById("editOverlay");
 
-  const isAdmin = (appUser.role === "admin");
+  const isAdmin = authIsAdmin(appUser);
 
   // ✅ 非 admin：隱藏新增區 + 文案改成「我的帳號」
   if (!isAdmin){
