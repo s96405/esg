@@ -263,8 +263,8 @@ td.actions{ text-align:right; }
       <div class="page-sub" id="pageSub" hidden></div>
     </div>
 
-    <!-- ✅ 新增使用者（admin 才顯示） -->
-    <div class="card" id="addCard">
+    <!-- TODO: 未來改 Edge Function / Supabase Auth Admin API 後再恢復 -->
+    <div class="card" id="addCard" hidden>
       <div class="card-title">新增使用者</div>
       <div class="form-row">
         <div class="field">
@@ -401,9 +401,9 @@ td.actions{ text-align:right; }
 
   const isAdmin = authIsAdmin(appUser);
 
-  // ✅ 非 admin：隱藏新增區 + 文案改成「我的帳號」
+  // 目前先收斂為 profile 管理頁，新增/刪除暫時停用
+  addCard.hidden = true;
   if (!isAdmin){
-    addCard.classList.add("hidden");
     pageTitle.textContent = "我的帳號";
     pageSub.textContent = "";
     listTitle.textContent = "我的帳號";
@@ -491,22 +491,18 @@ td.actions{ text-align:right; }
         <td data-label="建立時間">${created}</td>
         <td data-label="操作" class="actions">
           <button class="btn-xs edit" data-id="${u.id}" type="button">
-            ${isAdmin ? "編輯" : "修改密碼"}
+            編輯名稱
           </button>
-          ${
-            (isAdmin && String(u.id) !== String(appUser.id))
-              ? `<button class="btn-xs del" data-id="${u.id}" type="button">刪除</button>`
-              : ""
-          }
         </td>
       `;
       userTbody.appendChild(tr);
     });
   }
 
-  // ===== 新增使用者（只有 admin 才能用，UI 也藏掉） =====
+  // ===== 新增使用者（暫時停用） =====
   btnAddUser.onclick = async () => {
-    if (!isAdmin) return;
+    // TODO: 改 Edge Function / Supabase Auth Admin API 後再開啟
+    return;
 
     const display_name = newDisplayName.value.trim();
     const username = newUsername.value.trim();
@@ -549,26 +545,13 @@ td.actions{ text-align:right; }
     editOverlay.innerHTML = "";
     editOverlay.style.display = "flex";
 
-    // 非 admin：只能改密碼 => 鎖 display_name / role
-    const lock = (!isAdmin);
-
     const div = document.createElement("div");
     div.className = "edit-dialog";
     div.innerHTML = `
-      <div class="edit-title">${isAdmin ? "編輯使用者" : "修改密碼"}：${user.display_name || user.username}</div>
+      <div class="edit-title">編輯顯示名稱：${user.display_name || user.username}</div>
 
       <div class="label">顯示名稱（display_name）</div>
-      <input id="editDisplayName" type="text" ${lock ? "disabled" : ""} />
-
-      <div class="label" style="margin-top:6px;">新密碼（留空則不修改）</div>
-      <input id="editPassword" type="password" placeholder="留空不修改" />
-
-      <div class="label" style="margin-top:6px;">角色</div>
-      <select id="editRole" ${lock ? "disabled" : ""}>
-        <option value="viewer">viewer</option>
-        <option value="editor">editor</option>
-        <option value="admin">admin</option>
-      </select>
+      <input id="editDisplayName" type="text" />
 
       <div id="editMsg" class="msg"></div>
       <div class="edit-actions">
@@ -579,14 +562,11 @@ td.actions{ text-align:right; }
     editOverlay.appendChild(div);
 
     const editDisplayName = document.getElementById("editDisplayName");
-    const editPassword = document.getElementById("editPassword");
-    const editRole = document.getElementById("editRole");
     const editMsg = document.getElementById("editMsg");
     const btnCancel = document.getElementById("btnCancel");
     const btnSave = document.getElementById("btnSave");
 
     editDisplayName.value = user.display_name || "";
-    editRole.value = user.role;
 
     btnCancel.onclick = () => { editOverlay.style.display = "none"; };
 
@@ -595,30 +575,14 @@ td.actions{ text-align:right; }
       editMsg.className = "msg";
 
       const newDn = (editDisplayName.value || "").trim();
-      const newPwd = editPassword.value;
-      const newRole = editRole.value;
-
-      // ✅ 非 admin：強制只能更新 password
       const updateData = {};
 
-      if (isAdmin){
-        if (!newDn){
-          editMsg.textContent = "顯示名稱不可空白";
-          editMsg.classList.add("error");
-          return;
-        }
-        updateData.display_name = newDn;
-        updateData.role = newRole;
+      if (!newDn){
+        editMsg.textContent = "顯示名稱不可空白";
+        editMsg.classList.add("error");
+        return;
       }
-
-      if (newPwd){
-        if (newPwd.length < 4){
-          editMsg.textContent = "密碼至少 4 碼";
-          editMsg.classList.add("error");
-          return;
-        }
-        updateData.password = newPwd;
-      }
+      updateData.display_name = newDn;
 
       if (Object.keys(updateData).length === 0){
         editMsg.textContent = "沒有任何變更";
@@ -648,8 +612,8 @@ td.actions{ text-align:right; }
       editMsg.classList.add("ok");
 
       // 如果改到自己：更新 sessionStorage 顯示名稱
-      if (String(user.id) === String(appUser.id) && isAdmin && updateData.display_name){
-        const next = { ...appUser, display_name: updateData.display_name, role: updateData.role };
+      if (String(user.id) === String(appUser.id) && updateData.display_name){
+        const next = { ...appUser, display_name: updateData.display_name };
         sessionStorage.setItem("appUser", JSON.stringify(next));
         welcomeNameEl.textContent = updateData.display_name;
       }
@@ -663,8 +627,8 @@ td.actions{ text-align:right; }
 
   // ===== 刪除（只有 admin 才能刪，且不能刪自己） =====
   async function deleteUser(user){
-    if (!isAdmin) return;
-    if (String(user.id) === String(appUser.id)) return;
+    // TODO: 改 Edge Function / 後端處理 Auth user + profile + 關聯資料後再恢復
+    return;
 
     if (!confirm(`確定要刪除使用者「${user.display_name || user.username}」嗎？`)) return;
 
