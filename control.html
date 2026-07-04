@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>智慧植物照護系統 | 設備控制台</title>
+<style>
+:root{
+  --bg:#050a16;
+  --panel:#0b1430;
+  --border:rgba(255,255,255,0.10);
+  --txt:#e5e7eb;
+  --sub:#9ca3af;
+  --accent:#22d3ee;
+  --accent2:#f472b6;
+  --danger:#f97373;
+  --ok:#22c55e;
+  --shadowGlow: 0 0 0 1px rgba(34,211,238,.10), 0 18px 50px rgba(2,132,199,.18);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  min-height:100svh;
+  background:
+    radial-gradient(900px 520px at 18% -10%, rgba(34,211,238,.35), transparent 62%),
+    radial-gradient(820px 520px at 110% 22%, rgba(244,114,182,.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 120%, rgba(14,165,233,.10), transparent 62%),
+    linear-gradient(180deg, #050a16 0%, #03060e 100%);
+  color:var(--txt);
+  font-family:"Microsoft JhengHei",system-ui,sans-serif;
+}
+.topbar{
+  padding:14px 18px;
+  border-bottom:1px solid var(--border);
+  background:rgba(5,10,22,0.70);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:sticky;
+  flex-wrap:wrap;
+  gap:6px;
+  top:0;
+  backdrop-filter:blur(10px);
+  z-index:10;
+}
+.topbar a{
+  color:var(--sub);
+  text-decoration:none;
+  font-size:13px;
+}
+.topbar a:hover{color:var(--accent);}
+.wrap{
+  max-width:900px;
+  margin:18px auto 32px;
+  padding:0 16px;
+}
+.panel{
+  background:var(--panel);
+  border-radius:22px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  padding:18px 18px 16px;
+  box-shadow:0 16px 44px rgba(0,0,0,0.48);
+}
+.title-row{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  align-items:flex-start;
+  gap:8px;
+  margin-bottom:10px;
+}
+.device-id{
+  font-size:18px;
+  font-weight:700;
+}
+.badge{
+  font-size:11px;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  white-space:nowrap;
+}
+.badge.ok{border-color:#22c55e;color:#bbf7d0;}
+.badge.offline{border-color:#f97373;color:#fecaca;}
+.row{
+  display:flex;
+  justify-content:space-between;
+  margin:4px 0;
+  font-size:14px;
+  color:var(--sub);
+}
+.row span.value{
+  color:var(--txt);
+  font-weight:600;
+}
+.time{
+  margin-top:6px;
+  font-size:11px;
+  color:#6b7280;
+}
+.section{
+  margin-top:16px;
+  padding-top:12px;
+  border-top:1px dashed var(--border);
+}
+.section-title{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.section-title::before{
+  content:"";
+  width:4px;
+  height:14px;
+  border-radius:999px;
+  background:linear-gradient(180deg,#38bdf8,#22c55e);
+}
+.btn-group{
+  display:flex;
+  gap:8px;
+  width:100%;
+  flex-wrap:wrap;
+}
+.btn{
+  padding:8px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  font-size:13px;
+  cursor:pointer;
+  transition:.15s ease;
+}
+.btn.primary{
+  border-color:var(--accent);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#020617;
+  font-weight:600;
+}
+.btn.danger{
+  border-color:var(--danger);
+  color:#fecaca;
+}
+.btn.toggle{
+  background:rgba(255,255,255,0.03);
+}
+.btn.toggle.active{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#020617;
+  font-weight:600;
+}
+.btn:hover:not(:disabled){
+  transform:translateY(-1px);
+  box-shadow:var(--shadowGlow);
+}
+.btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none;
+}
+.msg{
+  margin-top:6px;
+  font-size:12px;
+  color:#e5e7eb;
+}
+.msg.sub{
+  color:#9ca3af;
+}
+.card{
+  background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  margin-top:12px;
+}
+.card-title{
+  font-weight:700;
+  margin-bottom:10px;
+}
+.grid3{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.field input{
+  width:100%;
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.03);
+  color:#e5e7eb;
+}
+.label{
+  font-size:12px;
+  color:#9ca3af;
+  margin-bottom:4px;
+}
+.hint{
+  font-size:11px;
+  color:#64748b;
+  margin-top:4px;
+}
+.actions{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+.btn-primary{
+  padding:8px 12px;
+  border-radius:999px;
+  border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#020617;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ===== RWD ===== */
+@media (max-width:768px){
+  .wrap{
+    padding:0 12px;
+  }
+  .device-id{
+    font-size:16px;
+  }
+  .row{
+    font-size:13px;
+  }
+}
+
+@media (max-width:480px){
+  .topbar{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .panel{
+    padding:14px 12px;
+    border-radius:14px;
+  }
+  .title-row{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .badge{
+    align-self:flex-start;
+  }
+  .btn-group{
+    flex-direction:column;
+  }
+  .btn{
+    width:100%;
+    text-align:center;
+  }
+  .grid3{
+    grid-template-columns:1fr;
+  }
+  .actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .btn-primary{
+    width:100%;
+  }
+}
+@media (max-width:600px){
+  .panel{padding:16px 14px 14px;}
+  .row{font-size:13px;}
+  .btn{font-size:12px;padding:7px 12px;}
+  .grid3{grid-template-columns:1fr;}
+}
+</style>
+<link rel="stylesheet" href="ui.css" />
+</head>
+<body class="control-page">
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="side-top">
+      <div class="logo-dot">植</div>
+      <div class="side-brand">
+        <div class="name">智慧植物照護系統</div>
+        <div class="sub"></div>
+      </div>
+    </div>
+
+    <nav id="sideNav" class="nav"></nav>
+
+    <div class="side-bottom">
+      <a href="login.html" id="sideLogout" title="登出">
+        <span class="ico">出</span>
+        <span>登出</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button id="btnMenu" class="menu-btn">☰</button>
+        <div>
+          <div class="topbar-title-main">設備控制台</div>
+          <div class="topbar-title-sub"></div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div id="topInfo" class="user-pill"></div>
+      </div>
+    </div>
+
+  <div class="wrap control-wrap">
+    <div class="panel control-panel">
+      <div class="title-row">
+        <div>
+          <div class="device-id" id="deviceTitle">設備控制台</div>
+          <div class="time" id="timeVal">最後更新：—</div>
+        </div>
+        <div id="statusBadge" class="badge offline">離線</div>
+      </div>
+
+      <div class="control-status-grid">
+        <div class="row">
+          <span>土壤濕度</span>
+          <span class="value" id="soilVal">—</span>
+        </div>
+        <div class="row">
+          <span>水位</span>
+          <span class="value" id="tankVal">—</span>
+        </div>
+        <div class="row">
+          <span>水泵</span>
+          <span class="value" id="pumpVal">—</span>
+        </div>
+        <div class="row">
+          <span>模式</span>
+          <span class="value" id="modeVal">—</span>
+        </div>
+        <div class="row">
+          <span>通知</span>
+          <span class="value" id="notifyVal">—</span>
+        </div>
+      </div>
+
+      <div class="control-action-grid">
+        <div class="section control-section">
+          <div class="section-title">模式切換</div>
+          <div class="btn-group">
+            <button class="btn" id="btnAuto">切換為自動模式</button>
+            <button class="btn" id="btnManual">切換為手動模式</button>
+          </div>
+        </div>
+
+        <div class="section control-section">
+          <div class="section-title">水泵手動控制</div>
+          <div class="btn-group">
+            <button class="btn primary" id="btnPumpOn">手動開啟水泵</button>
+            <button class="btn danger" id="btnPumpOff">手動關閉水泵</button>
+          </div>
+          <div class="msg" id="pumpHint"></div>
+        </div>
+      </div>
+
+      <div class="card control-config-card">
+        <div class="card-title">自動澆水設定</div>
+        <div class="grid3">
+          <div class="field">
+            <div class="label">開始澆水（moist_on %）</div>
+            <input id="mo_on" type="number" min="0" max="100" />
+            <div class="hint">土壤濕度低於此值時啟動</div>
+          </div>
+          <div class="field">
+            <div class="label">停止澆水（moist_off %）</div>
+            <input id="mo_off" type="number" min="0" max="100" />
+            <div class="hint">土壤濕度高於此值時停止</div>
+          </div>
+          <div class="field">
+            <div class="label">澆水時間（pump_ms）</div>
+            <input id="pump_ms" type="number" min="500" step="500" />
+            <div class="hint">單位：毫秒</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="btnSaveCfg" class="btn-primary">儲存設定</button>
+          <div id="cfgMsg" class="msg"></div>
+        </div>
+      </div>
+
+      <div class="control-bottom-grid">
+        <div class="section control-section">
+          <div class="section-title">LINE 推播通知</div>
+          <div class="btn-group">
+            <button class="btn toggle" id="btnNotifyOn">啟用通知</button>
+            <button class="btn toggle" id="btnNotifyOff">關閉通知</button>
+          </div>
+          <div class="msg" id="notifyMsg"></div>
+        </div>
+
+        <div class="section control-section">
+          <div class="section-title">系統訊息</div>
+          <div class="msg" id="sysMsg"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<script type="module">
+  import { requireLogin, isAdmin, logout } from "./auth.js";
+
+  // 1. 前端登入與權限檢查
+  const appUser = await requireLogin();
+  if (!appUser) throw new Error("Login required");
+
+  // viewer 沒權限進控制台
+  if (appUser.role === "viewer") {
+    alert("你是 viewer，沒有權限進入控制台。");
+    location.href = "index.html";
+  }
+
+  // Sidebar nav
+  const sideNav = document.getElementById("sideNav");
+  const navItems = [
+    { href:"index.html", icon:"總", text:"儀表板", active:false },
+    { href:"control.html", icon:"控", text:"控制台", active:true },
+    { href:"history.html", icon:"歷", text:"歷史資料", active:false },
+    { href:"change_password.html", icon:"密", text:"修改密碼", active:false },
+  ];
+  if (isAdmin(appUser)){
+    navItems.push({ href:"user.html", icon:"人", text:"使用者管理", active:false });
+  }
+  sideNav.innerHTML = navItems.map(it => {
+    return `<a class="${it.active ? "active" : ""}" href="${it.href}">
+      <span class="ico">${it.icon}</span><span>${it.text}</span>
+    </a>`;
+  }).join("");
+
+  document.getElementById("sideLogout").onclick = (e)=>{ e.preventDefault(); logout(); };
+
+  const btnMenu = document.getElementById("btnMenu");
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.getElementById("overlay");
+  if (btnMenu){
+    btnMenu.onclick = () => {
+      sidebar.classList.add("open");
+      overlay.classList.add("show");
+    };
+    overlay.onclick = () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    };
+  }
+  sideNav.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click", ()=>{
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    });
+  });
+
+  // 2. Supabase 初始化
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  const SUPABASE_URL = "https://jmimieqvhrdpdvovorhx.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_23gcxoA6juzOJOQga7ZihQ_3kdW4wIc";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // 3. 取得 device_id
+  const params = new URLSearchParams(location.search);
+  const deviceId = params.get("device_id");
+
+  const deviceTitle = document.getElementById("deviceTitle");
+  const statusBadge = document.getElementById("statusBadge");
+  const soilVal = document.getElementById("soilVal");
+  const tankVal = document.getElementById("tankVal");
+  const pumpVal = document.getElementById("pumpVal");
+  const modeVal = document.getElementById("modeVal");
+  const notifyVal = document.getElementById("notifyVal");
+  const timeVal = document.getElementById("timeVal");
+  const topInfo = document.getElementById("topInfo");
+  const sysMsg = document.getElementById("sysMsg");
+  const pumpHint = document.getElementById("pumpHint");
+  const notifyMsg = document.getElementById("notifyMsg");
+
+  const btnAuto = document.getElementById("btnAuto");
+  const btnManual = document.getElementById("btnManual");
+  const btnPumpOn = document.getElementById("btnPumpOn");
+  const btnPumpOff = document.getElementById("btnPumpOff");
+  const btnNotifyOn = document.getElementById("btnNotifyOn");
+  const btnNotifyOff = document.getElementById("btnNotifyOff");
+  const mo_on = document.getElementById("mo_on");
+  const mo_off = document.getElementById("mo_off");
+  const pump_ms = document.getElementById("pump_ms");
+  const btnSaveCfg = document.getElementById("btnSaveCfg");
+  const cfgMsg = document.getElementById("cfgMsg");
+  const statusRows = Array.from(document.querySelectorAll(".control-status-grid .row"));
+
+  let currentAuto = null;     // true / false / null
+  let currentNotify = null;   // true / false / null
+  let modeSwitchBusy = false;
+  let modeSwitchUnlockAt = 0;
+  const modeBtnLabels = {
+    auto: "切換為自動模式",
+    manual: "切換為手動模式",
+  };
+
+  function setModeButtonState(mode){
+    const isAuto = mode === true;
+    const isManual = mode === false;
+    btnAuto.classList.toggle("active", isAuto);
+    btnManual.classList.toggle("active", isManual);
+  }
+
+  function setStatusRowState(index, state){
+    const row = statusRows[index];
+    if (!row) return;
+    row.classList.remove("active", "ok", "warn", "danger", "info");
+    if (state) row.classList.add(state);
+  }
+
+  function syncStatusStrip(){
+    if (currentAuto === null){
+      setStatusRowState(3, "info");
+      setModeButtonState(null);
+    } else if (currentAuto){
+      setStatusRowState(3, "ok");
+      statusRows[3]?.classList.add("active");
+      setModeButtonState(true);
+    } else {
+      setStatusRowState(3, "warn");
+      statusRows[3]?.classList.add("active");
+      setModeButtonState(false);
+    }
+
+    if (currentNotify === null){
+      setStatusRowState(4, "info");
+    } else if (currentNotify){
+      setStatusRowState(4, "ok");
+      statusRows[4]?.classList.add("active");
+    } else {
+      setStatusRowState(4, "warn");
+      statusRows[4]?.classList.add("active");
+    }
+
+    btnPumpOn.disabled = btnPumpOff.disabled = !!currentAuto;
+  }
+
+  function setModeLoading(mode, loading){
+    const target = mode === "auto" ? btnAuto : btnManual;
+    const other = mode === "auto" ? btnManual : btnAuto;
+    if (loading){
+      target.dataset.text = target.textContent;
+      target.textContent = "切換中...";
+      target.disabled = true;
+      other.disabled = true;
+      target.classList.add("loading");
+      other.classList.add("loading-peer");
+    } else {
+      target.classList.remove("loading");
+      other.classList.remove("loading-peer");
+      target.textContent = target.dataset.text || modeBtnLabels[mode];
+      delete target.dataset.text;
+      target.disabled = false;
+      other.disabled = false;
+    }
+  }
+
+  async function switchMode(autoValue){
+    const modeKey = autoValue ? "auto" : "manual";
+    if (currentAuto === autoValue && !modeSwitchBusy) return;
+    if (modeSwitchBusy || Date.now() < modeSwitchUnlockAt) return;
+    modeSwitchBusy = true;
+    modeSwitchUnlockAt = Date.now() + 1000;
+    setModeLoading(modeKey, true);
+    sysMsg.textContent = "切換中...";
+
+    const ok = await sendCmd({ auto: autoValue }, autoValue ? "切換為自動模式" : "切換為手動模式");
+
+    setTimeout(() => {
+      if (ok){
+        currentAuto = autoValue;
+      }
+      setModeLoading(modeKey, false);
+      modeSwitchBusy = false;
+      modeSwitchUnlockAt = 0;
+      setModeButtonState(currentAuto);
+      syncStatusStrip();
+      if (!ok){
+        sysMsg.textContent = "切換失敗";
+      } else {
+        sysMsg.textContent = "切換成功";
+      }
+    }, 1000);
+  }
+
+  // 記住上次使用的設備
+  function rememberDevice(id){
+    try{ sessionStorage.setItem("lastDeviceId", id); }catch(e){}
+  }
+
+  async function showDevicePicker(){
+    sysMsg.textContent = "請選擇要控制的設備…";
+
+    const { data: devs, error } = await supabase
+      .from("user_devices")
+      .select("device_id");
+
+    if (error){
+      console.error(error);
+      sysMsg.textContent = "讀取設備清單失敗。";
+      return;
+    }
+
+    const list = (devs || []).map(d => d.device_id).filter(Boolean);
+    if (list.length === 0){
+      sysMsg.textContent = "你尚未綁定任何設備（user_devices）。";
+      return;
+    }
+
+    // 只有一台：直接進入
+    if (list.length === 1){
+      rememberDevice(list[0]);
+      location.replace(`control.html?device_id=${encodeURIComponent(list[0])}`);
+      return;
+    }
+
+    // 多台：跳出選擇器（不換頁）
+    const overlay = document.createElement("div");
+    overlay.style.cssText = `
+      position:fixed;inset:0;display:grid;place-items:center;
+      background:rgba(0,0,0,.55);z-index:9999;padding:16px;`;
+
+    const box = document.createElement("div");
+    box.style.cssText = `
+      width:min(520px,100%);border:1px solid var(--border);
+      background:rgba(31,41,55,.98);border-radius:16px;
+      padding:16px;box-shadow:0 18px 40px rgba(0,0,0,.6);`;
+
+    const last = sessionStorage.getItem("lastDeviceId");
+    box.innerHTML = `
+      <div style="font-weight:700;margin-bottom:10px;">選擇設備</div>
+      <div style="color:var(--sub);font-size:12px;margin-bottom:10px;">
+        你從左側選單進來時沒有指定 device_id，請先選一台。
+      </div>
+      <select id="pick" style="
+        width:100%;padding:10px 12px;border-radius:12px;
+        background:var(--panel);border:1px solid var(--border);color:var(--txt);">
+        ${list.map(id => `<option value="${id}" ${id===last?'selected':''}>${id}</option>`).join("")}
+      </select>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:12px;">
+        <button id="go" class="btn primary">進入控制台</button>
+      </div>
+    `;
+
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+
+    box.querySelector("#go").onclick = () => {
+      const id = box.querySelector("#pick").value;
+      rememberDevice(id);
+      location.replace(`control.html?device_id=${encodeURIComponent(id)}`);
+    };
+  }
+
+  if (!deviceId){
+    showDevicePicker();
+  } else {
+    rememberDevice(deviceId);
+    deviceTitle.textContent = `設備：${deviceId}`;
+    topInfo.textContent = `${deviceId}｜${appUser.username}（${appUser.role}）`;
+  }
+
+  function fmtTime(ts){
+    if(!ts) return "—";
+    return new Date(ts).toLocaleString("zh-TW",{hour12:false});
+  }
+
+  // 4. 撈這台設備最新狀態
+  async function loadStatus(){
+    const { data: telemRows, error: telemErr } = await supabase
+      .from("telemetry")
+      .select("soil,pump,tank,auto,created_at")
+      .eq("device_id", deviceId)
+      .order("created_at", { ascending: false })
+      .limit(1);
+
+    if (telemErr){
+      sysMsg.textContent = "讀取狀態失敗。";
+      console.error(telemErr);
+      return;
+    }
+
+    if (!telemRows || telemRows.length === 0){
+      statusBadge.className = "badge offline";
+      statusBadge.textContent = "離線 / 無資料";
+      soilVal.textContent = tankVal.textContent = pumpVal.textContent = modeVal.textContent = "—";
+      timeVal.textContent = "最後更新：—";
+      pumpHint.textContent = "目前模式：未知";
+      currentAuto = null;
+      setModeButtonState(null);
+      syncStatusStrip();
+      return;
+    }
+
+    const t = telemRows[0];
+    const soil = t.soil;
+    const pump = !!t.pump;
+    const tank = t.tank;
+    const auto = t.auto;
+    const ts = t.created_at;
+
+    statusBadge.className = "badge ok";
+    statusBadge.textContent = "在線";
+    soilVal.textContent = soil == null ? "—" : soil + "%";
+    tankVal.textContent = tank == null ? "—" : (tank ? "有水" : "缺水");
+    pumpVal.textContent = pump ? "運轉中" : "已停止";
+    modeVal.textContent = auto == null ? "—" : (auto ? "自動" : "手動");
+    timeVal.textContent = "最後更新：" + fmtTime(ts);
+
+    currentAuto = auto;
+    pumpHint.textContent = `目前模式：${auto == null ? "未知" : (auto ? "自動" : "手動")}`;
+    btnPumpOn.disabled = btnPumpOff.disabled = !!auto; // 自動模式下禁用手動開關
+    sysMsg.textContent = "狀態已更新。";
+    syncStatusStrip();
+  }
+
+  // 5. 撈 device_cfg 的通知設定
+  async function loadConfig(){
+  const { data, error } = await supabase
+    .from("device_cfg")
+    .select("notify_enabled")
+    .eq("device_id", deviceId)
+    .limit(1);   // 只抓這台設備的第一筆，不用 order
+
+    if (error){
+      console.error(error);
+      notifyMsg.textContent = "讀取通知設定失敗。";
+      notifyVal.textContent = "—";
+      syncStatusStrip();
+      return;
+    }
+
+    if (!data || data.length === 0 || data[0].notify_enabled === null){
+      currentNotify = null;
+      notifyVal.textContent = "未設定";
+      notifyMsg.textContent = "尚未設定通知，預設視為啟用（由韌體預設值決定）。";
+      btnNotifyOn.classList.remove("active");
+      btnNotifyOff.classList.remove("active");
+      syncStatusStrip();
+      return;
+    }
+
+    currentNotify = !!data[0].notify_enabled;
+    notifyVal.textContent = currentNotify ? "已啟用" : "已關閉";
+    notifyMsg.textContent = currentNotify
+      ? "裝置會在缺水 / 過乾時傳送 LINE 訊息。"
+      : "裝置目前不會傳送 LINE 訊息。";
+
+    btnNotifyOn.classList.toggle("active", currentNotify);
+    btnNotifyOff.classList.toggle("active", !currentNotify);
+    syncStatusStrip();
+  }
+
+  // 5.5. 撈 device_cfg 的澆水設定
+  async function loadCfg(){
+    const { data, error } = await supabase
+      .from("device_cfg")
+      .select("moist_on,moist_off,pump_ms")
+      .eq("device_id", deviceId)
+      .maybeSingle();
+
+    const r = data || { moist_on: 40, moist_off: 60, pump_ms: 5000 };
+    mo_on.value = r.moist_on;
+    mo_off.value = r.moist_off;
+    pump_ms.value = r.pump_ms;
+  }
+
+  // 5.6. 儲存澆水設定
+  async function saveCfg(){
+    const on = Number(mo_on.value);
+    const off = Number(mo_off.value);
+    const ms = Number(pump_ms.value);
+
+    if(!(on>=0 && off>on && off<=100)){
+      cfgMsg.textContent="門檻不合法（off 必須大於 on）";
+      cfgMsg.style.color="#f97373";
+      return;
+    }
+    if(ms < 500){
+      cfgMsg.textContent="pump_ms 太小";
+      cfgMsg.style.color="#f97373";
+      return;
+    }
+
+    cfgMsg.textContent="儲存中...";
+    const { error } = await supabase
+      .from("device_cfg")
+      .upsert([{ device_id: deviceId, moist_on: on, moist_off: off, pump_ms: ms, updated_at: new Date().toISOString() }], { onConflict: "device_id" });
+
+    cfgMsg.textContent = error ? "儲存失敗" : "已儲存";
+    cfgMsg.style.color = error ? "#f97373" : "#22c55e";
+  }
+
+  // 6. 寫入控制指令到 device_cmd
+  async function sendCmd(payload, msg){
+    const full = { device_id: deviceId, ...payload };
+    sysMsg.textContent = msg + " 中...";
+    const { error } = await supabase
+      .from("device_cmd")
+      .insert(full);
+    if (error){
+      sysMsg.textContent = msg + " 失敗";
+      console.error(error);
+      return false;
+    } else {
+      sysMsg.textContent = msg + " 已送出，等待裝置更新。";
+      setTimeout(loadStatus, 1500);
+      return true;
+    }
+  }
+
+  // 7. 更新 notify_enabled
+  async function setNotify(v){
+    notifyMsg.textContent = "更新通知設定中...";
+    const { error } = await supabase
+      .from("device_cfg")
+      .update({ notify_enabled: v })
+      .eq("device_id", deviceId);
+
+    if (error){
+      console.error(error);
+      notifyMsg.textContent = "更新通知設定失敗。";
+      return;
+    }
+
+    currentNotify = v;
+    notifyVal.textContent = v ? "已啟用" : "已關閉";
+    notifyMsg.textContent = "通知設定已更新。";
+
+    btnNotifyOn.classList.toggle("active", v);
+    btnNotifyOff.classList.toggle("active", !v);
+    syncStatusStrip();
+  }
+
+  // 8. 綁定按鈕事件
+  btnAuto.onclick = () => {
+    switchMode(true);
+  };
+  btnManual.onclick = () => {
+    switchMode(false);
+  };
+  btnPumpOn.onclick = () => {
+    if (currentAuto){
+      alert("請先切換為手動模式再控制水泵。");
+      return;
+    }
+    sendCmd({ pump: true }, "手動開啟水泵");
+  };
+  btnPumpOff.onclick = () => {
+    if (currentAuto){
+      alert("請先切換為手動模式再控制水泵。");
+      return;
+    }
+    sendCmd({ pump: false }, "手動關閉水泵");
+  };
+
+  btnNotifyOn.onclick = () => setNotify(true);
+  btnNotifyOff.onclick = () => setNotify(false);
+  btnSaveCfg.onclick = saveCfg;
+
+  // 進入頁面就先載入一次，再每 10 秒更新狀態
+  loadStatus();
+  loadConfig();
+  loadCfg();
+  setInterval(loadStatus, 10000);
+</script>
+
+</body>
+</html>

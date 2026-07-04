@@ -1,0 +1,220 @@
+:root{
+  --bg:#edf4ee;
+  --bg2:#f7faf5;
+  --panel:#fbfcf8;
+  --panel-2:#f3f7ef;
+  --line:#d7e3d5;
+  --text:#1d3023;
+  --muted:#5e6e62;
+  --green:#5f8f63;
+  --blue:#5f8fa4;
+  --ok:#4f8a5b;
+  --error:#b95050;
+  --shadow:0 20px 42px rgba(29,48,35,.08);
+  --radius:24px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  min-height:100vh;
+  color:var(--text);
+  font-family:"Microsoft JhengHei",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    linear-gradient(180deg, rgba(235,243,234,.95), rgba(244,248,242,.98) 50%, rgba(238,244,247,.98));
+}
+
+a{color:inherit;}
+
+.register-shell{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr .92fr;
+  gap:28px;
+  align-items:center;
+  padding:28px clamp(18px, 4vw, 40px);
+}
+
+.register-intro{
+  max-width:620px;
+}
+.brand{
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  margin-bottom:22px;
+}
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg, rgba(95,143,99,.18), rgba(95,143,164,.12));
+  border:1px solid rgba(95,143,99,.18);
+  color:var(--green);
+  font-weight:700;
+}
+.brand-copy strong{display:block;font-size:15px;line-height:1.2;}
+.brand-copy small{display:block;margin-top:2px;color:var(--muted);font-size:11px;}
+
+.eyebrow{
+  margin:0 0 10px;
+  color:var(--green);
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.register-intro h1{
+  margin:0;
+  font-size:clamp(34px, 4.6vw, 54px);
+  line-height:1.08;
+  max-width:10ch;
+}
+.lead{
+  margin:18px 0 0;
+  max-width:56ch;
+  color:var(--muted);
+  line-height:1.8;
+  font-size:16px;
+}
+.benefits{
+  list-style:none;
+  padding:0;
+  margin:24px 0 0;
+  display:grid;
+  gap:10px;
+}
+.benefits li{
+  padding:12px 14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.60);
+  border:1px solid rgba(95,143,99,.12);
+  color:var(--muted);
+  line-height:1.6;
+}
+.benefits strong{color:var(--text);}
+
+.register-card{
+  width:min(100%, 520px);
+  margin-left:auto;
+  padding:24px;
+  border-radius:28px;
+  background:
+    linear-gradient(180deg, rgba(251,252,248,.98), rgba(243,247,239,.98));
+  border:1px solid rgba(95,143,99,.12);
+  box-shadow:var(--shadow);
+}
+.card-head h2{
+  margin:0;
+  font-size:26px;
+}
+.sub{
+  margin:8px 0 0;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:14px;
+}
+
+.register-form{
+  margin-top:20px;
+  display:grid;
+  gap:12px;
+}
+.field{
+  display:grid;
+  gap:8px;
+}
+.field span{
+  font-size:13px;
+  color:var(--muted);
+}
+input{
+  width:100%;
+  min-height:46px;
+  padding:0 14px;
+  border-radius:14px;
+  border:1px solid rgba(95,143,99,.16);
+  background:rgba(255,255,255,.76);
+  color:var(--text);
+  font-size:14px;
+  outline:none;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+input:focus{
+  border-color:rgba(95,143,99,.44);
+  box-shadow:0 0 0 3px rgba(95,143,99,.10);
+  background:#fff;
+}
+input::placeholder{color:#95a598;}
+.submit-btn{
+  min-height:46px;
+  margin-top:4px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg, #6f9c73, #87aea0);
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 10px 24px rgba(95,143,99,.16);
+  transition:transform .08s, opacity .15s;
+}
+.submit-btn:active{transform:translateY(1px);}
+.submit-btn:disabled{opacity:.7;cursor:not-allowed;}
+
+.msg{
+  min-height:20px;
+  margin-top:2px;
+  font-size:13px;
+  color:var(--muted);
+}
+.msg.error{color:var(--error);}
+.msg.ok{color:var(--ok);}
+
+.footer-links{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+  font-size:13px;
+}
+.footer-links a{
+  color:var(--green);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .15s;
+}
+.footer-links a:hover{
+  border-bottom-color:currentColor;
+}
+
+@media (max-width: 960px){
+  .register-shell{
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+  .register-card{
+    margin-left:0;
+  }
+}
+
+@media (max-width: 640px){
+  .register-shell{
+    padding:18px;
+    gap:18px;
+  }
+  .register-intro h1{
+    max-width:none;
+  }
+  .register-card{
+    padding:20px;
+    border-radius:22px;
+  }
+  .footer-links{
+    flex-direction:column;
+  }
+}

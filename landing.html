@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#e8efe7" />
+<title>智慧植物照護系統 | 介紹頁</title>
+<link rel="stylesheet" href="landing.css" />
+</head>
+<body class="landing-page">
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="智慧植物照護系統">
+      <span class="brand-mark">植</span>
+      <span class="brand-copy">
+        <strong>智慧植物照護系統</strong>
+        <small>Calm Botanical SaaS</small>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="頁面導覽">
+      <a href="#features">功能</a>
+      <a href="#flow">流程</a>
+      <a href="#tech">技術架構</a>
+      <a href="#preview">預覽</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="ghost-btn" href="login.html">登入</a>
+      <a class="primary-btn" href="register.html">註冊</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Sustainability-style product landing</p>
+        <h1>智慧植物照護系統</h1>
+        <p class="lead">讓植物照護變得自動、即時、可追蹤</p>
+        <p class="summary">
+          以感測資料、規則控制與即時告警，建立一套乾淨、可視化的植物照護後台。
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-btn" href="login.html">登入</a>
+          <a class="ghost-btn" href="register.html">註冊</a>
+          <a class="text-btn" href="#features">查看功能介紹</a>
+        </div>
+
+        <ul class="hero-points">
+          <li>土壤濕度監控</li>
+          <li>水箱水位偵測</li>
+          <li>自動 / 手動澆水</li>
+          <li>LINE 推播告警</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-panel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-kicker">Plant health overview</div>
+              <div class="panel-title">系統即時狀態</div>
+            </div>
+            <span class="status-pill ok">在線中</span>
+          </div>
+
+          <div class="visual-grid">
+            <div class="stat-card main-stat">
+              <span class="stat-label">土壤濕度</span>
+              <strong>42%</strong>
+              <span class="stat-note">目前穩定</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">水位</span>
+              <strong>正常</strong>
+              <span class="stat-note">水箱有水</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">模式</span>
+              <strong>自動</strong>
+              <span class="stat-note">可自動澆水</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">最近澆水</span>
+              <strong>28 秒</strong>
+              <span class="stat-note">上次動作</span>
+            </div>
+          </div>
+
+          <div class="plant-visual">
+            <span class="humidity-ring"></span>
+            <span class="leaf leaf-a"></span>
+            <span class="leaf leaf-b"></span>
+            <span class="leaf leaf-c"></span>
+            <span class="drop drop-a"></span>
+            <span class="drop drop-b"></span>
+            <span class="soil-line"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-head">
+        <p class="eyebrow">功能介紹</p>
+        <h2>從感測到提醒，完整串起植物照護流程</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-mark">01</span>
+          <h3>土壤濕度監控</h3>
+          <p>即時掌握盆土濕度，作為澆水與告警的主要依據。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">02</span>
+          <h3>水箱水位偵測</h3>
+          <p>水位異常時快速提示，避免設備空轉與照護中斷。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">03</span>
+          <h3>自動 / 手動澆水</h3>
+          <p>可依門檻自動補水，也能在控制台手動介入。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">04</span>
+          <h3>水泵控制</h3>
+          <p>清楚管理水泵啟停，降低誤操作與重複送指令。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">05</span>
+          <h3>LINE 推播告警</h3>
+          <p>在需要處理時立即通知，縮短反應時間。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">06</span>
+          <h3>歷史紀錄</h3>
+          <p>保存感測與動作歷程，方便回顧與調整設定。</p>
+        </article>
+        <article class="feature-card">
+          <span class="feature-mark">07</span>
+          <h3>設備狀態監控</h3>
+          <p>設備在線、異常、維護狀態一目了然。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="flow" class="section section-alt">
+      <div class="section-head">
+        <p class="eyebrow">系統流程</p>
+        <h2>ESP32 到 Supabase，再到操作與通知</h2>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-step"><span>1</span><strong>ESP32 感測資料</strong><p>土壤濕度、水位、設備狀態</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>2</span><strong>上傳 Supabase</strong><p>統一保存最新與歷史資料</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>3</span><strong>網頁儀表板顯示</strong><p>健康總覽、告警與歷史趨勢</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>4</span><strong>使用者控制與門檻</strong><p>自動 / 手動澆水與設備操作</p></div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><span>5</span><strong>異常時推播提醒</strong><p>把需要處理的狀態即時送出</p></div>
+      </div>
+    </section>
+
+    <section id="tech" class="section">
+      <div class="section-head">
+        <p class="eyebrow">技術架構</p>
+        <h2>以輕量前端與雲端資料層組成</h2>
+      </div>
+      <div class="tech-grid">
+        <span>ESP32</span>
+        <span>土壤濕度感測器</span>
+        <span>水位感測</span>
+        <span>Relay / Pump</span>
+        <span>Supabase</span>
+        <span>HTML / CSS / JavaScript</span>
+        <span>LINE 通知</span>
+      </div>
+    </section>
+
+    <section id="preview" class="section preview-section">
+      <div class="section-head">
+        <p class="eyebrow">Dashboard mockup</p>
+        <h2>用假資料先看出系統會長什麼樣子</h2>
+      </div>
+
+      <div class="preview-grid">
+        <article class="preview-panel">
+          <div class="preview-title">即時摘要</div>
+          <div class="preview-stats">
+            <div><span>土壤濕度</span><strong>42%</strong></div>
+            <div><span>水位</span><strong>正常</strong></div>
+            <div><span>模式</span><strong>自動</strong></div>
+            <div><span>最近澆水</span><strong>28 秒</strong></div>
+            <div><span>異常提醒</span><strong>1 筆</strong></div>
+          </div>
+        </article>
+
+        <article class="preview-panel chart">
+          <div class="preview-title">感測趨勢</div>
+          <div class="chart-lines">
+            <span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="chart-caption">土壤濕度近況示意</div>
+        </article>
+
+        <article class="preview-panel list">
+          <div class="preview-title">即時告警清單</div>
+          <div class="alert-row"><span class="badge warn">警告</span><span>水位偏低</span></div>
+          <div class="alert-row"><span class="badge ok">資訊</span><span>已切換自動模式</span></div>
+          <div class="alert-row"><span class="badge soft">記錄</span><span>手動澆水完成</span></div>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

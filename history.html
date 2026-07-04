@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>智慧植物照護系統 | 歷史資料</title>
+
+<style>
+:root{
+  --bg:#050a16;
+  --card:#0b1430;
+  --border:rgba(255,255,255,0.10);
+  --txt:#e5e7eb;
+  --sub:#9ca3af;
+  --accent:#22d3ee;
+  --accent2:#f472b6;
+  --danger:#f97373;
+  --ok:#22c55e;
+  --warn:#fbbf24;
+
+  --panelBg:var(--card);
+  --panelBorder:rgba(255,255,255,0.10);
+  --panelBorderStrong:rgba(34,211,238,0.22);
+  --radius:18px;
+  --shadowGlow: 0 0 0 1px rgba(34,211,238,.10), 0 18px 50px rgba(2,132,199,.18);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  min-height:100svh;
+  overflow-x:hidden; /* ✅ 防止任何元素撐爆整頁（表格用 table-wrap 橫滑處理） */
+  background:
+    radial-gradient(900px 520px at 18% -10%, rgba(34,211,238,.35), transparent 62%),
+    radial-gradient(820px 520px at 110% 22%, rgba(244,114,182,.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 120%, rgba(14,165,233,.10), transparent 62%),
+    linear-gradient(180deg, #050a16 0%, #03060e 100%);
+  color:var(--txt);
+  font-family:"Microsoft JhengHei",system-ui,sans-serif;
+}
+.app-shell{ display:flex; min-height:100vh; }
+
+/* Sidebar */
+.sidebar{
+  position:sticky; top:0; height:100vh;
+  width:220px; flex:0 0 220px;
+  transition:transform .2s ease;
+  background:rgba(5,10,22,0.72);
+  border-right:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  z-index:30;
+  overflow:hidden;
+}
+.side-top{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 12px;
+  border-bottom:1px solid rgba(148,163,184,0.16);
+}
+.logo-dot{
+  width:28px;height:28px;border-radius:999px;
+  background:conic-gradient(from 180deg,#38bdf8,#22c55e,#0ea5e9);
+  display:flex; align-items:center; justify-content:center;
+  font-size:16px;
+}
+.side-brand{ display:flex; flex-direction:column; line-height:1.1; }
+.side-brand .name{font-weight:800;font-size:14px;}
+.side-brand .sub{font-size:11px;color:var(--sub);}
+.nav{
+  padding:10px 10px;
+  display:flex; flex-direction:column; gap:8px;
+}
+.nav a{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 12px;
+  border-radius:12px;
+  color:var(--txt);
+  text-decoration:none;
+  border:1px solid transparent;
+  transition:background .15s ease,border-color .15s ease;
+}
+.nav a:hover{
+  background:rgba(34,211,238,0.08);
+  border-color:rgba(34,211,238,0.24);
+}
+.nav a.active{
+  background:linear-gradient(135deg, rgba(34,211,238,0.22), rgba(244,114,182,0.12));
+  border-color:rgba(34,211,238,0.30);
+}
+.nav .ico{
+  width:30px;height:30px;border-radius:12px;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.10);
+  font-size:15px;
+  flex:0 0 30px;
+}
+.side-bottom{
+  margin-top:auto;
+  padding:10px 10px 14px;
+  border-top:1px solid rgba(148,163,184,0.16);
+}
+.side-bottom a{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 12px;
+  border-radius:12px;
+  color:var(--txt);
+  text-decoration:none;
+  border:1px solid transparent;
+  transition:background .15s ease,border-color .15s ease;
+}
+.side-bottom a:hover{
+  background:rgba(255,255,255,0.04);
+  border-color:rgba(248,113,113,0.35);
+}
+
+/* Main */
+.main{ flex:1; min-width:0; }
+.topbar{
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,10,22,0.70);
+  backdrop-filter:blur(12px);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+.topbar-left{ display:flex; align-items:center; gap:10px; }
+.menu-btn{
+  display:none;
+  font-size:20px;
+  background:none;
+  border:none;
+  color:#e5e7eb;
+  cursor:pointer;
+}
+.topbar-title-main{ font-size:18px; font-weight:900; }
+.topbar-title-sub{ font-size:11px; color:var(--sub); margin-top:2px; }
+.topbar-right{
+  display:flex; gap:14px; align-items:center;
+  font-size:12px; color:var(--sub);
+}
+.topbar-clock{ text-align:right; }
+.user-pill{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,0.18);
+  background:rgba(255,255,255,0.04);
+  color:#cbd5e1;
+}
+.wrap{
+  max-width:1400px;
+  margin:18px auto 40px;
+  padding:0 16px;
+}
+.dash-title{
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:.3px;
+  margin:6px 2px 12px;
+}
+.dash-title small{
+  font-size:14px;
+  font-weight:700;
+  color:var(--sub);
+}
+.frame{
+  border:1px solid rgba(148,163,184,0.18);
+  border-radius:var(--radius);
+  padding:14px;
+  background:rgba(255,255,255,0.03);
+  box-shadow:none;
+}
+.panel{
+  border:1px solid var(--panelBorder);
+  background:var(--panelBg);
+  border-radius:var(--radius);
+}
+.panel:hover{ border-color:rgba(34,211,238,0.30); box-shadow:var(--shadowGlow); }
+
+.tools{
+  display:flex;
+  flex-wrap:wrap;
+  width:100%;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  margin-bottom:12px;
+}
+.select, .input{
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:13px;
+  outline:none;
+}
+.input{ flex:1; min-width:220px; }
+.btn{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:#e5e7eb;
+  font-size:12px;
+  cursor:pointer;
+  transition:border-color .15s ease, transform .08s, background .15s ease;
+}
+.btn:hover{ border-color:rgba(34,211,238,0.45); background:rgba(34,211,238,0.08); box-shadow:var(--shadowGlow); }
+.btn:active{ transform:translateY(1px); }
+.btn.primary{
+  border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#020617;
+  font-weight:900;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:4px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  font-size:11px;
+  white-space:nowrap;
+}
+.badge.ok{ border-color:rgba(34,197,94,0.5); color:#bbf7d0; }
+.badge.warn{ border-color:rgba(245,158,11,0.7); color:#fef9c3; }
+.badge.danger{ border-color:rgba(248,113,113,0.7); color:#fecaca; }
+.muted{ color:var(--sub); }
+
+.table-wrap{ overflow:auto; }
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:rgba(5,10,22,0.50);
+  min-width:900px;
+}
+th,td{
+  padding:10px 10px;
+  border-bottom:1px solid rgba(148,163,184,0.14);
+  font-size:12px;
+  text-align:left;
+  vertical-align:middle;
+}
+th{
+  color:#cbd5e1;
+  font-weight:900;
+  position:sticky;
+  top:0;
+  background:rgba(5,10,22,0.60);
+  z-index:1;
+}
+.note{
+  margin-top:10px;
+  font-size:12px;
+  color:var(--sub);
+}
+
+/* ===== RWD ===== */
+@media (max-width:1024px){
+  .wrap{ padding:0 12px; }
+  .dash-title{ font-size:20px; }
+}
+
+/* ===== Mobile Sidebar Drawer ===== */
+@media (max-width: 900px){
+  /* ✅ 關鍵：強制整個 App 吃滿手機 viewport */
+  .app-shell{
+    display:block;
+    width:100vw;
+    max-width:100vw;
+    margin:0;
+  }
+  .main{
+    width:100vw;
+    max-width:100vw;
+    margin:0;
+    min-width:0;
+  }
+
+  .wrap{
+    max-width:100%;
+    width:100%;
+    margin:0;
+    padding:0 12px;
+  }
+
+  .menu-btn{ display:block; }
+
+  .sidebar{
+    position:fixed;
+    left:-240px;
+    top:0;
+    height:100vh;
+    width:240px;
+    flex:none;
+    transition:left .25s ease;
+  }
+  .sidebar.open{ left:0; }
+
+  .overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    backdrop-filter:blur(2px);
+    display:none;
+    z-index:25;
+  }
+  .overlay.show{ display:block; }
+}
+
+@media (max-width:768px){
+  .topbar{
+    gap:8px;
+  }
+  .topbar-left{
+    flex:1 1 100%;
+  }
+  .topbar-right{
+    flex:1 1 100%;
+    justify-content:space-between;
+  }
+
+  .tools{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .select,.input,.btn{
+    width:100%;
+  }
+
+  /* 表格改為可橫滑 */
+  .table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+}
+
+/* ===== 📱 Mobile：滿版（避免被 900px padding 蓋掉） ===== */
+@media (max-width: 600px){
+  .wrap{
+    max-width:100%;
+    padding:0 !important;
+  }
+
+  .frame{
+    border-radius:0;
+    margin:0;
+  }
+
+  .panel{
+    border-radius:12px;
+  }
+}
+
+@media (max-width:480px){
+  .frame{
+    padding:10px;
+  }
+  th,td{
+    padding:8px 8px;
+    font-size:11px;
+  }
+  .badge{
+    font-size:10px;
+    padding:3px 8px;
+  }
+  .user-pill{
+    font-size:11px;
+  }
+}
+
+/* ===== 📱 Mobile：表格改卡片（避免左右滑 & 文字被擠） ===== */
+@media (max-width:560px){
+  .table-wrap{ overflow-x:visible; }
+  .table-wrap table{ min-width:0; }
+  .table-wrap thead{ display:none; }
+
+  .table-wrap table,
+  .table-wrap tbody,
+  .table-wrap tr,
+  .table-wrap td{
+    display:block;
+    width:100%;
+  }
+
+  .table-wrap tr{
+    margin:10px 0;
+    padding:12px;
+    border:1px solid rgba(148,163,184,0.16);
+    border-radius:14px;
+    background:#050b16;
+  }
+
+  .table-wrap td{
+    border-bottom:none;
+    padding:8px 0;
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    word-break:break-word;
+    overflow-wrap:anywhere;
+  }
+  .table-wrap td:first-child{ padding-top:0; }
+  .table-wrap td:last-child{ padding-bottom:0; }
+
+  .table-wrap td::before{
+    content:attr(data-label);
+    flex:0 0 96px;
+    color:var(--sub);
+    font-weight:900;
+    font-size:11px;
+    line-height:1.3;
+  }
+
+  /* loading/empty row (colspan) */
+  .table-wrap td[colspan]{
+    display:block;
+    padding:0;
+  }
+  .table-wrap td[colspan]::before{ display:none; }
+
+  /* badge 在窄螢幕允許換行 */
+  .badge{ white-space:normal; }
+}
+</style>
+<link rel="stylesheet" href="ui.css" />
+</head>
+<body class="history-page">
+<div class="app-shell">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="side-top">
+      <div class="logo-dot">植</div>
+      <div class="side-brand">
+        <div class="name">智慧植物照護系統</div>
+        <div class="sub"></div>
+      </div>
+    </div>
+
+    <nav id="sideNav" class="nav"></nav>
+
+    <div class="side-bottom">
+      <a href="login.html" id="sideLogout" title="登出">
+        <span class="ico">出</span>
+        <span>登出</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button id="btnMenu" class="menu-btn">☰</button>
+        <div>
+          <div class="topbar-title-main">歷史資料</div>
+          <div class="topbar-title-sub"></div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-clock">
+          <div id="topDate">0000-00-00</div>
+          <div id="topTime">00:00:00</div>
+        </div>
+        <div class="user-pill" id="welcomeName">—</div>
+      </div>
+    </div>
+
+    <div class="wrap history-wrap">
+      <div class="dash-title">澆水紀錄</div>
+
+      <div class="frame">
+        <div class="panel tools history-tools">
+          <select id="deviceSelect" class="select" title="選擇設備">
+            <option value="">載入設備中...</option>
+          </select>
+
+          <select id="typeSelect" class="select" title="篩選事件">
+            <option value="all">全部事件</option>
+            <option value="start">只看開始(開水)</option>
+            <option value="stop">只看停止(關水)</option>
+          </select>
+
+          <input id="searchInput" class="input" placeholder="搜尋紀錄" />
+
+          <select id="pageSizeSelect" class="select" title="每頁顯示筆數">
+            <option value="10">每頁 10 筆</option>
+            <option value="20" selected>每頁 20 筆</option>
+            <option value="50">每頁 50 筆</option>
+            <option value="100">每頁 100 筆</option>
+          </select>
+
+          <button id="refreshBtn" class="btn primary">重新整理</button>
+        </div>
+
+        <div class="panel history-table-panel" style="padding:12px 14px;">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width:160px;">時間</th>
+                  <th style="width:140px;">設備</th>
+                  <th style="width:170px;">事件</th>
+                  <th style="width:120px;">模式</th>
+                  <th style="width:140px;">持續時間</th>
+                  <th>備註</th>
+                  <th style="width:160px;">來源</th>
+                </tr>
+              </thead>
+              <tbody id="rowsBody">
+                <tr><td colspan="7" class="muted">讀取中...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<script type="module">
+  import { requireLogin, isAdmin, logout } from "./auth.js";
+
+  // ===== Auth check =====
+  const appUser = await requireLogin();
+  if (!appUser) throw new Error("Login required");
+  const showName = (appUser.display_name && String(appUser.display_name).trim())
+    ? appUser.display_name
+    : (appUser.username || "使用者");
+  document.getElementById("welcomeName").textContent = showName;
+
+  // ===== Supabase =====
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  const SUPABASE_URL = "https://jmimieqvhrdpdvovorhx.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_23gcxoA6juzOJOQga7ZihQ_3kdW4wIc";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ===== Sidebar nav =====
+  const sideNav = document.getElementById("sideNav");
+  const navItems = [
+    { href:"index.html",  icon:"總", text:"儀表板", active:false },
+    { href:"control.html",icon:"控", text:"控制台", active:false },
+    { href:"history.html",icon:"歷", text:"歷史資料", active:true  },
+    { href:"change_password.html", icon:"密", text:"修改密碼", active:false },
+  ];
+  if (isAdmin(appUser)){
+    navItems.push({ href:"user.html", icon:"人", text:"使用者管理", active:false });
+  }
+  sideNav.innerHTML = navItems.map(it => {
+    return `<a class="${it.active ? "active" : ""}" href="${it.href}">
+      <span class="ico">${it.icon}</span><span>${it.text}</span>
+    </a>`;
+  }).join("");
+
+  // 登出
+  document.getElementById("sideLogout").onclick = (e)=>{ e.preventDefault(); logout(); };
+
+  // ===== Mobile sidebar toggle =====
+  const btnMenu = document.getElementById("btnMenu");
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.getElementById("overlay");
+
+  if (btnMenu){
+    btnMenu.onclick = () => {
+      sidebar.classList.add("open");
+      overlay.classList.add("show");
+    };
+    overlay.onclick = () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    };
+  }
+
+  sideNav.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click", ()=>{
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    });
+  });
+
+  // ===== Clock =====
+  function updateClock(){
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth()+1).padStart(2,"0");
+    const dd = String(now.getDate()).padStart(2,"0");
+    const hh = String(now.getHours()).padStart(2,"0");
+    const mi = String(now.getMinutes()).padStart(2,"0");
+    const ss = String(now.getSeconds()).padStart(2,"0");
+    document.getElementById("topDate").textContent = `${yyyy}-${mm}-${dd}`;
+    document.getElementById("topTime").textContent = `${hh}:${mi}:${ss}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // ===== UI refs =====
+  const deviceSelect = document.getElementById("deviceSelect");
+  const typeSelect   = document.getElementById("typeSelect");
+  const searchInput  = document.getElementById("searchInput");
+  const pageSizeSelect = document.getElementById("pageSizeSelect");
+  const refreshBtn   = document.getElementById("refreshBtn");
+  const rowsBody     = document.getElementById("rowsBody");
+  let loadedRows = [];
+  let loadedDurMap = new Map();
+
+  function fmtTime(ts){
+    if(!ts) return "—";
+    return new Date(ts).toLocaleString("zh-TW",{hour12:false});
+  }
+  function shortUuid(u){
+    if(!u) return "—";
+    const s = String(u);
+    return s.length > 10 ? (s.slice(0,8) + "…" + s.slice(-4)) : s;
+  }
+
+  // 事件分類
+  function eventBadge(pump){
+    if (pump === true)  return `<span class="badge ok">▶ 開始澆水</span>`;
+    if (pump === false) return `<span class="badge warn">■ 停止澆水</span>`;
+    return `<span class="badge">—</span>`;
+  }
+  function modeBadge(auto){
+    if (auto === true)  return `<span class="badge ok">AUTO 自動</span>`;
+    if (auto === false) return `<span class="badge">MAN 手動</span>`;
+    return `<span class="badge">—</span>`;
+  }
+
+  // 計算持續時間：只對 pump=true 的「開始」去找下一筆「停止」
+  function calcDurations(cmdsAsc){
+    // cmdsAsc: time ascending
+    // 回傳 map: startRowId -> seconds
+    const dur = new Map();
+    for (let i=0; i<cmdsAsc.length; i++){
+      const r = cmdsAsc[i];
+      if (r.pump !== true) continue;
+      // 找下一個 pump=false
+      for (let j=i+1; j<cmdsAsc.length; j++){
+        const n = cmdsAsc[j];
+        if (n.pump === false){
+          const s = (new Date(n.created_at).getTime() - new Date(r.created_at).getTime()) / 1000;
+          if (Number.isFinite(s) && s >= 0) dur.set(r.id, Math.round(s));
+          break;
+        }
+      }
+    }
+    return dur;
+  }
+
+  function secondsToText(sec){
+    if (sec === null || sec === undefined) return "—";
+    const s = Number(sec);
+    if (!Number.isFinite(s)) return "—";
+    if (s < 60) return `${s}s`;
+    const m = Math.floor(s/60);
+    const r = s%60;
+    if (m < 60) return `${m}m ${r}s`;
+    const h = Math.floor(m/60);
+    const mm = m%60;
+    return `${h}h ${mm}m`;
+  }
+
+  function getPageSize(){
+    const n = Number(pageSizeSelect?.value ?? 20);
+    return [10, 20, 50, 100].includes(n) ? n : 20;
+  }
+
+  function getQueryDeviceId(){
+    const u = new URL(location.href);
+    return u.searchParams.get("device_id");
+  }
+  function setQueryDeviceId(id){
+    const u = new URL(location.href);
+    u.searchParams.set("device_id", id);
+    history.replaceState(null, "", u.toString());
+  }
+
+  // 讀取此使用者已綁定的設備清單
+  async function getUserDeviceIds(){
+    let q = supabase.from("user_devices").select("device_id");
+    if (appUser.user_id) q = q.eq("user_id", appUser.user_id);
+    const { data, error } = await q;
+    if (error){
+      console.error(error);
+      return [];
+    }
+    return (data || []).map(r => r.device_id).filter(Boolean);
+  }
+
+  async function initDevices(){
+    const ids = await getUserDeviceIds();
+    deviceSelect.innerHTML = "";
+    if (!ids.length){
+      deviceSelect.innerHTML = `<option value="">（無設備）</option>`;
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">尚未綁定任何設備（user_devices 無資料）</td></tr>`;
+      return null;
+    }
+
+    ids.forEach(id=>{
+      const opt = document.createElement("option");
+      opt.value = id;
+      opt.textContent = id;
+      deviceSelect.appendChild(opt);
+    });
+
+    // 先用 query 的 device_id，沒有就第一台
+    const qid = getQueryDeviceId();
+    const pick = (qid && ids.includes(qid)) ? qid : ids[0];
+    deviceSelect.value = pick;
+    setQueryDeviceId(pick);
+    return pick;
+  }
+
+  function renderHistory(){
+    const deviceId = deviceSelect.value;
+    if (!deviceId){
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">請先選擇設備</td></tr>`;
+      return;
+    }
+
+    // 篩選 + 搜尋
+    const typeFilter = typeSelect.value; // all/start/stop
+    const kw = searchInput.value.trim().toLowerCase();
+
+    const filtered = loadedRows.filter(r=>{
+      if (typeFilter === "start" && r.pump !== true) return false;
+      if (typeFilter === "stop"  && r.pump !== false) return false;
+
+      if (!kw) return true;
+
+      const text = [
+        r.device_id,
+        r.pump === true ? "開始 開水" : (r.pump === false ? "停止 關水" : ""),
+        r.auto === true ? "自動 auto" : (r.auto === false ? "手動 manual" : ""),
+        r.created_by ? String(r.created_by) : ""
+      ].join(" ").toLowerCase();
+
+      return text.includes(kw);
+    });
+
+    const pageSize = getPageSize();
+    const visibleRows = filtered.slice(0, pageSize);
+
+    if (!filtered.length){
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">沒有符合條件的紀錄</td></tr>`;
+      return;
+    }
+
+    rowsBody.innerHTML = visibleRows.map(r=>{
+      const durSec = (r.pump === true) ? loadedDurMap.get(r.id) : null;
+      const note = (r.pump === true)
+        ? `開始後等待停止指令來算時間`
+        : `—`;
+
+      return `
+        <tr>
+          <td class="muted" data-label="時間">${fmtTime(r.created_at)}</td>
+          <td data-label="設備"><b>${r.device_id}</b></td>
+          <td data-label="事件">${eventBadge(r.pump)}</td>
+          <td data-label="模式">${modeBadge(r.auto)}</td>
+          <td data-label="持續時間">${r.pump === true ? secondsToText(durSec) : "—"}</td>
+          <td class="muted" data-label="備註">${note}</td>
+          <td class="muted" data-label="來源">${shortUuid(r.created_by)}</td>
+        </tr>
+      `;
+    }).join("");
+  }
+
+  async function loadHistory(){
+    const deviceId = deviceSelect.value;
+    if (!deviceId){
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">請先選擇設備</td></tr>`;
+      return;
+    }
+    setQueryDeviceId(deviceId);
+    rowsBody.innerHTML = `<tr><td colspan="7" class="muted">讀取中...</td></tr>`;
+
+    // 取最近 300 筆指令（可調）
+    const { data, error } = await supabase
+      .from("device_cmd")
+      .select("id, device_id, pump, auto, created_at, created_by")
+      .eq("device_id", deviceId)
+      .order("created_at", { ascending: false })
+      .limit(300);
+
+    if (error){
+      console.error(error);
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">讀取失敗：${error.message}</td></tr>`;
+      return;
+    }
+
+    loadedRows = data || [];
+    if (!loadedRows.length){
+      loadedDurMap = new Map();
+      rowsBody.innerHTML = `<tr><td colspan="7" class="muted">此設備目前沒有任何澆水指令紀錄（device_cmd 無資料）</td></tr>`;
+      return;
+    }
+
+    // 由於 duration 計算要用時間順序
+    const asc = [...loadedRows].sort((a,b)=> new Date(a.created_at)-new Date(b.created_at));
+    loadedDurMap = calcDurations(asc);
+    renderHistory();
+  }
+
+  // events
+  refreshBtn.addEventListener("click", loadHistory);
+  deviceSelect.addEventListener("change", loadHistory);
+  typeSelect.addEventListener("change", renderHistory);
+  pageSizeSelect.addEventListener("change", renderHistory);
+  searchInput.addEventListener("input", ()=>{
+    renderHistory();
+  });
+
+  // init
+  const picked = await initDevices();
+  if (picked) await loadHistory();
+</script>
+</body>
+</html>

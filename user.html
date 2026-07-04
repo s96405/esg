@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>智慧植物照護系統 | 使用者管理</title>
+<style>
+:root{
+  --bg:#050a16;
+  --panel:#0b1430;
+  --card:#0b1430;
+  --border:rgba(255,255,255,0.10);
+  --txt:#e5e7eb;
+  --sub:#9ca3af;
+  --accent:#22d3ee;
+  --accent2:#f472b6;
+  --danger:#f97373;
+  --ok:#22c55e;
+  --shadowGlow: 0 0 0 1px rgba(34,211,238,.10), 0 18px 50px rgba(2,132,199,.18);
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  min-height:100vh;
+  background:
+    radial-gradient(900px 520px at 18% -10%, rgba(34,211,238,.35), transparent 62%),
+    radial-gradient(820px 520px at 110% 22%, rgba(244,114,182,.18), transparent 60%),
+    radial-gradient(1000px 700px at 50% 120%, rgba(14,165,233,.10), transparent 62%),
+    linear-gradient(180deg, #050a16 0%, #03060e 100%);
+  color:var(--txt);
+  font-family:"Microsoft JhengHei",system-ui,sans-serif;
+}
+
+/* 上方列 */
+.topbar{
+  padding:14px 20px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:rgba(5,10,22,0.70);
+  position:sticky;
+  top:0;
+  backdrop-filter:blur(12px);
+  z-index:10;
+}
+.topbar-title{
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:.5px;
+}
+.topbar-right{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-size:13px;
+  color:var(--sub);
+}
+.btn-sm{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  font-size:12px;
+  cursor:pointer;
+  transition:border-color .2s,background .2s,transform .1s;
+}
+.btn-sm:hover{ border-color:rgba(34,211,238,0.45); background:rgba(34,211,238,0.08); box-shadow:var(--shadowGlow); }
+.btn-sm:active{ transform:translateY(1px); }
+
+/* 外層 */
+.wrap{
+  max-width:1000px;
+  margin:18px auto 40px;
+  padding:0 16px;
+}
+
+/* 標題區 */
+.page-header{ margin-bottom:18px; }
+.page-title{ font-size:18px; font-weight:700; margin-bottom:4px; }
+.page-sub{ font-size:13px; color:var(--sub); }
+
+/* 上方卡片：新增使用者 */
+.card{
+  background:var(--card);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,0.10);
+  padding:16px 18px 14px;
+  box-shadow:0 16px 44px rgba(0,0,0,0.48);
+  margin-bottom:18px;
+}
+.card-title{ font-size:14px; font-weight:600; margin-bottom:10px; }
+.form-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:8px;
+}
+.form-row .field{ flex:1; min-width:120px; }
+.label{ font-size:12px; color:var(--sub); margin-bottom:2px; }
+input[type="text"], input[type="password"], select{
+  width:100%;
+  padding:7px 10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  font-size:13px;
+  outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+input:focus,select:focus{
+  border-color:rgba(34,211,238,0.55);
+  box-shadow:0 0 0 2px rgba(34,211,238,0.18);
+}
+.btn-primary{
+  padding:7px 16px;
+  border-radius:999px;
+  border:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-size:13px;
+  color:#020617;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .08s,box-shadow .1s;
+}
+.btn-primary:active{
+  transform:translateY(1px);
+  box-shadow:var(--shadowGlow);
+}
+.msg{ margin-top:6px; font-size:12px; min-height:16px; }
+.msg.error{color:#fecaca;}
+.msg.ok{color:#bbf7d0;}
+
+/* 使用者列表 */
+.table-card{
+  background:var(--card);
+  border-radius:22px;
+  border:1px solid rgba(255,255,255,0.10);
+  padding:14px 16px 10px;
+  box-shadow:0 16px 44px rgba(0,0,0,0.48);
+}
+.table-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:8px;
+}
+.table-title{ font-size:14px; font-weight:600; }
+.badge-role{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:11px;
+  border:1px solid var(--border);
+}
+.badge-role.admin{border-color:#f97316;color:#fed7aa;}
+.badge-role.editor{border-color:#38bdf8;color:#bae6fd;}
+.badge-role.viewer{border-color:#22c55e;color:#bbf7d0;}
+
+table{ width:100%; border-collapse:collapse; font-size:13px; }
+th,td{ padding:8px 6px; border-bottom:1px solid rgba(148,163,184,0.14); }
+th{ text-align:left; font-size:12px; color:var(--sub); }
+tbody tr:hover{ background:rgba(34,211,238,0.06); }
+td.actions{ text-align:right; }
+.btn-xs{
+  padding:4px 8px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  font-size:11px;
+  cursor:pointer;
+  margin-left:4px;
+}
+.btn-xs.edit{border-color:#38bdf8;}
+.btn-xs.del{border-color:#f97373;color:#fecaca;}
+.empty{ padding:10px 0 4px; font-size:13px; color:var(--sub); }
+
+/* 編輯用小彈出層 */
+.edit-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:50;
+}
+.edit-dialog{
+  width:min(90%,360px);
+  background:var(--panel);
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,0.10);
+  padding:16px 16px 14px;
+  box-shadow:0 18px 40px rgba(0,0,0,0.9);
+  animation:popIn .15s ease-out;
+}
+.edit-title{ font-size:14px; font-weight:600; margin-bottom:8px; }
+.edit-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:10px; }
+.btn-plain{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,0.10);
+  background:rgba(255,255,255,0.03);
+  color:var(--txt);
+  font-size:12px;
+  cursor:pointer;
+}
+@keyframes popIn{
+  from{opacity:0;transform:translateY(8px) scale(.97);}
+  to{opacity:1;transform:translateY(0) scale(1);}
+}
+.small-muted{ font-size:11px; color:#9ca3af; margin-top:2px; }
+
+/* ✅ 非 admin 隱藏用 */
+.hidden{ display:none !important; }
+</style>
+<link rel="stylesheet" href="ui.css" />
+</head>
+
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="side-top">
+      <div class="logo-dot">植</div>
+      <div class="side-brand">
+        <div class="name">智慧植物照護系統</div>
+        <div class="sub"></div>
+      </div>
+    </div>
+
+    <nav id="sideNav" class="nav"></nav>
+
+    <div class="side-bottom">
+      <a href="login.html" id="sideLogout" title="登出">
+        <span class="ico">出</span>
+        <span>登出</span>
+      </a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <button id="btnMenu" class="menu-btn">☰</button>
+        <div>
+          <div class="topbar-title-main">使用者管理</div>
+          <div class="topbar-title-sub"></div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <span id="welcomeName" class="user-pill"></span>
+        <button class="btn-sm" id="gotoDashboard" type="button">返回首頁</button>
+        <button class="btn-sm" id="logoutBtn" type="button">登出</button>
+      </div>
+    </div>
+
+  <div class="wrap">
+    <div class="page-header">
+      <div class="page-title" id="pageTitle">使用者管理</div>
+      <div class="page-sub" id="pageSub" hidden></div>
+    </div>
+
+    <!-- ✅ 新增使用者（admin 才顯示） -->
+    <div class="card" id="addCard">
+      <div class="card-title">新增使用者</div>
+      <div class="form-row">
+        <div class="field">
+          <div class="label">顯示名稱（display_name）</div>
+          <input id="newDisplayName" type="text" placeholder="顯示名稱" />
+        </div>
+        <div class="field">
+          <div class="label">帳號（username）</div>
+          <input id="newUsername" type="text" placeholder="帳號" />
+        </div>
+        <div class="field">
+          <div class="label">密碼（password）</div>
+          <input id="newPassword" type="password" placeholder="密碼" />
+        </div>
+        <div class="field" style="max-width:150px;">
+          <div class="label">角色（role）</div>
+          <select id="newRole">
+            <option value="viewer">viewer（只能看控制中心）</option>
+            <option value="editor">editor（未來可進階）</option>
+            <option value="admin">admin（可管理使用者）</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" id="btnAddUser" type="button">新增</button>
+      <div id="msgAdd" class="msg"></div>
+    </div>
+
+    <!-- 使用者列表 -->
+    <div class="table-card">
+      <div class="table-header">
+        <div class="table-title" id="listTitle">使用者列表</div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>使用者</th>
+              <th>角色</th>
+              <th>建立時間</th>
+              <th style="text-align:right;">操作</th>
+            </tr>
+          </thead>
+          <tbody id="userTbody"></tbody>
+        </table>
+      </div>
+      <div id="emptyMsg" class="empty" style="display:none;">目前尚無任何使用者。</div>
+    </div>
+  </div>
+  </main>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+  <!-- 編輯彈出層容器（吃到 edit-overlay 的 CSS） -->
+  <div id="editOverlay" class="edit-overlay" style="display:none;"></div>
+
+<script type="module">
+  // ===== 登入檢查 =====
+  const rawAppUser = sessionStorage.getItem("appUser");
+  if (!rawAppUser) location.href = "login.html";
+  const appUser = JSON.parse(rawAppUser);
+
+  // ✅ 顯示右上角名稱：優先 display_name，沒有就 username
+  const welcomeNameEl = document.getElementById("welcomeName");
+  const showName = appUser.display_name || appUser.username || "使用者";
+  welcomeNameEl.textContent = showName;
+
+  // 導航與登出
+  document.getElementById("gotoDashboard").onclick = () => location.href = "index.html";
+  document.getElementById("logoutBtn").onclick = () => {
+    sessionStorage.removeItem("appUser");
+    location.href = "login.html";
+  };
+
+  // Sidebar nav
+  const sideNav = document.getElementById("sideNav");
+  const navItems = [
+    { href:"index.html", icon:"總", text:"儀表板", active:false },
+    { href:"control.html", icon:"控", text:"控制台", active:false },
+    { href:"history.html", icon:"歷", text:"歷史資料", active:false },
+    { href:"change_password.html", icon:"密", text:"修改密碼", active:false },
+  ];
+  if (appUser.role === "admin"){
+    navItems.push({ href:"user.html", icon:"人", text:"使用者管理", active:true });
+  }
+  sideNav.innerHTML = navItems.map(it => {
+    return `<a class="${it.active ? "active" : ""}" href="${it.href}">
+      <span class="ico">${it.icon}</span><span>${it.text}</span>
+    </a>`;
+  }).join("");
+
+  function doLogout(){
+    sessionStorage.removeItem("appUser");
+    location.href = "login.html";
+  }
+  document.getElementById("sideLogout").onclick = (e)=>{ e.preventDefault(); doLogout(); };
+
+  const btnMenu = document.getElementById("btnMenu");
+  const sidebar = document.querySelector(".sidebar");
+  const overlay = document.getElementById("overlay");
+  if (btnMenu){
+    btnMenu.onclick = () => {
+      sidebar.classList.add("open");
+      overlay.classList.add("show");
+    };
+    overlay.onclick = () => {
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    };
+  }
+  sideNav.querySelectorAll("a").forEach(a=>{
+    a.addEventListener("click", ()=>{
+      sidebar.classList.remove("open");
+      overlay.classList.remove("show");
+    });
+  });
+
+  // ===== Supabase =====
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+  const SUPABASE_URL = "https://jmimieqvhrdpdvovorhx.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_23gcxoA6juzOJOQga7ZihQ_3kdW4wIc";
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ===== DOM =====
+  const addCard = document.getElementById("addCard");
+  const pageTitle = document.getElementById("pageTitle");
+  const pageSub = document.getElementById("pageSub");
+  const listTitle = document.getElementById("listTitle");
+
+  const newDisplayName = document.getElementById("newDisplayName");
+  const newUsername = document.getElementById("newUsername");
+  const newPassword = document.getElementById("newPassword");
+  const newRole = document.getElementById("newRole");
+  const btnAddUser = document.getElementById("btnAddUser");
+  const msgAdd = document.getElementById("msgAdd");
+
+  const userTbody = document.getElementById("userTbody");
+  const emptyMsg = document.getElementById("emptyMsg");
+  const editOverlay = document.getElementById("editOverlay");
+
+  const isAdmin = (appUser.role === "admin");
+
+  // ✅ 非 admin：隱藏新增區 + 文案改成「我的帳號」
+  if (!isAdmin){
+    addCard.classList.add("hidden");
+    pageTitle.textContent = "我的帳號";
+    pageSub.textContent = "";
+    listTitle.textContent = "我的帳號";
+  }else{
+    pageTitle.textContent = "使用者管理";
+    pageSub.textContent = "";
+    listTitle.textContent = "使用者列表";
+  }
+
+  function showAddMsg(text, ok=false){
+    msgAdd.textContent = text;
+    msgAdd.className = "msg " + (ok ? "ok" : "error");
+  }
+
+  // ✅ 事件代理：只綁一次（不要放進 loadUsers）
+  userTbody.addEventListener("click", (e) => {
+    const editBtn = e.target.closest(".btn-xs.edit");
+    const delBtn  = e.target.closest(".btn-xs.del");
+    if (!editBtn && !delBtn) return;
+
+    const tr = e.target.closest("tr");
+    const row = tr?._rowData;
+    if (!row) return;
+
+    // 非 admin：只能按「編輯」改自己密碼（我們會把 display/role 欄位鎖住）
+    if (!isAdmin && String(row.id) !== String(appUser.id)){
+      alert("你只能修改自己的密碼");
+      return;
+    }
+
+    if (editBtn) openEditDialog(row);
+    if (delBtn) deleteUser(row);
+  });
+
+  // ===== 讀取使用者列表（admin=全部；其他=自己） =====
+  async function loadUsers(){
+    userTbody.innerHTML = "";
+    emptyMsg.style.display = "none";
+
+    let q = supabase
+      .from("app_users")
+      .select("id,username,display_name,role,created_at")
+      .order("created_at",{ ascending:false });
+
+    if (!isAdmin){
+      q = q.eq("id", appUser.id);
+    }
+
+    const { data, error } = await q;
+
+    if (error){
+      console.error(error);
+      emptyMsg.textContent = "讀取使用者失敗，請稍後再試。";
+      emptyMsg.style.display = "block";
+      return;
+    }
+
+    if (!data || data.length === 0){
+      emptyMsg.textContent = "目前尚無任何使用者。";
+      emptyMsg.style.display = "block";
+      return;
+    }
+
+    data.forEach(u => {
+      const tr = document.createElement("tr");
+      tr._rowData = u;
+
+      const roleClass = u.role === "admin" ? "admin" :
+                        u.role === "editor" ? "editor" : "viewer";
+
+      const created = u.created_at
+        ? new Date(u.created_at).toLocaleString("zh-TW",{hour12:false})
+        : "—";
+
+      const dn = (u.display_name && String(u.display_name).trim()) ? u.display_name : "—";
+
+      tr.innerHTML = `
+        <td data-label="使用者">
+          <b>${dn}</b>
+          <div class="small-muted">@${u.username}</div>
+        </td>
+        <td data-label="角色">
+          <span class="badge-role ${roleClass}">${u.role}</span>
+        </td>
+        <td data-label="建立時間">${created}</td>
+        <td data-label="操作" class="actions">
+          <button class="btn-xs edit" data-id="${u.id}" type="button">
+            ${isAdmin ? "編輯" : "修改密碼"}
+          </button>
+          ${
+            (isAdmin && String(u.id) !== String(appUser.id))
+              ? `<button class="btn-xs del" data-id="${u.id}" type="button">刪除</button>`
+              : ""
+          }
+        </td>
+      `;
+      userTbody.appendChild(tr);
+    });
+  }
+
+  // ===== 新增使用者（只有 admin 才能用，UI 也藏掉） =====
+  btnAddUser.onclick = async () => {
+    if (!isAdmin) return;
+
+    const display_name = newDisplayName.value.trim();
+    const username = newUsername.value.trim();
+    const password = newPassword.value;
+    const role = newRole.value;
+
+    showAddMsg("");
+
+    if (!display_name){ showAddMsg("請輸入顯示名稱"); return; }
+    if (!username || !password){ showAddMsg("請輸入帳號與密碼"); return; }
+    if (password.length < 4){ showAddMsg("密碼至少 4 碼"); return; }
+
+    btnAddUser.disabled = true;
+    btnAddUser.textContent = "新增中…";
+
+    const { error } = await supabase
+      .from("app_users")
+      .insert({ username, display_name, password, role });
+
+    btnAddUser.disabled = false;
+    btnAddUser.textContent = "新增";
+
+    if (error){
+      console.error(error);
+      if (error.code === "23505") showAddMsg("帳號已存在，請換一個。");
+      else showAddMsg("新增失敗，請稍後再試。");
+      return;
+    }
+
+    showAddMsg("新增成功！", true);
+    newDisplayName.value = "";
+    newUsername.value = "";
+    newPassword.value = "";
+    newRole.value = "viewer";
+    loadUsers();
+  };
+
+  // ===== 編輯彈出視窗 =====
+  function openEditDialog(user){
+    editOverlay.innerHTML = "";
+    editOverlay.style.display = "flex";
+
+    // 非 admin：只能改密碼 => 鎖 display_name / role
+    const lock = (!isAdmin);
+
+    const div = document.createElement("div");
+    div.className = "edit-dialog";
+    div.innerHTML = `
+      <div class="edit-title">${isAdmin ? "編輯使用者" : "修改密碼"}：${user.display_name || user.username}</div>
+
+      <div class="label">顯示名稱（display_name）</div>
+      <input id="editDisplayName" type="text" ${lock ? "disabled" : ""} />
+
+      <div class="label" style="margin-top:6px;">新密碼（留空則不修改）</div>
+      <input id="editPassword" type="password" placeholder="留空不修改" />
+
+      <div class="label" style="margin-top:6px;">角色</div>
+      <select id="editRole" ${lock ? "disabled" : ""}>
+        <option value="viewer">viewer</option>
+        <option value="editor">editor</option>
+        <option value="admin">admin</option>
+      </select>
+
+      <div id="editMsg" class="msg"></div>
+      <div class="edit-actions">
+        <button class="btn-plain" id="btnCancel" type="button">取消</button>
+        <button class="btn-primary" id="btnSave" type="button">儲存</button>
+      </div>
+    `;
+    editOverlay.appendChild(div);
+
+    const editDisplayName = document.getElementById("editDisplayName");
+    const editPassword = document.getElementById("editPassword");
+    const editRole = document.getElementById("editRole");
+    const editMsg = document.getElementById("editMsg");
+    const btnCancel = document.getElementById("btnCancel");
+    const btnSave = document.getElementById("btnSave");
+
+    editDisplayName.value = user.display_name || "";
+    editRole.value = user.role;
+
+    btnCancel.onclick = () => { editOverlay.style.display = "none"; };
+
+    btnSave.onclick = async () => {
+      editMsg.textContent = "";
+      editMsg.className = "msg";
+
+      const newDn = (editDisplayName.value || "").trim();
+      const newPwd = editPassword.value;
+      const newRole = editRole.value;
+
+      // ✅ 非 admin：強制只能更新 password
+      const updateData = {};
+
+      if (isAdmin){
+        if (!newDn){
+          editMsg.textContent = "顯示名稱不可空白";
+          editMsg.classList.add("error");
+          return;
+        }
+        updateData.display_name = newDn;
+        updateData.role = newRole;
+      }
+
+      if (newPwd){
+        if (newPwd.length < 4){
+          editMsg.textContent = "密碼至少 4 碼";
+          editMsg.classList.add("error");
+          return;
+        }
+        updateData.password = newPwd;
+      }
+
+      if (Object.keys(updateData).length === 0){
+        editMsg.textContent = "沒有任何變更";
+        editMsg.classList.add("error");
+        return;
+      }
+
+      btnSave.disabled = true;
+      btnSave.textContent = "儲存中…";
+
+      const { error } = await supabase
+        .from("app_users")
+        .update(updateData)
+        .eq("id", user.id);
+
+      btnSave.disabled = false;
+      btnSave.textContent = "儲存";
+
+      if (error){
+        console.error(error);
+        editMsg.textContent = "更新失敗，請稍後再試。";
+        editMsg.classList.add("error");
+        return;
+      }
+
+      editMsg.textContent = "更新成功！";
+      editMsg.classList.add("ok");
+
+      // 如果改到自己：更新 sessionStorage 顯示名稱
+      if (String(user.id) === String(appUser.id) && isAdmin && updateData.display_name){
+        const next = { ...appUser, display_name: updateData.display_name, role: updateData.role };
+        sessionStorage.setItem("appUser", JSON.stringify(next));
+        welcomeNameEl.textContent = updateData.display_name;
+      }
+
+      setTimeout(() => {
+        editOverlay.style.display = "none";
+        loadUsers();
+      }, 500);
+    };
+  }
+
+  // ===== 刪除（只有 admin 才能刪，且不能刪自己） =====
+  async function deleteUser(user){
+    if (!isAdmin) return;
+    if (String(user.id) === String(appUser.id)) return;
+
+    if (!confirm(`確定要刪除使用者「${user.display_name || user.username}」嗎？`)) return;
+
+    const { error } = await supabase
+      .from("app_users")
+      .delete()
+      .eq("id", user.id);
+
+    if (error){
+      console.error(error);
+      alert("刪除失敗，請稍後再試。");
+      return;
+    }
+    loadUsers();
+  }
+
+  // 點背景關閉編輯視窗
+  editOverlay.addEventListener("click", (e) => {
+    if (e.target === editOverlay){
+      editOverlay.style.display = "none";
+    }
+  });
+
+  loadUsers();
+</script>
+</body>
+</html>

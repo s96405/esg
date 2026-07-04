@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>登入 |智慧植物照護系統</title>
+<style>
+:root{
+  --bg1:#0b1220;
+  --bg2:#1e293b;
+  --txt:#e5e7eb;
+  --accent:#60a5fa;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  height:100vh;
+  min-height:100svh;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(1000px at 10% 20%, #3b82f6 0%, transparent 70%),
+    radial-gradient(800px at 80% 80%, #10b981 0%, transparent 70%),
+    linear-gradient(160deg,var(--bg1),var(--bg2));
+  font-family:"Microsoft JhengHei",sans-serif;
+  color:var(--txt);
+}
+.card{
+  width:min(90%,360px);
+  padding:32px 28px 24px;
+  border-radius:20px;
+  background:rgba(15,23,42,0.9);
+  border:1px solid rgba(148,163,184,0.3);
+  backdrop-filter:blur(16px) saturate(120%);
+  -webkit-backdrop-filter:blur(16px) saturate(120%);
+  box-shadow:0 20px 45px rgba(15,23,42,0.9);
+  text-align:center;
+}
+h2{margin-bottom:8px;letter-spacing:.5px;}
+.subtitle{font-size:13px;color:#9ca3af;margin-bottom:18px;}
+.field{position:relative;margin:10px 0;}
+input{
+  width:100%;
+  padding:11px 40px 11px 40px;
+  border-radius:30px;
+  border:1px solid rgba(148,163,184,0.4);
+  background:rgba(15,23,42,0.9);
+  color:var(--txt);
+  outline:none;
+  transition:border-color .2s,box-shadow .2s,background .2s;
+  font-size:13px;
+}
+input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(96,165,250,0.35);
+  background:#020617;
+}
+input::placeholder{color:#64748b;}
+.icon{
+  position:absolute;
+  top:50%;left:14px;
+  transform:translateY(-50%);
+  width:18px;height:18px;
+  opacity:.9;
+}
+#toggle{
+  right:14px;left:auto;
+  cursor:pointer;
+}
+button{
+  width:100%;
+  margin-top:14px;
+  padding:11px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#60a5fa,#34d399);
+  color:#0b1220;
+  font-weight:700;
+  letter-spacing:.3px;
+  cursor:pointer;
+  box-shadow:0 12px 25px rgba(34,197,94,0.35);
+  transition:transform .06s,box-shadow .1s;
+}
+button:active{
+  transform:translateY(1px);
+  box-shadow:0 6px 15px rgba(15,23,42,0.9);
+}
+.small{opacity:.7;font-size:12px;margin-top:10px;}
+.msg{
+  margin-top:10px;
+  font-size:12px;
+  min-height:16px;
+}
+.msg.error{color:#fecaca;}
+.msg.ok{color:#bbf7d0;}
+.input-hint{
+  margin-top:6px;
+  font-size:11px;
+  color:#9ca3af;
+  line-height:1.4;
+  text-align:left;
+}
+.entry-links{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:14px;
+  font-size:12px;
+  flex-wrap:wrap;
+}
+.entry-links a{
+  color:#bfdbfe;
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color .15s,color .15s;
+}
+.entry-links a:hover{
+  color:#eff6ff;
+  border-bottom-color:currentColor;
+}
+
+/* ===== RWD (mobile) ===== */
+@media (max-width:480px){
+  body{
+    padding:16px;
+  }
+  .card{
+    padding:26px 20px 22px;
+    border-radius:16px;
+  }
+  h2{
+    font-size:18px;
+  }
+  .subtitle{
+    font-size:12px;
+  }
+}
+</style>
+<link rel="stylesheet" href="ui.css" />
+</head>
+<body class="login-page">
+  <div class="card">
+    <h2>智慧植物照護系統</h2>
+    <div class="subtitle">請使用 email 或舊帳號登入</div>
+
+    <div class="field">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5Zm0 2c-4.42 0-8 2.24-8 5v1h16v-1c0-2.76-3.58-5-8-5Z"/>
+      </svg>
+      <input id="user" type="text" placeholder="請輸入 email 或舊帳號" autocomplete="username" />
+    </div>
+    <div class="input-hint">新帳號請輸入 email；舊展示版帳號可直接輸入帳號。</div>
+
+    <div class="field">
+      <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17 8h-1V6a4 4 0 1 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-6 8h2v2h-2Zm4-8H9V6a3 3 0 1 1 6 0Z"/>
+      </svg>
+      <input id="pwd" type="password" placeholder="密碼" autocomplete="current-password" />
+      <svg id="toggle" class="icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7Zm0 12a5 5 0 1 1 0-10a5 5 0 0 1 0 10Z"/>
+      </svg>
+    </div>
+
+    <button id="btn">登入</button>
+    <div id="msg" class="msg"></div>
+    <div class="entry-links">
+      <a href="register.html">還沒有帳號？註冊</a>
+      <a href="landing.html">回到系統介紹頁</a>
+    </div>
+  </div>
+
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+  const SUPABASE_URL = "https://jmimieqvhrdpdvovorhx.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_23gcxoA6juzOJOQga7ZihQ_3kdW4wIc"; // 這裡換成你的 anon key
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const toggle = document.getElementById("toggle");
+  const pwd = document.getElementById("pwd");
+  const userInput = document.getElementById("user");
+  const btn = document.getElementById("btn");
+  const msgEl = document.getElementById("msg");
+
+  toggle.addEventListener("click",()=>{
+    const show = pwd.type === "password";
+    pwd.type = show ? "text" : "password";
+  });
+
+  function setSessionAndRedirect(appUser){
+    sessionStorage.setItem("appUser", JSON.stringify(appUser));
+    msgEl.textContent = "登入成功，前往首頁...";
+    msgEl.classList.add("ok");
+    setTimeout(()=>{
+      location.href = "index.html";
+    }, 600);
+  }
+
+  function normalizeMessage(error){
+    const msg = String(error?.message || "").toLowerCase();
+    if(msg.includes("email not confirmed") || msg.includes("confirm")){
+      return "請先至信箱完成驗證，再回來登入。";
+    }
+    return "帳號或密碼錯誤";
+  }
+
+  function bytesToBase64(bytes){
+    let binary = "";
+    const chunkSize = 0x8000;
+    for(let i = 0; i < bytes.length; i += chunkSize){
+      const chunk = bytes.subarray(i, i + chunkSize);
+      binary += String.fromCharCode(...chunk);
+    }
+    return btoa(binary);
+  }
+
+  function base64ToBytes(base64){
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for(let i = 0; i < binary.length; i += 1){
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+  }
+
+  async function pbkdf2Hash(password, saltBytes, iterations){
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey(
+      "raw",
+      encoder.encode(password),
+      "PBKDF2",
+      false,
+      ["deriveBits"]
+    );
+    const bits = await crypto.subtle.deriveBits(
+      {
+        name: "PBKDF2",
+        hash: "SHA-256",
+        salt: saltBytes,
+        iterations
+      },
+      key,
+      256
+    );
+    return new Uint8Array(bits);
+  }
+
+  async function verifyStoredPassword(inputPassword, storedPassword){
+    if(!storedPassword) return { ok:false, legacyPlain:false };
+
+    const value = String(storedPassword);
+    if(value.startsWith("pbkdf2$")){
+      const parts = value.split("$");
+      if(parts.length !== 4) return { ok:false, legacyPlain:false };
+
+      const iterations = Number(parts[1]);
+      const saltBytes = base64ToBytes(parts[2]);
+      const expectedHash = base64ToBytes(parts[3]);
+      if(!Number.isFinite(iterations) || !saltBytes.length || !expectedHash.length){
+        return { ok:false, legacyPlain:false };
+      }
+
+      const actualHash = await pbkdf2Hash(inputPassword, saltBytes, iterations);
+      if(actualHash.length !== expectedHash.length) return { ok:false, legacyPlain:false };
+
+      let diff = 0;
+      for(let i = 0; i < expectedHash.length; i += 1){
+        diff |= actualHash[i] ^ expectedHash[i];
+      }
+      return { ok: diff === 0, legacyPlain:false };
+    }
+
+    return { ok: value === inputPassword, legacyPlain:true };
+  }
+
+  async function loginWithAuth(email, password){
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if(error) return { ok:false, error };
+    const authUser = data?.user;
+    if(!authUser){
+      return { ok:false, error:{ message:"missing auth user" } };
+    }
+
+    const { data: profile, error: profileError } = await supabase
+      .from("app_users")
+      .select("id,auth_user_id,username,email,display_name,role")
+      .eq("auth_user_id", authUser.id)
+      .maybeSingle();
+
+    if(profileError){
+      console.error(profileError);
+      await supabase.auth.signOut();
+      return { ok:false, error:{ message:"profile load failed" } };
+    }
+
+    if(!profile){
+      await supabase.auth.signOut();
+      return { ok:false, error:{ message:"profile missing" } };
+    }
+
+    setSessionAndRedirect({
+      id: profile.id,
+      auth_user_id: profile.auth_user_id,
+      username: profile.username,
+      email: profile.email,
+      display_name: profile.display_name,
+      role: profile.role
+    });
+    return { ok:true };
+  }
+
+  async function loginWithLegacy(username, password){
+    const { data, error } = await supabase
+      .from("app_users")
+      .select("id,auth_user_id,username,email,display_name,role,password")
+      .eq("username", username)
+      .maybeSingle();
+
+    if(error) return { ok:false, error };
+    if(!data) return { ok:false, error:{ message:"legacy login failed" } };
+
+    const verified = await verifyStoredPassword(password, data.password);
+    if(!verified.ok){
+      return { ok:false, error:{ message:"legacy login failed" } };
+    }
+
+    setSessionAndRedirect({
+      id: data.id,
+      auth_user_id: data.auth_user_id ?? null,
+      username: data.username,
+      email: data.email ?? null,
+      display_name: data.display_name,
+      role: data.role
+    });
+
+    if(verified.legacyPlain){
+      msgEl.textContent = "登入成功，舊密碼已接受，建議升級為雜湊格式。";
+      msgEl.classList.add("ok");
+      console.warn("Legacy plaintext password accepted; upgrade to PBKDF2 hash is recommended.");
+    }
+    return { ok:true };
+  }
+
+  async function doLogin(){
+    const account = userInput.value.trim();
+    const password = pwd.value;
+
+    msgEl.textContent = "";
+    msgEl.className = "msg";
+
+    if(!account || !password){
+      msgEl.textContent = "請輸入 email 或舊帳號與密碼";
+      msgEl.classList.add("error");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "登入中...";
+
+    try{
+      const hasEmailFormat = account.includes("@");
+
+      if(hasEmailFormat){
+        const authResult = await loginWithAuth(account, password);
+        if(authResult.ok) return;
+
+        btn.disabled = false;
+        btn.textContent = "登入";
+
+        if(authResult.error?.message === "profile missing"){
+          msgEl.textContent = "登入成功，但找不到個人資料，請聯絡管理員。";
+          msgEl.classList.add("error");
+          return;
+        }
+        if(authResult.error?.message === "profile load failed"){
+          msgEl.textContent = "登入後讀取個人資料失敗，請稍後再試。";
+          msgEl.classList.add("error");
+          return;
+        }
+
+        msgEl.textContent = normalizeMessage(authResult.error);
+        msgEl.classList.add("error");
+        return;
+      }
+
+      // Phase 7 後可移除：舊版帳號 fallback
+      if (supabase.auth.getSession) {
+        // 先清掉現有 Auth session，避免舊 admin fallback 被 authenticated RLS 卡住
+        const { error: signOutError } = await supabase.auth.signOut();
+        if (signOutError) {
+          console.error(signOutError);
+        }
+      }
+
+      const { data: legacyUser, error: legacyLookupError } = await supabase
+        .from("app_users")
+        .select("id,auth_user_id,email,username,display_name,role")
+        .eq("username", account)
+        .maybeSingle();
+
+      if(legacyLookupError){
+        console.error(legacyLookupError);
+        btn.disabled = false;
+        btn.textContent = "登入";
+        msgEl.textContent = "登入時發生錯誤，請稍後再試。";
+        msgEl.classList.add("error");
+        return;
+      }
+
+      if(legacyUser && legacyUser.auth_user_id && legacyUser.email){
+        const authResult = await loginWithAuth(legacyUser.email, password);
+        if(authResult.ok) return;
+        if(authResult.error?.message === "profile missing"){
+          btn.disabled = false;
+          btn.textContent = "登入";
+          msgEl.textContent = "登入成功，但找不到個人資料，請聯絡管理員。";
+          msgEl.classList.add("error");
+          return;
+        }
+        if(authResult.error?.message === "profile load failed"){
+          btn.disabled = false;
+          btn.textContent = "登入";
+          msgEl.textContent = "登入後讀取個人資料失敗，請稍後再試。";
+          msgEl.classList.add("error");
+          return;
+        }
+        if(normalizeMessage(authResult.error).includes("驗證")){
+          btn.disabled = false;
+          btn.textContent = "登入";
+          msgEl.textContent = normalizeMessage(authResult.error);
+          msgEl.classList.add("error");
+          return;
+        }
+      }
+
+      const legacyResult = await loginWithLegacy(account, password);
+      btn.disabled = false;
+      btn.textContent = "登入";
+
+      if(legacyResult.ok) return;
+
+      console.warn(legacyResult.error);
+      msgEl.textContent = "帳號或密碼錯誤";
+      msgEl.classList.add("error");
+    }catch(err){
+      console.error(err);
+      btn.disabled = false;
+      btn.textContent = "登入";
+      msgEl.textContent = "登入時發生錯誤，請稍後再試。";
+      msgEl.classList.add("error");
+    }
+  }
+
+  btn.addEventListener("click", doLogin);
+  pwd.addEventListener("keydown", e => {
+    if(e.key === "Enter") doLogin();
+  });
+  userInput.addEventListener("keydown", e => {
+    if(e.key === "Enter") doLogin();
+  });
+</script>
+</body>
+</html>
