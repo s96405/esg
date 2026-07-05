@@ -158,6 +158,15 @@ input:focus,select:focus{
 .badge-role.admin{border-color:#f97316;color:#fed7aa;}
 .badge-role.editor{border-color:#38bdf8;color:#bae6fd;}
 .badge-role.viewer{border-color:#22c55e;color:#bbf7d0;}
+.badge-status{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:11px;
+  border:1px solid var(--border);
+}
+.badge-status.active{border-color:#22c55e;color:#bbf7d0;}
+.badge-status.inactive{border-color:#f97373;color:#fecaca;}
 
 table{ width:100%; border-collapse:collapse; font-size:13px; }
 th,td{ padding:8px 6px; border-bottom:1px solid rgba(148,163,184,0.14); }
@@ -175,7 +184,10 @@ td.actions{ text-align:right; }
   margin-left:4px;
 }
 .btn-xs.edit{border-color:#38bdf8;}
+.btn-xs.toggle-active{border-color:#f97373;color:#fecaca;}
+.btn-xs.toggle-inactive{border-color:#22c55e;color:#bbf7d0;}
 .btn-xs.del{border-color:#f97373;color:#fecaca;}
+.btn-xs:disabled{opacity:.45;cursor:not-allowed;}
 .empty{ padding:10px 0 4px; font-size:13px; color:var(--sub); }
 
 /* 編輯用小彈出層 */
@@ -303,6 +315,7 @@ td.actions{ text-align:right; }
             <tr>
               <th>使用者</th>
               <th>角色</th>
+              <th>狀態</th>
               <th>建立時間</th>
               <th style="text-align:right;">操作</th>
             </tr>
@@ -421,8 +434,9 @@ td.actions{ text-align:right; }
   // ✅ 事件代理：只綁一次（不要放進 loadUsers）
   userTbody.addEventListener("click", (e) => {
     const editBtn = e.target.closest(".btn-xs.edit");
+    const toggleBtn = e.target.closest(".btn-xs.toggle-active, .btn-xs.toggle-inactive");
     const delBtn  = e.target.closest(".btn-xs.del");
-    if (!editBtn && !delBtn) return;
+    if (!editBtn && !toggleBtn && !delBtn) return;
 
     const tr = e.target.closest("tr");
     const row = tr?._rowData;
@@ -435,6 +449,7 @@ td.actions{ text-align:right; }
     }
 
     if (editBtn) openEditDialog(row);
+    if (toggleBtn) toggleUserActive(row);
     if (delBtn) deleteUser(row);
   });
 
@@ -445,7 +460,7 @@ td.actions{ text-align:right; }
 
     let q = supabase
       .from("app_users")
-      .select("id,username,display_name,role,created_at")
+      .select("id,username,display_name,role,created_at,is_active")
       .order("created_at",{ ascending:false });
 
     if (!isAdmin){
@@ -479,6 +494,19 @@ td.actions{ text-align:right; }
         : "—";
 
       const dn = (u.display_name && String(u.display_name).trim()) ? u.display_name : "—";
+      const active = u.is_active !== false;
+      const statusClass = active ? "active" : "inactive";
+      const statusText = active ? "啟用" : "停用";
+      const toggleClass = active ? "toggle-active" : "toggle-inactive";
+      const toggleText = active ? "停用" : "啟用";
+      const isSelf = String(u.id) === String(appUser.id);
+      const toggleDisabled = isSelf && active ? "disabled" : "";
+      const toggleTitle = isSelf && active ? "不可停用自己" : "";
+      const toggleButton = isAdmin
+        ? `<button class="btn-xs ${toggleClass}" data-id="${u.id}" type="button" ${toggleDisabled} title="${toggleTitle}">
+            ${toggleText}
+          </button>`
+        : "";
 
       tr.innerHTML = `
         <td data-label="使用者">
@@ -488,15 +516,48 @@ td.actions{ text-align:right; }
         <td data-label="角色">
           <span class="badge-role ${roleClass}">${u.role}</span>
         </td>
+        <td data-label="狀態">
+          <span class="badge-status ${statusClass}">${statusText}</span>
+        </td>
         <td data-label="建立時間">${created}</td>
         <td data-label="操作" class="actions">
           <button class="btn-xs edit" data-id="${u.id}" type="button">
             編輯名稱
           </button>
+          ${toggleButton}
         </td>
       `;
       userTbody.appendChild(tr);
     });
+  }
+
+  async function toggleUserActive(user){
+    if (!isAdmin){
+      alert("只有管理員可以啟用或停用使用者");
+      return;
+    }
+
+    const nextActive = user.is_active === false;
+    if (String(user.id) === String(appUser.id) && !nextActive){
+      alert("不可停用自己的帳號");
+      return;
+    }
+
+    const actionText = nextActive ? "啟用" : "停用";
+    if (!confirm(`確定要${actionText}使用者「${user.display_name || user.username}」嗎？`)) return;
+
+    const { error } = await supabase
+      .from("app_users")
+      .update({ is_active: nextActive })
+      .eq("id", user.id);
+
+    if (error){
+      console.error(error);
+      alert(`${actionText}失敗，請稍後再試。`);
+      return;
+    }
+
+    loadUsers();
   }
 
   // ===== 新增使用者（暫時停用） =====
