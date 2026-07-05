@@ -1,0 +1,11 @@
+.DS_Store
+esp32/.pio/
+esp32/main2.cpp
+esp32/include/secrets.local.h
+esp32/include/*.local.h
+esp32/include/*secret*.h
+!esp32/include/secrets.example.h
+*.local
+*.secret
+.env
+.env.*

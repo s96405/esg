@@ -1,0 +1,6 @@
+#pragma once
+
+#define LINE_TOKEN "YOUR_LINE_TOKEN"
+#define LINE_USER_ID "YOUR_LINE_USER_ID"
+#define SUPABASE_URL "https://YOUR_PROJECT.supabase.co"
+#define SUPABASE_KEY "YOUR_SUPABASE_PUBLISHABLE_KEY"
