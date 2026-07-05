@@ -234,7 +234,7 @@ button:active{
 
     const { data: profile, error: profileError } = await supabase
       .from("app_users")
-      .select("id,auth_user_id,username,email,display_name,role")
+      .select("id,auth_user_id,username,email,display_name,role,is_active")
       .eq("auth_user_id", authUser.id)
       .maybeSingle();
 
@@ -249,13 +249,19 @@ button:active{
       return { ok:false, error:{ message:"profile missing" } };
     }
 
+    if(profile.is_active === false){
+      await supabase.auth.signOut();
+      return { ok:false, error:{ message:"account disabled" } };
+    }
+
     setSessionAndRedirect({
       id: profile.id,
       auth_user_id: profile.auth_user_id,
       username: profile.username,
       email: profile.email,
       display_name: profile.display_name,
-      role: profile.role
+      role: profile.role,
+      is_active: profile.is_active
     });
     return { ok:true };
   }
@@ -296,6 +302,11 @@ button:active{
       }
       if(authResult.error?.message === "profile load failed"){
         msgEl.textContent = "登入後讀取個人資料失敗，請稍後再試。";
+        msgEl.classList.add("error");
+        return;
+      }
+      if(authResult.error?.message === "account disabled"){
+        msgEl.textContent = "此帳號已停用，請聯絡管理員。";
         msgEl.classList.add("error");
         return;
       }

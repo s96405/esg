@@ -22,35 +22,44 @@ export function setAppUser(appUser){
 }
 
 export async function requireLogin(){
-  const existingAppUser = getAppUser();
-  if(existingAppUser) return existingAppUser;
-
   const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
   if(sessionError){
     console.error(sessionError);
+    sessionStorage.removeItem("appUser");
     location.href = "login.html";
     return null;
   }
 
   const authUser = sessionData?.session?.user;
   if(!authUser){
+    sessionStorage.removeItem("appUser");
     location.href = "login.html";
     return null;
   }
 
   const { data: profile, error: profileError } = await supabase
     .from("app_users")
-    .select("id,auth_user_id,username,email,display_name,role")
+    .select("id,auth_user_id,username,email,display_name,role,is_active")
     .eq("auth_user_id", authUser.id)
     .maybeSingle();
 
   if(profileError){
     console.error(profileError);
+    sessionStorage.removeItem("appUser");
     location.href = "login.html";
     return null;
   }
 
   if(!profile){
+    sessionStorage.removeItem("appUser");
+    await supabase.auth.signOut();
+    location.href = "login.html";
+    return null;
+  }
+
+  if(profile.is_active === false){
+    sessionStorage.removeItem("appUser");
+    await supabase.auth.signOut();
     location.href = "login.html";
     return null;
   }
@@ -61,7 +70,8 @@ export async function requireLogin(){
     username: profile.username,
     email: profile.email,
     display_name: profile.display_name,
-    role: profile.role
+    role: profile.role,
+    is_active: profile.is_active
   };
   setAppUser(appUser);
   return appUser;
