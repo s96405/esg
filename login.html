@@ -233,8 +233,7 @@ button:active{
   }
 
   function getResetPasswordRedirectUrl(){
-    const currentDir = location.pathname.replace(/[^/]*$/, "");
-    return `${location.origin}${currentDir}reset_password.html`;
+    return `${location.origin}/reset_password.html`;
   }
 
   function bytesToBase64(bytes){
