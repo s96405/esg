@@ -18,16 +18,16 @@
         </span>
       </a>
 
-      <p class="eyebrow">Create account</p>
-      <h1>先註冊，再登入後台</h1>
+      <p class="eyebrow">CREATE ACCOUNT</p>
+      <h1>建立你的植物照護帳號</h1>
       <p class="lead">
-        完成帳號建立後，就能進入植物監控儀表板，查看感測資料、控制水泵並接收告警。
+        註冊後即可查看植物感測資料、控制澆水設備，並接收照護提醒。
       </p>
 
       <ul class="benefits">
-        <li>預設使用者角色為 <strong>user</strong></li>
-        <li>註冊資料直接寫入現有 <strong>app_users</strong> 表</li>
-        <li>不改登入邏輯，登入成功仍導向後台首頁</li>
+        <li>即時查看土壤濕度與水位</li>
+        <li>遠端控制水泵與自動澆水設定</li>
+        <li>接收 LINE 照護通知</li>
       </ul>
     </section>
 
@@ -35,33 +35,33 @@
       <div class="card-head">
         <p class="eyebrow">帳號註冊</p>
         <h2>建立新帳號</h2>
-        <p class="sub">請填入必要欄位，系統會先檢查帳號與 email 是否重複。</p>
+        <p class="sub">請填寫以下資料完成註冊。</p>
       </div>
 
       <form id="registerForm" class="register-form" novalidate>
         <label class="field">
-          <span>電子郵件 email</span>
-          <input id="email" type="email" autocomplete="email" placeholder="請輸入 email" />
+          <span>電子郵件</span>
+          <input id="email" type="email" autocomplete="email" placeholder="請輸入電子郵件" />
         </label>
 
         <label class="field">
-          <span>使用者名稱 username</span>
-          <input id="username" type="text" autocomplete="username" placeholder="請輸入帳號" />
+          <span>使用者名稱</span>
+          <input id="username" type="text" autocomplete="username" placeholder="請輸入使用者名稱" />
         </label>
 
         <label class="field">
-          <span>顯示名稱 display_name</span>
+          <span>顯示名稱</span>
           <input id="displayName" type="text" autocomplete="nickname" placeholder="例如：小明" />
         </label>
 
         <label class="field">
-          <span>密碼 password</span>
+          <span>密碼</span>
           <input id="password" type="password" autocomplete="new-password" placeholder="請輸入密碼" />
         </label>
 
         <label class="field">
-          <span>確認密碼 confirm_password</span>
-          <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="再次輸入密碼" />
+          <span>確認密碼</span>
+          <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="請再次輸入密碼" />
         </label>
 
         <button id="submitBtn" class="submit-btn" type="submit">註冊</button>
@@ -111,10 +111,10 @@
         return "使用者名稱已被註冊";
       }
       if (detail.includes("app_users_email_key")) {
-        return "Email 已被註冊";
+        return "電子郵件已被註冊";
       }
       if (detail.includes("app_users_auth_user_id_key")) {
-        return "此 Auth 帳號已建立 profile";
+        return "此帳號已建立，請直接登入";
       }
       return "帳號資料已存在";
     }
@@ -128,7 +128,7 @@
 
       setMsg("");
 
-      if (!email) return setMsg("請輸入 email", "error");
+      if (!email) return setMsg("請輸入電子郵件", "error");
       if (!username) return setMsg("請輸入使用者名稱", "error");
       if (!displayName) return setMsg("請輸入顯示名稱", "error");
       if (!password) return setMsg("請輸入密碼", "error");
@@ -184,10 +184,10 @@
           return;
         }
 
-        setMsg("註冊成功，請登入", "ok");
+        setMsg("註冊成功！請先前往電子郵件信箱完成驗證，再回到登入頁登入系統。", "ok");
         setTimeout(() => {
           location.href = "login.html";
-        }, 1100);
+        }, 3000);
       } catch (err) {
         console.error(err);
         setMsg("註冊時發生錯誤，請稍後再試。", "error");

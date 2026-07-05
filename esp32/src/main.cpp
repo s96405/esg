@@ -418,7 +418,7 @@ void sendLineAlert(const String &text)
     http.addHeader("Content-Type", "application/json");
     http.addHeader("Authorization", String("Bearer ") + LINE_TOKEN);
 
-    String body = String("{\"to\":\"") + LINE_USER_ID + "\"," +
+    String body = String("{\"to\":\"") + LINE_TARGET_ID + "\"," +
                   "\"messages\":[{\"type\":\"text\",\"text\":\"" + text + "\"}]}";
 
     int code = http.POST(body);
