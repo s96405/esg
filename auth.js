@@ -66,6 +66,7 @@ export async function requireLogin(){
 
   const appUser = {
     id: profile.id,
+    user_id: profile.id,
     auth_user_id: profile.auth_user_id,
     username: profile.username,
     email: profile.email,
