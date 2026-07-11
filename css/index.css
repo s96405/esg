@@ -969,7 +969,8 @@ textarea {
     }
 
     .dashboard-charts {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
     }
 
     .ai-analysis-card,
@@ -1076,20 +1077,104 @@ textarea {
         max-width: 75%;
     }
 
-    .ai-metric-grid {
-        grid-template-columns: 1fr;
+    /* AI 與土壤圖表固定左右兩欄 */
+    .dashboard-charts {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
     }
 
+    .chart-card {
+        min-width: 0;
+        padding: 8px;
+        overflow: hidden;
+    }
+
+    .ai-analysis-card,
+    .chart-main {
+        min-width: 0;
+        height: auto;
+        min-height: 0;
+    }
+
+    .chart-head {
+        gap: 6px;
+    }
+
+    .section-h {
+        margin: 2px 0 4px;
+        font-size: 12px;
+    }
+
+    .chart-sub {
+        font-size: 9px;
+        line-height: 1.35;
+    }
+
+    .trend-meta {
+        font-size: 9px;
+        white-space: normal;
+    }
+
+    .chart-head-actions {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .chart-range-select {
+        width: 100%;
+        min-width: 0;
+        height: 28px;
+        padding: 0 5px;
+        font-size: 9px;
+    }
+
+    /* AI 三個數值保持橫向 */
+    .ai-metric-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 5px;
+        margin-top: 8px;
+    }
+
+    .ai-metric-item {
+        min-width: 0;
+        min-height: 60px;
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    .ai-metric-item span {
+        margin-bottom: 4px;
+        font-size: 8px;
+        line-height: 1.25;
+    }
+
+    .ai-metric-item b {
+        font-size: 13px;
+        line-height: 1.2;
+    }
+
+    /* 左右圖表使用相同高度 */
     .ai-chart-wrapper {
-        height: 210px;
-        min-height: 210px;
-        flex-basis: 210px;
+        height: 165px;
+        min-height: 165px;
+        flex-basis: 165px;
+        margin-top: 8px;
+        padding: 4px 2px 1px;
     }
 
     .spark {
-        height: 180px;
-        min-height: 180px;
-        flex-basis: 180px;
+        height: 165px;
+        min-height: 165px;
+        flex-basis: 165px;
+        margin-top: 8px;
+    }
+
+    .notice,
+    .spark-empty {
+        margin-top: 5px;
+        font-size: 9px;
+        line-height: 1.35;
     }
 }
 
