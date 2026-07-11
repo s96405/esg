@@ -115,29 +115,35 @@
                         </section>
                     </div>
 
-                    <div class="kpi-grid">
-                        <div class="kpi panel mid">
-                            <div class="label">設備總數</div>
-                            <div class="value" id="statDevices">0</div>
-                            <div class="sub">已綁定</div>
+                    <div class="summary-strip panel">
+                        <div class="summary-item">
+                            <span>設備總數</span>
+                            <b id="statDevices">0</b>
                         </div>
 
-                        <div class="kpi panel mid ok">
-                            <div class="label">在線設備</div>
-                            <div class="value" id="statOnline">0</div>
-                            <div class="sub">15 分鐘內</div>
+                        <div class="summary-item ok">
+                            <span>在線</span>
+                            <b id="statOnline">0</b>
                         </div>
 
-                        <div class="kpi panel mid danger">
-                            <div class="label">離線設備</div>
-                            <div class="value" id="statOffline">0</div>
-                            <div class="sub">超過 15 分鐘</div>
+                        <div class="summary-item danger">
+                            <span>離線</span>
+                            <b id="statOffline">0</b>
                         </div>
 
-                        <div class="kpi panel mid warn">
-                            <div class="label">異常設備</div>
-                            <div class="value" id="statAlerts">0</div>
-                            <div class="sub">過乾 / 缺水 / 離線</div>
+                        <div class="summary-item warn">
+                            <span>告警</span>
+                            <b id="statAlerts">0</b>
+                        </div>
+
+                        <div class="summary-item warn">
+                            <span>土壤過乾</span>
+                            <b id="statDry">0</b>
+                        </div>
+
+                        <div class="summary-item danger">
+                            <span>水位不足</span>
+                            <b id="statNoWater">0</b>
                         </div>
                     </div>
 
@@ -193,63 +199,11 @@
 
                             <span id="lastRefresh" hidden>—</span>
                         </section>
-
-                        <section class="panel chart-card">
-                            <div class="chart-head">
-                                <div>
-                                    <div class="section-h">設備狀態分布</div>
-                                    <div class="chart-sub">在線 / 離線 / 異常</div>
-                                </div>
-                                <div class="trend-meta" id="alertsNow">—</div>
-                            </div>
-
-                            <div class="meter-list">
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>在線</span><b id="statusOnlineCount">0</b></div>
-                                    <div class="meter"><span id="statusOnlineBar"></span></div>
-                                </div>
-
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>離線</span><b id="statusOfflineCount">0</b></div>
-                                    <div class="meter danger"><span id="statusOfflineBar"></span></div>
-                                </div>
-
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>異常</span><b id="statusAlertCount">0</b></div>
-                                    <div class="meter warn"><span id="statusAlertBar"></span></div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="panel chart-card">
-                            <div class="chart-head">
-                                <div>
-                                    <div class="section-h">異常類型分布</div>
-                                    <div class="chart-sub">過乾 / 缺水 / 離線</div>
-                                </div>
-                            </div>
-
-                            <div class="meter-list">
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>土壤過乾</span><b id="statDry">0</b></div>
-                                    <div class="meter warn"><span id="dryBar"></span></div>
-                                </div>
-
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>水位不足</span><b id="statNoWater">0</b></div>
-                                    <div class="meter danger"><span id="waterBar"></span></div>
-                                </div>
-
-                                <div class="meter-row">
-                                    <div class="meter-label"><span>離線設備</span><b id="offlineAlertCount">0</b></div>
-                                    <div class="meter danger"><span id="offlineAlertBar"></span></div>
-                                </div>
-                            </div>
-                        </section>
                     </div>
 
                     <section class="panel alerts-panel">
                         <div class="section-h">即時告警清單</div>
+                        <span id="alertsNow" hidden>—</span>
 
                         <div class="table-wrap">
                             <table class="table">

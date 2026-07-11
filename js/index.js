@@ -121,11 +121,6 @@ const lastRefreshEl = document.getElementById("lastRefresh");
 const avgSoilNowEl = document.getElementById("avgSoilNow");
 const alertsNowEl = document.getElementById("alertsNow");
 
-const statusOnlineCountEl = document.getElementById("statusOnlineCount");
-const statusOfflineCountEl = document.getElementById("statusOfflineCount");
-const statusAlertCountEl = document.getElementById("statusAlertCount");
-const offlineAlertCountEl = document.getElementById("offlineAlertCount");
-
 const healthPanelEl = document.getElementById("healthPanel");
 const healthBadgeEl = document.getElementById("healthBadge");
 const healthTitleEl = document.getElementById("healthTitle");
@@ -159,31 +154,6 @@ function setStateClass(el, state){
   if (!el) return;
   el.classList.remove("ok", "warn", "danger", "info", "empty");
   if (state) el.classList.add(state);
-}
-
-function setBar(id, value, total){
-  const el = document.getElementById(id);
-  if (!el) return;
-
-  const pct = total > 0
-    ? Math.max(0, Math.min(100, (value / total) * 100))
-    : 0;
-
-  el.style.width = `${pct.toFixed(1)}%`;
-}
-
-function updateDashboardBars({ total, online, offline, alerts, dry, nowater }){
-  if (statusOnlineCountEl) statusOnlineCountEl.textContent = online;
-  if (statusOfflineCountEl) statusOfflineCountEl.textContent = offline;
-  if (statusAlertCountEl) statusAlertCountEl.textContent = alerts;
-  if (offlineAlertCountEl) offlineAlertCountEl.textContent = offline;
-
-  setBar("statusOnlineBar", online, total);
-  setBar("statusOfflineBar", offline, total);
-  setBar("statusAlertBar", alerts, total);
-  setBar("dryBar", dry, total);
-  setBar("waterBar", nowater, total);
-  setBar("offlineAlertBar", offline, total);
 }
 
 function buildSparkPoints(values){
@@ -372,6 +342,7 @@ function updateHealthOverview({
     if (autoSignalMetaEl) autoSignalMetaEl.textContent = "尚無設備資料";
     if (connectionSignalValueEl) connectionSignalValueEl.textContent = "0 / 0";
     if (connectionSignalMetaEl) connectionSignalMetaEl.textContent = "尚無設備資料";
+
     return;
   }
 
@@ -396,8 +367,8 @@ function updateHealthOverview({
   if (healthSummaryEl){
     const parts = [
       `${online}/${total} 台設備在線`,
-      needsAction ? `${alerts} 台需要處理` : (dry ? `${dry} 台濕度偏低` : "目前無告警"),
-      nowater ? `${nowater} 台水位不足` : "水位狀態正常"
+      nowater ? `${nowater} 台水位不足` : "水位正常",
+      dry ? `${dry} 台土壤偏乾` : "濕度正常"
     ];
 
     healthSummaryEl.textContent = parts.join("，") + "。";
@@ -465,15 +436,6 @@ async function loadDashboard(){
     statDryEl.textContent = 0;
     statNoWaterEl.textContent = 0;
 
-    updateDashboardBars({
-      total:0,
-      online:0,
-      offline:0,
-      alerts:0,
-      dry:0,
-      nowater:0
-    });
-
     alertsBodyEl.innerHTML = `
       <tr>
         <td colspan="5" class="muted">尚未綁定任何設備（user_devices 無資料）</td>
@@ -481,7 +443,6 @@ async function loadDashboard(){
     `;
 
     setSpark("sparkSoil", "sparkSoilArea", "");
-    setSpark("sparkAlerts", "sparkAlertArea", "");
 
     avgSoilNowEl.textContent = "—";
     alertsNowEl.textContent = "—";
@@ -625,15 +586,6 @@ async function loadDashboard(){
   statDryEl.textContent = dry;
   statNoWaterEl.textContent = nowater;
 
-  updateDashboardBars({
-    total:deviceIds.length,
-    online,
-    offline,
-    alerts,
-    dry,
-    nowater
-  });
-
   const avg = soilsForAvg.length
     ? soilsForAvg.reduce((a, b) => a + b, 0) / soilsForAvg.length
     : null;
@@ -742,35 +694,6 @@ async function loadDashboard(){
   }
 
   setSpark("sparkSoil", "sparkSoilArea", buildSparkPoints(filled));
-
-  const alertBuckets = new Map();
-
-  (trendRows || []).forEach(r => {
-    const soil = safeNum(r.soil);
-    if (soil === null) return;
-
-    const t = new Date(r.created_at).getTime();
-    const k = Math.floor(t / (5 * 60 * 1000)) * (5 * 60 * 1000);
-    const moistOn = moistOnMap[r.device_id] ?? 30;
-    const low = soil < moistOn ? 1 : 0;
-
-    alertBuckets.set(k, (alertBuckets.get(k) || 0) + low);
-  });
-
-  const alertKeys = Array.from(alertBuckets.keys()).sort((a, b) => a - b);
-  const filledA = [];
-
-  if (alertKeys.length){
-    const start = alertKeys[0];
-    const end = alertKeys[alertKeys.length - 1];
-
-    for (let k = start; k <= end; k += 5 * 60 * 1000){
-      const v = alertBuckets.get(k);
-      filledA.push(Number.isFinite(v) ? v : 0);
-    }
-  }
-
-  setSpark("sparkAlerts", "sparkAlertArea", buildSparkPoints(filledA));
 
   if (healthUpdatedEl){
     healthUpdatedEl.textContent = fmtTime(new Date());
