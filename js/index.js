@@ -181,15 +181,31 @@ function safeSoilNum(value) {
 }
 
 function formatAiStatus(status) {
-  if (status === "healthy") return "健康";
-  if (status === "warning") return "注意";
-  if (status === "danger") return "異常";
+  if (
+    status === "healthy" ||
+    status === "normal"
+  ) {
+    return "影像指標正常";
+  }
 
-  return "未知";
+  if (status === "warning") {
+    return "影像指標需注意";
+  }
+
+  if (status === "danger") {
+    return "葉面覆蓋率過低";
+  }
+
+  return "尚無法判定";
 }
 
 function formatAiStatusClass(status) {
-  if (status === "healthy") return "ok";
+  if (
+    status === "healthy" ||
+    status === "normal"
+  ) {
+    return "ok";
+  }
   if (status === "warning") return "warn";
   if (status === "danger") return "danger";
 
@@ -600,15 +616,18 @@ function renderCameraMetrics(rows) {
   aiMetricTimeEl.textContent =
     fmtTime(latest.captured_at);
 
-  if (status === "healthy") {
+  if (
+    status === "healthy" ||
+    status === "normal"
+  ) {
     aiMetricNoticeEl.textContent =
-      `目前顯示最近 ${rows.length} 筆資料，最新影像分析狀態穩定。`;
+      `目前顯示最近 ${rows.length} 筆資料，影像指標目前穩定。`;
   } else if (status === "warning") {
     aiMetricNoticeEl.textContent =
-      `目前顯示最近 ${rows.length} 筆資料，植物狀態需要留意。`;
+      `目前顯示最近 ${rows.length} 筆資料，葉面覆蓋率偏低，建議持續觀察。`;
   } else if (status === "danger") {
     aiMetricNoticeEl.textContent =
-      `目前顯示最近 ${rows.length} 筆資料，葉色異常比例偏高。`;
+      `目前顯示最近 ${rows.length} 筆資料，葉面覆蓋率過低，建議檢查植物與拍攝環境。`;
   } else {
     aiMetricNoticeEl.textContent =
       `目前顯示最近 ${rows.length} 筆影像分析資料。`;
@@ -695,7 +714,7 @@ function renderAiMetricsChart(rows) {
             spanGaps: true
           },
           {
-            label: "葉色異常比例",
+            label: "紅色區域比例",
             data: redValues,
             borderColor: "#ef4444",
             backgroundColor:
