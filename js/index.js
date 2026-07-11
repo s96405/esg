@@ -164,6 +164,22 @@ function safeNum(value) {
     : null;
 }
 
+function safeSoilNum(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return null;
+  }
+
+  const number = Number(value);
+
+  return Number.isFinite(number)
+    ? number
+    : null;
+}
+
 function formatAiStatus(status) {
   if (status === "healthy") return "健康";
   if (status === "warning") return "注意";
@@ -237,7 +253,13 @@ const lastRefreshEl =
   document.getElementById("lastRefresh");
 
 const avgSoilNowEl =
-  document.getElementById("avgSoilNow");
+    document.getElementById("avgSoilNow");
+  
+const soilTrendRangeEl =
+  document.getElementById("soilTrendRange");
+
+const sparkSoilEmptyEl =
+  document.getElementById("sparkSoilEmpty");
 
 const alertsNowEl =
   document.getElementById("alertsNow");
@@ -1148,7 +1170,15 @@ async function loadDashboard() {
     deviceIds.length;
 
   if (!deviceIds.length) {
-    renderCameraMetrics([]);
+  renderCameraMetrics([]);
+
+  if (soilTrendRangeEl) {
+    soilTrendRangeEl.textContent = "尚無資料";
+  }
+
+  if (sparkSoilEmptyEl) {
+    sparkSoilEmptyEl.textContent = "尚無土壤濕度資料";
+  }
 
     statOnlineEl.textContent = 0;
     statOfflineEl.textContent = 0;
@@ -1289,7 +1319,7 @@ async function loadDashboard() {
     }
 
     const soil =
-      safeNum(row?.soil);
+        safeSoilNum(row?.soil);
 
     if (soil !== null) {
       soilsForAvg.push(soil);
@@ -1562,55 +1592,117 @@ async function loadDashboard() {
     waterKnown
   });
 
-  const since =
-    new Date(
-      Date.now() -
-      60 * 60 * 1000
-    ).toISOString();
+    /* =========================
+   土壤濕度趨勢
+   優先近 1 小時，無資料改抓最近 24 筆
+========================= */
+
+const since = new Date(
+  Date.now() - 60 * 60 * 1000
+).toISOString();
+
+let trendMode = "hour";
+
+let {
+  data: trendRows,
+  error: trendError
+} = await supabase
+  .from("telemetry")
+  .select(`
+    device_id,
+    soil,
+    created_at
+  `)
+  .in("device_id", deviceIds)
+  .gte("created_at", since)
+  .order("created_at", {
+    ascending: true
+  })
+  .limit(800);
+
+if (trendError) {
+  console.error(
+    "[telemetry trend] recent hour load failed:",
+    trendError
+  );
+
+  trendRows = [];
+}
+
+/* 過濾空值與非數字 */
+let validTrendRows = (trendRows || [])
+  .map((row) => ({
+    ...row,
+    soilNumber: safeSoilNum(row.soil)
+  }))
+  .filter((row) =>
+    row.soilNumber !== null &&
+    row.created_at
+  );
+
+/* 近一小時沒有資料，改抓最近 24 筆 */
+if (!validTrendRows.length) {
+  trendMode = "latest";
 
   const {
-    data: trendRows,
-    error: trendError
-  } = await supabase
-    .from("telemetry")
-    .select(`
-      device_id,
-      soil,
-      created_at
-    `)
-    .in("device_id", deviceIds)
-    .gte("created_at", since)
-    .order("created_at", {
-      ascending: true
-    })
-    .limit(800);
+  data: latestRows,
+  error: latestError
+} = await supabase
+  .from("telemetry")
+  .select(`
+    device_id,
+    soil,
+    created_at
+  `)
+  .in("device_id", deviceIds)
+  .not("soil", "is", null)
+  .order("created_at", {
+    ascending: false
+  })
+  .limit(24);
 
-  if (trendError) {
+  if (latestError) {
     console.error(
-      "[telemetry trend] load failed:",
-      trendError
+      "[telemetry trend] latest rows load failed:",
+      latestError
     );
-  }
 
+    validTrendRows = [];
+  } else {
+    validTrendRows = (latestRows || [])
+      .map((row) => ({
+        ...row,
+        soilNumber: safeSoilNum(row.soil)
+      }))
+      .filter((row) =>
+        row.soilNumber !== null &&
+        row.created_at
+      )
+      .reverse();
+  }
+}
+
+let soilTrendValues = [];
+
+if (trendMode === "hour") {
+  /*
+   * 近一小時資料：
+   * 每 5 分鐘整理成一個平均值
+   */
   const buckets = new Map();
 
-  (trendRows || []).forEach((row) => {
-    const soil =
-      safeNum(row.soil);
-
-    if (soil === null) return;
-
+  validTrendRows.forEach((row) => {
     const timestamp =
-      new Date(
-        row.created_at
-      ).getTime();
+      new Date(row.created_at).getTime();
+
+    if (!Number.isFinite(timestamp)) {
+      return;
+    }
 
     const bucketKey =
       Math.floor(
-        timestamp /
-        (5 * 60 * 1000)
-      ) *
-      (5 * 60 * 1000);
+        timestamp / (5 * 60 * 1000)
+      ) * (5 * 60 * 1000);
 
     const bucket =
       buckets.get(bucketKey) || {
@@ -1618,52 +1710,72 @@ async function loadDashboard() {
         count: 0
       };
 
-    bucket.sum += soil;
+    bucket.sum += row.soilNumber;
     bucket.count += 1;
 
-    buckets.set(
-      bucketKey,
-      bucket
-    );
+    buckets.set(bucketKey, bucket);
   });
 
-  const keys =
-    Array.from(
-      buckets.keys()
-    ).sort((a, b) => a - b);
-
-  const filledValues = [];
+  const keys = Array
+    .from(buckets.keys())
+    .sort((a, b) => a - b);
 
   if (keys.length) {
     const start = keys[0];
-
-    const end =
-      keys[keys.length - 1];
+    const end = keys[keys.length - 1];
 
     for (
       let key = start;
       key <= end;
       key += 5 * 60 * 1000
     ) {
-      const bucket =
-        buckets.get(key);
+      const bucket = buckets.get(key);
 
-      filledValues.push(
+      soilTrendValues.push(
         bucket
-          ? bucket.sum /
-            bucket.count
+          ? bucket.sum / bucket.count
           : null
       );
     }
   }
-
-  setSpark(
-    "sparkSoil",
-    "sparkSoilArea",
-    buildSparkPoints(
-      filledValues
-    )
+} else {
+  /*
+   * 備援資料：
+   * 直接畫最近 24 筆
+   */
+  soilTrendValues = validTrendRows.map(
+    (row) => row.soilNumber
   );
+}
+
+const soilTrendPoints =
+  buildSparkPoints(soilTrendValues);
+
+setSpark(
+  "sparkSoil",
+  "sparkSoilArea",
+  soilTrendPoints
+);
+
+/* 更新圖表顯示範圍文字 */
+if (soilTrendRangeEl) {
+  if (!soilTrendValues.length) {
+    soilTrendRangeEl.textContent = "尚無資料";
+  } else if (trendMode === "hour") {
+    soilTrendRangeEl.textContent = "近 1 小時";
+  } else {
+    soilTrendRangeEl.textContent =
+      `最近 ${soilTrendValues.length} 筆`;
+  }
+}
+
+/* 更新空資料提示 */
+if (sparkSoilEmptyEl) {
+  sparkSoilEmptyEl.textContent =
+    soilTrendValues.length
+      ? ""
+      : "尚無土壤濕度資料";
+}
 
   if (healthUpdatedEl) {
     healthUpdatedEl.textContent =
@@ -1676,16 +1788,16 @@ async function loadDashboard() {
 ========================= */
 
 if (aiChartRangeEl) {
-  aiChartRangeEl.addEventListener(
+    aiChartRangeEl.addEventListener(
     "change",
     async () => {
       const deviceIds =
         await getUserDeviceIds();
 
-      if (!deviceIds.length) {
-        renderCameraMetrics([]);
-        return;
-      }
+        if (!deviceIds.length) {
+            renderCameraMetrics([]);
+            return;
+            }
 
       await loadCameraMetrics(
         deviceIds[0]
