@@ -34,23 +34,36 @@ textarea {
     font: inherit;
 }
 
+/* =========================
+   主版面
+========================= */
+
 .app-shell {
     display: flex;
     min-height: 100vh;
 }
 
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =========================
+   側邊欄
+========================= */
+
 .sidebar {
     position: sticky;
     top: 0;
-    height: 100vh;
     width: 220px;
+    height: 100vh;
     flex: 0 0 220px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     background: #eef3ea;
     border-right: 1px solid var(--border);
     z-index: 30;
-    overflow: hidden;
 }
 
 .side-top {
@@ -64,15 +77,15 @@ textarea {
 .logo-dot {
     width: 28px;
     height: 28px;
-    border-radius: 999px;
-    background: #476f5a;
-    color: #fff;
+    flex: 0 0 28px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 999px;
+    background: #476f5a;
+    color: #fff;
     font-size: 16px;
     font-weight: 800;
-    flex: 0 0 28px;
 }
 
 .side-brand {
@@ -83,20 +96,20 @@ textarea {
 }
 
 .side-brand .name {
-    font-weight: 800;
     font-size: 14px;
+    font-weight: 800;
 }
 
 .side-brand .sub {
-    font-size: 11px;
     color: var(--sub);
+    font-size: 11px;
 }
 
 .nav {
-    padding: 10px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    padding: 10px;
 }
 
 .nav a,
@@ -105,14 +118,13 @@ textarea {
     align-items: center;
     gap: 10px;
     padding: 12px;
+    border: 1px solid transparent;
     border-radius: 12px;
     color: var(--txt);
     text-decoration: none;
-    border: 1px solid transparent;
     transition:
         background .15s ease,
-        border-color .15s ease,
-        transform .15s ease;
+        border-color .15s ease;
 }
 
 .nav a:hover {
@@ -120,27 +132,22 @@ textarea {
     border-color: rgba(71, 111, 90, .24);
 }
 
-.nav a:active {
-    transform: translateY(1px);
-}
-
 .nav a.active {
     background: #fff;
     border-color: rgba(71, 111, 90, .30);
-    box-shadow: 0 4px 14px rgba(57, 83, 66, .06);
 }
 
 .nav .ico,
 .side-bottom .ico {
     width: 30px;
     height: 30px;
-    border-radius: 12px;
+    flex: 0 0 30px;
     display: grid;
     place-items: center;
-    background: #f0f4ee;
     border: 1px solid rgba(72, 91, 78, .16);
+    border-radius: 12px;
+    background: #f0f4ee;
     font-size: 15px;
-    flex: 0 0 30px;
 }
 
 .side-bottom {
@@ -154,24 +161,23 @@ textarea {
     border-color: rgba(184, 90, 75, .30);
 }
 
-.main {
-    flex: 1;
-    min-width: 0;
-}
+/* =========================
+   頂部
+========================= */
 
 .topbar {
-    padding: 14px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(251, 251, 247, .95);
-    backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 20;
-    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 12px;
+    flex-wrap: wrap;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(251, 251, 247, .95);
+    backdrop-filter: blur(10px);
 }
 
 .topbar-left {
@@ -185,11 +191,11 @@ textarea {
     width: 38px;
     height: 38px;
     padding: 0;
-    border-radius: 10px;
-    font-size: 20px;
-    background: #f0f4ee;
     border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f0f4ee;
     color: var(--txt);
+    font-size: 20px;
     cursor: pointer;
 }
 
@@ -199,60 +205,63 @@ textarea {
 }
 
 .topbar-title-sub {
-    font-size: 11px;
-    color: var(--sub);
     margin-top: 2px;
+    color: var(--sub);
+    font-size: 11px;
 }
 
 .topbar-right {
     display: flex;
-    gap: 14px;
     align-items: center;
-    font-size: 12px;
+    gap: 14px;
     color: var(--sub);
+    font-size: 12px;
 }
 
 .topbar-clock {
     text-align: right;
-    line-height: 1.45;
 }
 
 .user-pill {
     padding: 7px 11px;
-    border-radius: 999px;
     border: 1px solid var(--border);
+    border-radius: 999px;
     background: #f0f4ee;
     color: var(--txt);
-    font-weight: 700;
 }
 
+/* =========================
+   外框與面板
+========================= */
+
 .wrap {
+    width: 100%;
     max-width: 1400px;
     margin: 18px auto 40px;
-    width: 100%;
     padding: 0 16px;
 }
 
 .frame {
+    padding: 14px;
     border: 2px solid var(--panelBorderStrong);
     border-radius: 12px;
-    padding: 14px;
     background: transparent;
 }
 
 .panel {
     border: 1px solid var(--panelBorder);
-    background: var(--panelBg);
     border-radius: 10px;
-    transition:
-        border-color .15s ease,
-        box-shadow .15s ease;
+    background: var(--panelBg);
+    transition: border-color .15s ease;
 }
 
 .panel:hover {
     border-color: rgba(79, 143, 163, .40);
-    box-shadow: 0 7px 20px rgba(57, 83, 66, .05);
 }
+
+/* =========================
+   健康總覽
+========================= */
 
 .dashboard-overview {
     display: grid;
@@ -285,49 +294,48 @@ textarea {
 }
 
 .health-kicker {
+    position: relative;
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    position: relative;
-    z-index: 2;
+    color: var(--sub);
     font-size: 13px;
     font-weight: 800;
-    color: var(--sub);
 }
 
 .health-badge {
     padding: 4px 10px;
+    border: 1px solid rgba(72, 91, 78, .18);
     border-radius: 999px;
     background: #f0f4ee;
-    border: 1px solid rgba(72, 91, 78, .18);
     color: var(--txt);
     font-size: 12px;
 }
 
 .health-panel.ok .health-badge {
-    color: var(--ok);
     border-color: rgba(63, 122, 79, .32);
     background: rgba(63, 122, 79, .08);
+    color: var(--ok);
 }
 
 .health-panel.warn .health-badge {
-    color: var(--warn);
     border-color: rgba(180, 116, 45, .34);
     background: rgba(180, 116, 45, .08);
+    color: var(--warn);
 }
 
 .health-panel.danger .health-badge {
-    color: var(--danger);
     border-color: rgba(184, 90, 75, .34);
     background: rgba(184, 90, 75, .08);
+    color: var(--danger);
 }
 
 .health-title {
-    margin: 20px 0 8px;
     position: relative;
     z-index: 2;
-    max-width: 620px;
+    margin: 20px 0 8px;
     font-size: 28px;
     line-height: 1.2;
 }
@@ -335,39 +343,43 @@ textarea {
 .health-summary {
     position: relative;
     z-index: 2;
+    max-width: 600px;
     color: var(--sub);
     font-size: 14px;
     line-height: 1.7;
-    max-width: 600px;
 }
 
 .health-meta {
-    display: flex;
-    gap: 12px;
-    margin-top: 18px;
-    flex-wrap: wrap;
     position: relative;
     z-index: 2;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 18px;
 }
 
 .health-meta-item {
     min-width: 140px;
     padding: 12px;
+    border: 1px solid rgba(72, 91, 78, .14);
     border-radius: 12px;
     background: #fff;
-    border: 1px solid rgba(72, 91, 78, .14);
 }
 
 .health-meta-item span {
     display: block;
+    margin-bottom: 6px;
     color: var(--sub);
     font-size: 12px;
-    margin-bottom: 6px;
 }
 
 .health-meta-item b {
     font-size: 20px;
 }
+
+/* =========================
+   植物裝飾
+========================= */
 
 .plant-visual {
     position: absolute;
@@ -388,9 +400,9 @@ textarea {
 
 .plant-soil {
     position: absolute;
-    left: 28px;
     right: 28px;
     bottom: 16px;
+    left: 28px;
     height: 22px;
     border-radius: 50%;
     background: rgba(71, 111, 90, .25);
@@ -405,8 +417,8 @@ textarea {
 }
 
 .leaf-a {
-    left: 38px;
     bottom: 38px;
+    left: 38px;
     transform: rotate(-28deg);
 }
 
@@ -418,14 +430,18 @@ textarea {
 
 .plant-drop {
     position: absolute;
-    left: 58px;
     top: 20px;
+    left: 58px;
     width: 20px;
     height: 28px;
     border-radius: 60% 60% 70% 70%;
     background: rgba(79, 143, 163, .38);
     transform: rotate(45deg);
 }
+
+/* =========================
+   感測器
+========================= */
 
 .sensor-panel {
     padding: 14px;
@@ -440,24 +456,21 @@ textarea {
 .sensor-item {
     min-height: 96px;
     padding: 14px;
-    border-radius: 12px;
     border: 1px solid rgba(72, 91, 78, .16);
+    border-radius: 12px;
     background: #fff;
 }
 
 .sensor-item.ok {
     border-color: rgba(63, 122, 79, .35);
-    background: rgba(63, 122, 79, .025);
 }
 
 .sensor-item.warn {
     border-color: rgba(180, 116, 45, .45);
-    background: rgba(180, 116, 45, .025);
 }
 
 .sensor-item.danger {
     border-color: rgba(184, 90, 75, .45);
-    background: rgba(184, 90, 75, .025);
 }
 
 .sensor-item.info {
@@ -465,9 +478,9 @@ textarea {
 }
 
 .sensor-label {
+    margin-bottom: 8px;
     color: var(--sub);
     font-size: 12px;
-    margin-bottom: 8px;
 }
 
 .sensor-value {
@@ -488,15 +501,19 @@ textarea {
 }
 
 .sensor-meta {
+    margin-top: 6px;
     color: var(--sub);
     font-size: 12px;
-    margin-top: 6px;
     line-height: 1.5;
 }
 
+/* =========================
+   統計列
+========================= */
+
 .summary-strip {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0;
     margin-bottom: 14px;
     overflow: hidden;
@@ -513,16 +530,16 @@ textarea {
 
 .summary-item span {
     display: block;
-    font-size: 12px;
-    color: var(--sub);
     margin-bottom: 6px;
+    color: var(--sub);
+    font-size: 12px;
 }
 
 .summary-item b {
     display: block;
+    color: var(--txt);
     font-size: 24px;
     font-weight: 900;
-    color: var(--txt);
 }
 
 .summary-item.ok b {
@@ -537,24 +554,39 @@ textarea {
     color: var(--danger);
 }
 
+/* =========================
+   趨勢圖區塊
+   桌面版左右各 50%
+========================= */
+
 .dashboard-charts {
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(360px, .65fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
-    margin-bottom: 14px;
     align-items: stretch;
+    margin-bottom: 14px;
 }
 
 .chart-card {
-    padding: 14px;
     min-width: 0;
+    padding: 14px;
+}
+
+.ai-analysis-card,
+.chart-main {
+    min-width: 0;
+    height: 390px;
+    min-height: 390px;
+    display: flex;
+    flex-direction: column;
 }
 
 .chart-head {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 12px;
+    flex: 0 0 auto;
 }
 
 .chart-head-actions {
@@ -567,35 +599,34 @@ textarea {
 
 .section-h {
     margin: 4px 0 6px;
+    color: var(--txt);
     font-size: 15px;
     font-weight: 900;
-    color: var(--txt);
 }
 
 .chart-sub {
-    font-size: 12px;
     color: var(--sub);
+    font-size: 12px;
     line-height: 1.45;
 }
 
 .trend-meta {
-    font-size: 11px;
     color: var(--sub);
+    font-size: 11px;
     white-space: nowrap;
 }
 
 .chart-range-select {
     min-width: 112px;
     height: 34px;
-    padding: 0 32px 0 11px;
+    padding: 0 10px;
     border: 1px solid rgba(72, 91, 78, .22);
     border-radius: 9px;
-    background-color: #fff;
+    outline: none;
+    background: #fff;
     color: var(--txt);
     font-size: 12px;
-    font-weight: 700;
     cursor: pointer;
-    outline: none;
 }
 
 .chart-range-select:hover {
@@ -607,40 +638,40 @@ textarea {
     box-shadow: 0 0 0 3px rgba(79, 143, 163, .12);
 }
 
-.ai-analysis-card {
-    min-height: 430px;
-    display: flex;
-    flex-direction: column;
-}
+/* =========================
+   AI 指標
+========================= */
 
 .ai-metric-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
-    margin-top: 14px;
+    flex: 0 0 auto;
+    margin-top: 12px;
 }
 
 .ai-metric-item {
+    min-width: 0;
+    min-height: 74px;
+    padding: 10px;
     border: 1px solid rgba(72, 91, 78, .16);
-    background: #fff;
     border-radius: 12px;
-    padding: 12px;
-    min-height: 78px;
+    background: #fff;
 }
 
 .ai-metric-item span {
     display: block;
-    font-size: 12px;
-    color: var(--sub);
     margin-bottom: 8px;
+    color: var(--sub);
+    font-size: 12px;
 }
 
 .ai-metric-item b {
     display: block;
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--txt);
     overflow-wrap: anywhere;
+    color: var(--txt);
+    font-size: 20px;
+    font-weight: 900;
 }
 
 #aiLeafCover {
@@ -667,23 +698,28 @@ textarea {
     color: var(--sub);
 }
 
+/* =========================
+   AI Chart.js 圖表
+========================= */
+
 .ai-chart-wrapper {
     position: relative;
     width: 100%;
-    height: 270px;
-    min-height: 270px;
-    margin-top: 16px;
-    padding: 12px 8px 4px;
+    height: 190px;
+    min-height: 190px;
+    flex: 0 0 190px;
+    margin-top: 12px;
+    padding: 8px 6px 2px;
+    overflow: hidden;
     border: 1px solid rgba(72, 91, 78, .14);
     border-radius: 12px;
     background: #fff;
-    overflow: hidden;
 }
 
 .ai-chart-wrapper canvas {
+    display: block;
     width: 100% !important;
     height: 100% !important;
-    display: block;
 }
 
 .chart-empty {
@@ -692,35 +728,35 @@ textarea {
     display: grid;
     place-items: center;
     padding: 20px;
+    background: rgba(255, 255, 255, .88);
     color: var(--sub);
     font-size: 13px;
     text-align: center;
-    background: rgba(255, 255, 255, .88);
 }
 
 .chart-empty[hidden] {
     display: none;
 }
 
-.chart-main {
-    min-height: 430px;
-    display: flex;
-    flex-direction: column;
-}
+/* =========================
+   土壤濕度 SVG 圖表
+========================= */
 
 .spark {
-    width: 100%;
-    height: 240px;
     display: block;
-    margin-top: 22px;
+    width: 100%;
+    height: 230px;
+    min-height: 230px;
+    flex: 0 0 230px;
+    margin-top: 16px;
 }
 
 .spark polyline {
     fill: none;
     stroke: var(--accent);
     stroke-width: 2;
-    stroke-linejoin: round;
     stroke-linecap: round;
+    stroke-linejoin: round;
     opacity: .95;
 }
 
@@ -740,23 +776,27 @@ textarea {
 
 .spark-empty,
 .notice {
-    margin-top: 10px;
-    font-size: 12px;
+    margin-top: 8px;
     color: var(--sub);
-    line-height: 1.55;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
 .notice {
-    min-height: 20px;
+    min-height: 18px;
 }
+
+/* =========================
+   告警表格
+========================= */
 
 .alerts-panel {
     padding: 12px 14px 14px;
 }
 
 .table-wrap {
-    overflow: auto;
     margin-top: 8px;
+    overflow: auto;
     border: 1px solid rgba(72, 91, 78, .13);
     border-radius: 10px;
 }
@@ -764,18 +804,18 @@ textarea {
 .table {
     width: 100%;
     min-width: 760px;
-    background: #fff;
     border-collapse: collapse;
+    background: #fff;
 }
 
 .table th,
 .table td {
     padding: 10px;
     border-bottom: 1px solid rgba(148, 163, 184, .14);
+    color: var(--txt);
     font-size: 12px;
     text-align: left;
     vertical-align: middle;
-    color: var(--txt);
 }
 
 .table tbody tr:last-child td {
@@ -787,12 +827,12 @@ textarea {
 }
 
 .table th {
-    color: var(--sub);
-    font-weight: 800;
     position: sticky;
     top: 0;
-    background: #f0f4ee;
     z-index: 1;
+    background: #f0f4ee;
+    color: var(--sub);
+    font-weight: 800;
 }
 
 .badge {
@@ -800,8 +840,8 @@ textarea {
     align-items: center;
     gap: 6px;
     padding: 4px 10px;
-    border-radius: 999px;
     border: 1px solid rgba(148, 163, 184, .22);
+    border-radius: 999px;
     background: #fff;
     font-size: 11px;
     white-space: nowrap;
@@ -810,42 +850,31 @@ textarea {
 .badge.ok {
     border-color: rgba(63, 122, 79, .30);
     color: var(--ok);
-    background: rgba(63, 122, 79, .04);
 }
 
 .badge.warn {
     border-color: rgba(180, 116, 45, .34);
     color: var(--warn);
-    background: rgba(180, 116, 45, .04);
 }
 
 .badge.danger {
     border-color: rgba(184, 90, 75, .34);
     color: var(--danger);
-    background: rgba(184, 90, 75, .04);
 }
 
 .btn {
     padding: 7px 12px;
-    border-radius: 999px;
     border: 1px solid rgba(148, 163, 184, .22);
+    border-radius: 999px;
     background: #fff;
     color: var(--txt);
     font-size: 12px;
     cursor: pointer;
-    transition:
-        border-color .15s ease,
-        background .15s ease,
-        transform .15s ease;
 }
 
 .btn:hover {
     border-color: rgba(71, 111, 90, .34);
     background: #f0f4ee;
-}
-
-.btn:active {
-    transform: translateY(1px);
 }
 
 .btn.primary {
@@ -856,8 +885,8 @@ textarea {
 }
 
 .btn.primary:hover {
-    background: #3f654f;
     border-color: #3f654f;
+    background: #3f654f;
 }
 
 .muted {
@@ -868,11 +897,9 @@ textarea {
     display: none;
 }
 
-@media (max-width: 1180px) {
-    .dashboard-charts {
-        grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
-    }
-}
+/* =========================
+   響應式
+========================= */
 
 @media (max-width: 1100px) {
     .dashboard-overview {
@@ -880,37 +907,27 @@ textarea {
     }
 
     .dashboard-charts {
-        grid-template-columns: 1fr;
-    }
-
-    .chart-main,
-    .ai-analysis-card {
-        min-height: auto;
-    }
-
-    .spark {
-        height: 210px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 900px) {
     .app-shell {
         display: block;
-        width: 100vw;
-        max-width: 100vw;
+        width: 100%;
+        max-width: 100%;
         margin: 0;
     }
 
     .main {
-        width: 100vw;
-        max-width: 100vw;
+        width: 100%;
+        max-width: 100%;
         margin: 0;
-        min-width: 0;
     }
 
     .wrap {
-        max-width: 100%;
         width: 100%;
+        max-width: 100%;
         margin: 14px 0 30px;
         padding: 0 12px;
     }
@@ -922,10 +939,10 @@ textarea {
 
     .sidebar {
         position: fixed;
-        left: -250px;
         top: 0;
-        height: 100vh;
+        left: -250px;
         width: 240px;
+        height: 100vh;
         flex: none;
         transition: left .25s ease;
         box-shadow: 14px 0 28px rgba(38, 48, 44, .12);
@@ -938,9 +955,9 @@ textarea {
     .overlay {
         position: fixed;
         inset: 0;
-        background: rgba(36, 48, 52, .30);
-        display: none;
         z-index: 25;
+        display: none;
+        background: rgba(36, 48, 52, .30);
     }
 
     .overlay.show {
@@ -948,24 +965,45 @@ textarea {
     }
 
     .summary-strip {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dashboard-charts {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-analysis-card,
+    .chart-main {
+        height: auto;
+        min-height: 0;
+    }
+
+    .ai-chart-wrapper {
+        height: 220px;
+        min-height: 220px;
+        flex-basis: 220px;
+    }
+
+    .spark {
+        height: 200px;
+        min-height: 200px;
+        flex-basis: 200px;
     }
 }
 
 @media (max-width: 768px) {
-
-    .wrap,
-    .frame {
-        max-width: 100%;
-        width: 100%;
-    }
-
     .topbar {
         padding: 11px 12px;
     }
 
     .topbar-clock {
         display: none;
+    }
+
+    .wrap,
+    .frame {
+        width: 100%;
+        max-width: 100%;
     }
 
     .health-panel {
@@ -976,53 +1014,25 @@ textarea {
         right: 8px;
         bottom: 10px;
         transform: scale(.82);
-        transform-origin: bottom right;
+        transform-origin: right bottom;
     }
 
     .sensor-grid {
         grid-template-columns: 1fr;
     }
 
-    .ai-metric-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .ai-metric-item {
-        min-height: 72px;
-        padding: 10px;
-    }
-
-    .ai-metric-item b {
-        font-size: 18px;
-    }
-
-    .ai-chart-wrapper {
-        height: 250px;
-        min-height: 250px;
-    }
-
     .chart-head {
-        align-items: stretch;
         flex-direction: column;
+        align-items: stretch;
     }
 
     .chart-head-actions {
         justify-content: space-between;
     }
 
-    .table {
-        width: 100%;
-    }
-
     .table-wrap {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-    }
-
-    td {
-        white-space: normal;
-        word-break: break-word;
-        overflow-wrap: anywhere;
     }
 
     .btn.primary {
@@ -1034,17 +1044,16 @@ textarea {
 
 @media (max-width: 600px) {
     .wrap {
-        max-width: 100%;
         margin: 0;
         padding: 0;
     }
 
     .frame {
-        border-left: none;
-        border-right: none;
-        border-radius: 0;
         margin: 0;
         padding: 10px;
+        border-right: none;
+        border-left: none;
+        border-radius: 0;
     }
 
     .panel {
@@ -1054,9 +1063,9 @@ textarea {
     .user-pill {
         max-width: 120px;
         overflow: hidden;
+        font-size: 11px;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 11px;
     }
 
     .health-title {
@@ -1067,20 +1076,26 @@ textarea {
         max-width: 75%;
     }
 
+    .ai-metric-grid {
+        grid-template-columns: 1fr;
+    }
+
     .ai-chart-wrapper {
-        height: 230px;
-        min-height: 230px;
-        padding: 8px 2px 2px;
+        height: 210px;
+        min-height: 210px;
+        flex-basis: 210px;
     }
 
     .spark {
         height: 180px;
+        min-height: 180px;
+        flex-basis: 180px;
     }
 }
 
 @media (max-width: 560px) {
     .summary-strip {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .summary-item {
@@ -1100,16 +1115,8 @@ textarea {
         font-size: 22px;
     }
 
-    .ai-metric-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .ai-metric-item {
-        min-height: 66px;
-    }
-
     .chart-head-actions {
-        align-items: flex-start;
+        align-items: stretch;
         flex-direction: column;
     }
 
@@ -1134,10 +1141,5 @@ textarea {
     .health-meta-item {
         flex: 1;
         min-width: 120px;
-    }
-
-    .ai-chart-wrapper {
-        height: 215px;
-        min-height: 215px;
     }
 }
