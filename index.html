@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>智慧植物照護系統 | 儀表板</title>
 
     <link rel="stylesheet" href="ui.css" />
@@ -11,10 +12,14 @@
 </head>
 
 <body class="dashboard-page">
+
     <div class="app-shell">
+
         <aside class="sidebar">
+
             <div class="side-top">
                 <div class="logo-dot">植</div>
+
                 <div class="side-brand">
                     <div class="name">智慧植物照護系統</div>
                     <div class="sub"></div>
@@ -29,52 +34,74 @@
                     <span>登出</span>
                 </a>
             </div>
+
         </aside>
 
         <main class="main">
+
             <div class="topbar">
+
                 <div class="topbar-left">
-                    <button id="btnMenu" class="menu-btn">☰</button>
+
+                    <button id="btnMenu" class="menu-btn" type="button" aria-label="開啟選單">
+                        ☰
+                    </button>
+
                     <div>
                         <div class="topbar-title-main">儀表板</div>
                         <div class="topbar-title-sub"></div>
                     </div>
+
                 </div>
 
                 <div class="topbar-right">
+
                     <div class="topbar-clock">
                         <div id="topDate">0000-00-00</div>
                         <div id="topTime">00:00:00</div>
                     </div>
+
                     <div class="user-pill" id="welcomeName">—</div>
+
                 </div>
+
             </div>
 
             <div class="wrap">
+
                 <div class="frame">
 
                     <div class="dashboard-overview">
+
                         <section class="panel health-panel" id="healthPanel">
+
                             <div class="health-kicker">
                                 <span>植物健康狀態</span>
-                                <span class="health-badge" id="healthBadge">讀取中</span>
+                                <span class="health-badge" id="healthBadge">
+                                    讀取中
+                                </span>
                             </div>
 
-                            <h1 class="health-title" id="healthTitle">正在讀取設備資料</h1>
+                            <h1 class="health-title" id="healthTitle">
+                                正在讀取設備資料
+                            </h1>
 
                             <div class="health-summary" id="healthSummary">
                                 系統正在整理濕度、水位、澆水模式與連線狀態。
                             </div>
 
                             <div class="health-meta">
+
                                 <div class="health-meta-item">
                                     <span>平均土壤濕度</span>
                                     <b id="healthSoil">—</b>
                                 </div>
+
                                 <div class="health-meta-item">
                                     <span>最後更新</span>
                                     <b id="healthUpdated">—</b>
                                 </div>
+
                             </div>
 
                             <div class="plant-visual" aria-hidden="true">
@@ -84,38 +111,61 @@
                                 <span class="plant-drop"></span>
                                 <span class="plant-soil"></span>
                             </div>
+
                         </section>
 
                         <section class="panel sensor-panel">
+
                             <div class="sensor-grid">
+
                                 <div class="sensor-item info" id="soilSignal">
                                     <div class="sensor-label">土壤濕度</div>
-                                    <div class="sensor-value" id="soilSignalValue">—</div>
-                                    <div class="sensor-meta" id="soilSignalMeta">等待資料</div>
+                                    <div class="sensor-value" id="soilSignalValue">
+                                        —
+                                    </div>
+                                    <div class="sensor-meta" id="soilSignalMeta">
+                                        等待資料
+                                    </div>
                                 </div>
 
                                 <div class="sensor-item ok" id="waterSignal">
                                     <div class="sensor-label">水箱水位</div>
-                                    <div class="sensor-value" id="waterSignalValue">—</div>
-                                    <div class="sensor-meta" id="waterSignalMeta">等待資料</div>
+                                    <div class="sensor-value" id="waterSignalValue">
+                                        —
+                                    </div>
+                                    <div class="sensor-meta" id="waterSignalMeta">
+                                        等待資料
+                                    </div>
                                 </div>
 
                                 <div class="sensor-item info" id="autoSignal">
                                     <div class="sensor-label">自動澆水</div>
-                                    <div class="sensor-value" id="autoSignalValue">—</div>
-                                    <div class="sensor-meta" id="autoSignalMeta">等待資料</div>
+                                    <div class="sensor-value" id="autoSignalValue">
+                                        —
+                                    </div>
+                                    <div class="sensor-meta" id="autoSignalMeta">
+                                        等待資料
+                                    </div>
                                 </div>
 
                                 <div class="sensor-item ok" id="connectionSignal">
                                     <div class="sensor-label">設備連線</div>
-                                    <div class="sensor-value" id="connectionSignalValue">—</div>
-                                    <div class="sensor-meta" id="connectionSignalMeta">等待資料</div>
+                                    <div class="sensor-value" id="connectionSignalValue">
+                                        —
+                                    </div>
+                                    <div class="sensor-meta" id="connectionSignalMeta">
+                                        等待資料
+                                    </div>
                                 </div>
+
                             </div>
+
                         </section>
+
                     </div>
 
                     <div class="summary-strip panel">
+
                         <div class="summary-item">
                             <span>設備總數</span>
                             <b id="statDevices">0</b>
@@ -145,51 +195,97 @@
                             <span>水位不足</span>
                             <b id="statNoWater">0</b>
                         </div>
+
                     </div>
 
                     <div class="dashboard-charts">
+
                         <section class="panel chart-card ai-analysis-card">
+
                             <div class="chart-head">
+
                                 <div>
-                                    <div class="section-h">AI 影像分析</div>
-                                    <div class="chart-sub">Raspberry Pi 影像辨識</div>
+                                    <div class="section-h">AI 影像分析趨勢</div>
+                                    <div class="chart-sub">
+                                        葉面覆蓋率與葉色異常比例
+                                    </div>
                                 </div>
-                                <div class="trend-meta" id="aiMetricTime">—</div>
+
+                                <div class="chart-head-actions">
+
+                                    <select id="aiChartRange" class="chart-range-select" aria-label="選擇影像分析資料範圍">
+                                        <option value="24">最近 24 筆</option>
+                                        <option value="48">最近 48 筆</option>
+                                        <option value="96">最近 96 筆</option>
+                                        <option value="168">最近 7 天</option>
+                                    </select>
+
+                                    <div class="trend-meta" id="aiMetricTime">
+                                        —
+                                    </div>
+
+                                </div>
+
                             </div>
 
                             <div class="ai-metric-grid">
+
                                 <div class="ai-metric-item">
-                                    <span>葉面覆蓋率</span>
+                                    <span>最新葉面覆蓋率</span>
                                     <b id="aiLeafCover">—</b>
                                 </div>
 
                                 <div class="ai-metric-item">
-                                    <span>葉色異常比例</span>
+                                    <span>最新葉色異常比例</span>
                                     <b id="aiRedRatio">—</b>
                                 </div>
 
                                 <div class="ai-metric-item">
-                                    <span>分析狀態</span>
+                                    <span>最新分析狀態</span>
                                     <b id="aiStatus">—</b>
                                 </div>
+
                             </div>
 
-                            <div class="notice" id="aiMetricNotice">等待影像分析資料</div>
+                            <div class="ai-chart-wrapper">
+
+                                <canvas id="aiMetricsChart" aria-label="AI 影像分析趨勢圖"></canvas>
+
+                                <div class="chart-empty" id="aiChartEmpty" hidden>
+                                    尚無影像分析趨勢資料
+                                </div>
+
+                            </div>
+
+                            <div class="notice" id="aiMetricNotice">
+                                等待影像分析資料
+                            </div>
+
                         </section>
 
                         <section class="panel chart-card chart-main">
+
                             <div class="chart-head">
+
                                 <div>
                                     <div class="section-h">土壤濕度趨勢</div>
                                     <div class="chart-sub">近 1 小時</div>
                                 </div>
-                                <div class="trend-meta" id="avgSoilNow">—</div>
+
+                                <div class="trend-meta" id="avgSoilNow">
+                                    —
+                                </div>
+
                             </div>
 
-                            <svg class="spark spark-large" viewBox="0 0 100 90" preserveAspectRatio="none">
+                            <svg class="spark spark-large" viewBox="0 0 100 90" preserveAspectRatio="none"
+                                aria-label="土壤濕度趨勢圖">
                                 <line class="gridline" x1="0" y1="30" x2="100" y2="30"></line>
+
                                 <line class="gridline" x1="0" y1="60" x2="100" y2="60"></line>
+
                                 <polygon class="area" id="sparkSoilArea" points=""></polygon>
+
                                 <polyline id="sparkSoil" points=""></polyline>
                             </svg>
 
@@ -198,41 +294,58 @@
                             </div>
 
                             <span id="lastRefresh" hidden>—</span>
+
                         </section>
+
                     </div>
 
                     <section class="panel alerts-panel">
+
                         <div class="section-h">即時告警清單</div>
+
                         <span id="alertsNow" hidden>—</span>
 
                         <div class="table-wrap">
+
                             <table class="table">
+
                                 <thead>
                                     <tr>
-                                        <th style="width:140px;">設備</th>
-                                        <th style="width:170px;">告警類型</th>
-                                        <th style="width:220px;">狀態摘要</th>
-                                        <th style="width:170px;">最後回傳</th>
-                                        <th style="width:140px;">操作</th>
+                                        <th style="width: 140px;">設備</th>
+                                        <th style="width: 170px;">告警類型</th>
+                                        <th style="width: 220px;">狀態摘要</th>
+                                        <th style="width: 170px;">最後回傳</th>
+                                        <th style="width: 140px;">操作</th>
                                     </tr>
                                 </thead>
+
                                 <tbody id="alertsBody">
                                     <tr>
-                                        <td colspan="5" class="muted">讀取中...</td>
+                                        <td colspan="5" class="muted">
+                                            讀取中...
+                                        </td>
                                     </tr>
                                 </tbody>
+
                             </table>
+
                         </div>
+
                     </section>
 
                 </div>
+
             </div>
+
         </main>
+
     </div>
 
     <div id="overlay" class="overlay"></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="module" src="js/index.js"></script>
+
 </body>
 
 </html>
