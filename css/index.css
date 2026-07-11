@@ -1228,3 +1228,33 @@ textarea {
         min-width: 120px;
     }
 }
+
+/* 儀表板趨勢圖：固定雙欄並保留下方內容的頁面捲動 */
+body.dashboard-page {
+    overflow-y: auto !important;
+}
+
+body.dashboard-page .main,
+body.dashboard-page .wrap {
+    height: auto !important;
+    min-height: 0;
+    overflow: visible !important;
+}
+
+body.dashboard-page .dashboard-charts {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch;
+}
+
+body.dashboard-page .dashboard-charts > .chart-card {
+    grid-column: span 1 !important;
+    height: clamp(280px, 42vw, 390px);
+    min-height: 0;
+}
+
+body.dashboard-page .ai-chart-wrapper,
+body.dashboard-page .spark {
+    height: auto !important;
+    min-height: 0 !important;
+    flex: 1 1 0;
+}
