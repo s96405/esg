@@ -278,19 +278,12 @@
 
                             </div>
 
-                            <svg class="spark spark-large" viewBox="0 0 100 90" preserveAspectRatio="none"
-                                aria-label="土壤濕度趨勢圖">
-                                <line class="gridline" x1="0" y1="30" x2="100" y2="30"></line>
+                            <div class="soil-chart-wrapper">
+                                <canvas id="soilTrendChart" aria-label="土壤濕度趨勢圖"></canvas>
 
-                                <line class="gridline" x1="0" y1="60" x2="100" y2="60"></line>
-
-                                <polygon class="area" id="sparkSoilArea" points=""></polygon>
-
-                                <polyline id="sparkSoil" points=""></polyline>
-                            </svg>
-
-                            <div class="spark-empty" id="sparkSoilEmpty" hidden>
-                                尚無近 1 小時濕度資料
+                                <div class="chart-empty" id="soilChartEmpty" hidden>
+                                    尚無近 1 小時濕度資料
+                                </div>
                             </div>
 
                             <span id="lastRefresh" hidden>—</span>

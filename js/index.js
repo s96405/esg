@@ -258,8 +258,13 @@ const avgSoilNowEl =
 const soilTrendRangeEl =
   document.getElementById("soilTrendRange");
 
-const sparkSoilEmptyEl =
-  document.getElementById("sparkSoilEmpty");
+const soilChartEmptyEl =
+  document.getElementById("soilChartEmpty");
+
+const soilTrendCanvasEl =
+  document.getElementById("soilTrendChart");
+
+let soilTrendChart = null;
 
 const alertsNowEl =
   document.getElementById("alertsNow");
@@ -366,125 +371,85 @@ function setStateClass(element, state) {
   }
 }
 
-/* =========================
-   土壤濕度 SVG 趨勢圖
-========================= */
+function renderSoilTrendChart(rows, threshold) {
+  if (!soilTrendCanvasEl || typeof window.Chart === "undefined") return;
 
-function buildSparkPoints(values) {
-  const count = values.length;
+  const labels = rows.map((row) => fmtTime(row.time));
+  const values = rows.map((row) => row.value);
+  const pointRadius = rows.length > 18 ? 0 : 2.5;
+  const thresholdValues = rows.map(() => threshold);
 
-  if (!count) return "";
+  if (soilChartEmptyEl) soilChartEmptyEl.hidden = Boolean(rows.length);
 
-  const width = 100;
-  const height = 90;
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "土壤濕度",
+        data: values,
+        borderColor: "#4f8fa3",
+        backgroundColor: "rgba(79, 143, 163, 0.12)",
+        borderWidth: 2,
+        pointRadius,
+        pointHoverRadius: 5,
+        tension: 0.3,
+        fill: false,
+        spanGaps: true
+      },
+      {
+        label: "乾燥門檻",
+        data: thresholdValues,
+        borderColor: "#b4742d",
+        borderWidth: 2,
+        borderDash: [6, 5],
+        pointRadius: 0,
+        pointHoverRadius: 0,
+        tension: 0,
+        fill: false
+      }
+    ]
+  };
 
-  const stepX =
-    count === 1
-      ? 0
-      : width / (count - 1);
-
-  const validValues = values.map((value) => {
-    if (
-      value === null ||
-      value === undefined
-    ) {
-      return null;
-    }
-
-    return value;
-  });
-
-  let min = Infinity;
-  let max = -Infinity;
-
-  validValues.forEach((value) => {
-    if (value === null) return;
-
-    min = Math.min(min, value);
-    max = Math.max(max, value);
-  });
-
-  if (
-    !Number.isFinite(min) ||
-    !Number.isFinite(max)
-  ) {
-    min = 0;
-    max = 1;
-  }
-
-  if (max === min) {
-    max = min + 1;
-  }
-
-  return validValues
-    .map((value, index) => {
-      const x = stepX * index;
-
-      const number =
-        value === null
-          ? min
-          : value;
-
-      const ratio =
-        (number - min) /
-        (max - min);
-
-      const y =
-        height -
-        ratio * (height - 6) -
-        3;
-
-      return `${x.toFixed(1)},${y.toFixed(1)}`;
-    })
-    .join(" ");
-}
-
-function setSpark(polyId, areaId, points) {
-  const poly =
-    document.getElementById(polyId);
-
-  const area =
-    document.getElementById(areaId);
-
-  const empty =
-    document.getElementById(`${polyId}Empty`);
-
-  if (!poly || !area) return;
-
-  poly.setAttribute(
-    "points",
-    points || ""
-  );
-
-  if (empty) {
-    empty.hidden = Boolean(points);
-  }
-
-  poly.classList.toggle(
-    "is-empty",
-    !points
-  );
-
-  if (!points) {
-    area.setAttribute("points", "");
+  if (soilTrendChart) {
+    soilTrendChart.data = data;
+    soilTrendChart.options.plugins.tooltip.callbacks.title = (items) =>
+      items[0] ? fmtTime(rows[items[0].dataIndex].time) : "";
+    soilTrendChart.update();
     return;
   }
 
-  const pointArray =
-    points.split(" ");
-
-  const firstX =
-    pointArray[0].split(",")[0];
-
-  const lastX =
-    pointArray[
-      pointArray.length - 1
-    ].split(",")[0];
-
-  area.setAttribute(
-    "points",
-    `${firstX},90 ${points} ${lastX},90`
-  );
+  soilTrendChart = new window.Chart(soilTrendCanvasEl, {
+    type: "line",
+    data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: "top",
+          align: "end",
+          labels: { usePointStyle: true, boxWidth: 8, boxHeight: 8, padding: 16 }
+        },
+        tooltip: {
+          callbacks: {
+            title: (items) => items[0] ? fmtTime(rows[items[0].dataIndex].time) : "",
+            label: (context) => `${context.dataset.label}：${context.parsed.y.toFixed(1)}%`
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 6 } },
+        y: {
+          min: 0,
+          max: 100,
+          ticks: { callback: (value) => `${value}%` },
+          grid: { color: "rgba(104, 117, 110, 0.14)" }
+        }
+      }
+    }
+  });
 }
 
 /* =========================
@@ -1176,8 +1141,8 @@ async function loadDashboard() {
     soilTrendRangeEl.textContent = "尚無資料";
   }
 
-  if (sparkSoilEmptyEl) {
-    sparkSoilEmptyEl.textContent = "尚無土壤濕度資料";
+  if (soilChartEmptyEl) {
+    soilChartEmptyEl.textContent = "尚無土壤濕度資料";
   }
 
     statOnlineEl.textContent = 0;
@@ -1194,11 +1159,7 @@ async function loadDashboard() {
       </tr>
     `;
 
-    setSpark(
-      "sparkSoil",
-      "sparkSoilArea",
-      ""
-    );
+    renderSoilTrendChart([], 30);
 
     avgSoilNowEl.textContent = "—";
     alertsNowEl.textContent = "—";
@@ -1682,7 +1643,7 @@ if (!validTrendRows.length) {
   }
 }
 
-let soilTrendValues = [];
+let soilTrendRows = [];
 
 if (trendMode === "hour") {
   /*
@@ -1731,11 +1692,10 @@ if (trendMode === "hour") {
     ) {
       const bucket = buckets.get(key);
 
-      soilTrendValues.push(
-        bucket
-          ? bucket.sum / bucket.count
-          : null
-      );
+      soilTrendRows.push({
+        time: new Date(key).toISOString(),
+        value: bucket ? bucket.sum / bucket.count : null
+      });
     }
   }
 } else {
@@ -1743,36 +1703,30 @@ if (trendMode === "hour") {
    * 備援資料：
    * 直接畫最近 24 筆
    */
-  soilTrendValues = validTrendRows.map(
-    (row) => row.soilNumber
-  );
+  soilTrendRows = validTrendRows.map((row) => ({
+    time: row.created_at,
+    value: row.soilNumber
+  }));
 }
 
-const soilTrendPoints =
-  buildSparkPoints(soilTrendValues);
-
-setSpark(
-  "sparkSoil",
-  "sparkSoilArea",
-  soilTrendPoints
-);
+renderSoilTrendChart(soilTrendRows, avgThreshold);
 
 /* 更新圖表顯示範圍文字 */
 if (soilTrendRangeEl) {
-  if (!soilTrendValues.length) {
+  if (!soilTrendRows.length) {
     soilTrendRangeEl.textContent = "尚無資料";
   } else if (trendMode === "hour") {
     soilTrendRangeEl.textContent = "近 1 小時";
   } else {
     soilTrendRangeEl.textContent =
-      `最近 ${soilTrendValues.length} 筆`;
+      `最近 ${soilTrendRows.length} 筆`;
   }
 }
 
 /* 更新空資料提示 */
-if (sparkSoilEmptyEl) {
-  sparkSoilEmptyEl.textContent =
-    soilTrendValues.length
+if (soilChartEmptyEl) {
+  soilChartEmptyEl.textContent =
+    soilTrendRows.length
       ? ""
       : "尚無土壤濕度資料";
 }
