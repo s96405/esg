@@ -18,15 +18,13 @@
       </span>
       <span class="brand-copy">
         <strong>智慧植物照護系統</strong>
-        <small>Calm Botanical SaaS</small>
       </span>
     </a>
 
     <nav class="site-nav" aria-label="頁面導覽">
       <a href="#features">功能</a>
-      <a href="#flow">流程</a>
-      <a href="#tech">技術架構</a>
-      <a href="#preview">預覽</a>
+      <a href="#flow">運作方式</a>
+      <a href="#preview">系統預覽</a>
     </nav>
 
     <div class="header-actions">
@@ -37,187 +35,174 @@
 
   <main id="top">
     <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Sustainability-style product landing</p>
-        <h1>智慧植物照護系統</h1>
-        <p class="lead">讓植物照護變得自動、即時、可追蹤</p>
+      <figure class="hero-media reveal">
+        <img
+          src="https://images.unsplash.com/photo-1773332611522-06b86b48cbf1?q=80&amp;w=1740&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="使用手機照護室內盆栽"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <figcaption class="hero-media-copy">
+          <span>日常植物照護</span>
+          <h1>讓照護，回到生活的節奏</h1>
+          <p>感測環境變化，適時提醒與自動澆水。</p>
+        </figcaption>
+      </figure>
+
+      <div class="hero-copy reveal">
+        <p class="lead">讓每一次照護，都恰到好處</p>
         <p class="summary">
-          以感測資料、規則控制與即時告警，建立一套乾淨、可視化的植物照護後台。
+          從環境感測、即時提醒到自動澆水，以清楚而安靜的方式，陪你掌握植物的每一次變化。
         </p>
 
-        <div class="hero-actions">
-          <a class="primary-btn" href="login.html" data-auth-modal="login">登入</a>
-          <a class="ghost-btn" href="register.html" data-auth-modal="register">註冊</a>
-          <a class="text-btn" href="#features">查看功能介紹</a>
+        <div class="hero-detail">
+          <span>環境感測</span>
+          <span>自動照護</span>
+          <span>即時提醒</span>
         </div>
-
-        <ul class="hero-points">
-          <li>土壤濕度監控</li>
-          <li>水箱水位偵測</li>
-          <li>自動 / 手動澆水</li>
-          <li>LINE 推播告警</li>
-        </ul>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual reveal" aria-label="系統畫面預覽">
         <div class="hero-panel">
           <div class="panel-head">
-            <div>
-              <div class="panel-kicker">Plant health overview</div>
-              <div class="panel-title">系統即時狀態</div>
+            <div class="panel-brand">
+              <span class="panel-brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <path d="M24 27V15"/><path d="M24 19C18 19 14 15 14 9c6 0 10 4 10 10Z"/>
+                  <path d="M24 16c0-6 4-10 10-10 0 6-4 10-10 10Z"/><path d="M14 28h20l-2 13H16l-2-13Z"/><path d="M12 28h24"/>
+                </svg>
+              </span>
+              <div>
+                <div class="panel-title">智慧植物照護系統</div>
+                <div class="panel-kicker">系統畫面預覽</div>
+              </div>
             </div>
-            <span class="status-pill ok">在線中</span>
+            <span class="status-pill ok"><i></i> 狀態總覽</span>
           </div>
 
-          <div class="visual-grid">
-            <div class="stat-card main-stat">
-              <span class="stat-label">土壤濕度</span>
-              <strong>42%</strong>
-              <span class="stat-note">目前穩定</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-label">水位</span>
-              <strong>正常</strong>
-              <span class="stat-note">水箱有水</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-label">模式</span>
-              <strong>自動</strong>
-              <span class="stat-note">可自動澆水</span>
-            </div>
-            <div class="stat-card">
-              <span class="stat-label">最近澆水</span>
-              <strong>28 秒</strong>
-              <span class="stat-note">上次動作</span>
-            </div>
-          </div>
+          <div class="product-preview">
+            <aside class="preview-nav" aria-hidden="true">
+              <span class="active">總覽</span>
+              <span>土壤濕度</span>
+              <span>水箱水位</span>
+              <span>自動澆水</span>
+              <span>即時告警</span>
+            </aside>
 
-          <div class="plant-visual">
-            <span class="humidity-ring"></span>
-            <span class="leaf leaf-a"></span>
-            <span class="leaf leaf-b"></span>
-            <span class="leaf leaf-c"></span>
-            <span class="drop drop-a"></span>
-            <span class="drop drop-b"></span>
-            <span class="soil-line"></span>
+            <div class="preview-content">
+              <div class="preview-content-head">
+                <div>
+                  <strong>植物健康總覽</strong>
+                  <small>清楚掌握目前照護狀態</small>
+                </div>
+                <span>介面預覽</span>
+              </div>
+
+              <div class="visual-grid">
+                <div class="stat-card">
+                  <span class="stat-icon leaf-icon" aria-hidden="true"></span>
+                  <span class="stat-label">土壤濕度</span>
+                  <strong>即時顯示</strong>
+                  <span class="stat-note">掌握盆土狀態</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon water-icon" aria-hidden="true"></span>
+                  <span class="stat-label">水箱水位</span>
+                  <strong>狀態判定</strong>
+                  <span class="stat-note">確認供水狀況</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon care-icon" aria-hidden="true"></span>
+                  <span class="stat-label">自動澆水</span>
+                  <strong>依設定執行</strong>
+                  <span class="stat-note">維持穩定照護</span>
+                </div>
+                <div class="stat-card">
+                  <span class="stat-icon alert-icon" aria-hidden="true"></span>
+                  <span class="stat-label">即時告警</span>
+                  <strong>主動提醒</strong>
+                  <span class="stat-note">異常狀態不遺漏</span>
+                </div>
+              </div>
+
+              <div class="care-record">
+                <div>
+                  <span>照護紀錄</span>
+                  <strong>最近狀態與操作集中呈現</strong>
+                </div>
+                <svg viewBox="0 0 220 64" aria-hidden="true" focusable="false">
+                  <path d="M4 52c24-3 24-20 49-21s26 16 49 12 29-30 52-27 26 22 62 11"/>
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="features" class="section">
-      <div class="section-head">
-        <p class="eyebrow">功能介紹</p>
-        <h2>從感測到提醒，完整串起植物照護流程</h2>
-      </div>
-      <div class="feature-grid">
-        <article class="feature-card">
-          <span class="feature-mark">01</span>
-          <h3>土壤濕度監控</h3>
-          <p>即時掌握盆土濕度，作為澆水與告警的主要依據。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">02</span>
-          <h3>水箱水位偵測</h3>
-          <p>水位異常時快速提示，避免設備空轉與照護中斷。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">03</span>
-          <h3>自動 / 手動澆水</h3>
-          <p>可依門檻自動補水，也能在控制台手動介入。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">04</span>
-          <h3>水泵控制</h3>
-          <p>清楚管理水泵啟停，降低誤操作與重複送指令。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">05</span>
-          <h3>LINE 推播告警</h3>
-          <p>在需要處理時立即通知，縮短反應時間。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">06</span>
-          <h3>歷史紀錄</h3>
-          <p>保存感測與動作歷程，方便回顧與調整設定。</p>
-        </article>
-        <article class="feature-card">
-          <span class="feature-mark">07</span>
-          <h3>設備狀態監控</h3>
-          <p>設備在線、異常、維護狀態一目了然。</p>
-        </article>
-      </div>
+    <section id="features" class="value-strip reveal-group" aria-label="主要功能">
+      <article class="value-item">
+        <span class="value-icon leaf-outline" aria-hidden="true"></span>
+        <div><h2>精準感測</h2><p>即時監測土壤濕度與水箱水位，掌握植物真正需要。</p></div>
+      </article>
+      <article class="value-item">
+        <span class="value-icon drop-outline" aria-hidden="true"></span>
+        <div><h2>自動照護</h2><p>依設定條件自動澆水，在適當時機提供恰好的照護。</p></div>
+      </article>
+      <article class="value-item">
+        <span class="value-icon bell-outline" aria-hidden="true"></span>
+        <div><h2>即時提醒</h2><p>設備或環境發生異常時主動通知，讓重要狀態不遺漏。</p></div>
+      </article>
     </section>
 
-    <section id="flow" class="section section-alt">
-      <div class="section-head">
-        <p class="eyebrow">系統流程</p>
-        <h2>ESP32 到 Supabase，再到操作與通知</h2>
+    <section id="flow" class="section flow-section">
+      <div class="section-head reveal">
+        <p class="eyebrow">運作方式</p>
+        <h2>從感知到照護，簡單而清楚</h2>
+        <p>將感測、執行與提醒串成穩定的日常照護流程。</p>
       </div>
-      <div class="flow-grid">
-        <div class="flow-step"><span>1</span><strong>ESP32 感測資料</strong><p>土壤濕度、水位、設備狀態</p></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step"><span>2</span><strong>上傳 Supabase</strong><p>統一保存最新與歷史資料</p></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step"><span>3</span><strong>網頁儀表板顯示</strong><p>健康總覽、告警與歷史趨勢</p></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step"><span>4</span><strong>使用者控制與門檻</strong><p>自動 / 手動澆水與設備操作</p></div>
-        <div class="flow-arrow">→</div>
-        <div class="flow-step"><span>5</span><strong>異常時推播提醒</strong><p>把需要處理的狀態即時送出</p></div>
-      </div>
-    </section>
-
-    <section id="tech" class="section">
-      <div class="section-head">
-        <p class="eyebrow">技術架構</p>
-        <h2>以輕量前端與雲端資料層組成</h2>
-      </div>
-      <div class="tech-grid">
-        <span>ESP32</span>
-        <span>土壤濕度感測器</span>
-        <span>水位感測</span>
-        <span>Relay / Pump</span>
-        <span>Supabase</span>
-        <span>HTML / CSS / JavaScript</span>
-        <span>LINE 通知</span>
+      <div class="flow-grid reveal-group">
+        <article class="flow-step"><div class="flow-symbol sensor-symbol" aria-hidden="true"></div><strong>感測環境</strong><p>持續讀取土壤濕度、水箱水位與設備狀態。</p></article>
+        <span class="flow-line" aria-hidden="true"></span>
+        <article class="flow-step"><div class="flow-symbol water-symbol" aria-hidden="true"></div><strong>自動執行</strong><p>依照設定條件執行澆水，照護從不間斷。</p></article>
+        <span class="flow-line" aria-hidden="true"></span>
+        <article class="flow-step"><div class="flow-symbol notice-symbol" aria-hidden="true"></div><strong>即時通知</strong><p>異常狀況主動告警，讓你第一時間掌握。</p></article>
       </div>
     </section>
 
     <section id="preview" class="section preview-section">
-      <div class="section-head">
-        <p class="eyebrow">Dashboard mockup</p>
-        <h2>用假資料先看出系統會長什麼樣子</h2>
+      <div class="section-head reveal">
+        <p class="eyebrow">系統預覽</p>
+        <h2>重要狀態，一眼就能掌握</h2>
+        <p>依照使用情境整理資訊，降低操作負擔，也保留需要的控制與歷史紀錄。</p>
       </div>
 
-      <div class="preview-grid">
-        <article class="preview-panel">
-          <div class="preview-title">即時摘要</div>
-          <div class="preview-stats">
-            <div><span>土壤濕度</span><strong>42%</strong></div>
-            <div><span>水位</span><strong>正常</strong></div>
-            <div><span>模式</span><strong>自動</strong></div>
-            <div><span>最近澆水</span><strong>28 秒</strong></div>
-            <div><span>異常提醒</span><strong>1 筆</strong></div>
-          </div>
+      <div class="preview-showcase reveal-group">
+        <article class="showcase-item">
+          <span>01</span><div><h3>儀表板</h3><p>集中查看設備、環境與影像分析結果。</p></div>
         </article>
-
-        <article class="preview-panel chart">
-          <div class="preview-title">感測趨勢</div>
-          <div class="chart-lines">
-            <span></span><span></span><span></span><span></span><span></span><span></span>
-          </div>
-          <div class="chart-caption">土壤濕度近況示意</div>
+        <article class="showcase-item">
+          <span>02</span><div><h3>控制台</h3><p>管理自動澆水設定，必要時也能手動操作。</p></div>
         </article>
-
-        <article class="preview-panel list">
-          <div class="preview-title">即時告警清單</div>
-          <div class="alert-row"><span class="badge warn">警告</span><span>水位偏低</span></div>
-          <div class="alert-row"><span class="badge ok">資訊</span><span>已切換自動模式</span></div>
-          <div class="alert-row"><span class="badge soft">記錄</span><span>手動澆水完成</span></div>
+        <article class="showcase-item">
+          <span>03</span><div><h3>歷史資料</h3><p>回顧感測與控制紀錄，掌握長期照護變化。</p></div>
         </article>
       </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <path d="M24 27V15"/><path d="M24 19C18 19 14 15 14 9c6 0 10 4 10 10Z"/>
+          <path d="M24 16c0-6 4-10 10-10 0 6-4 10-10 10Z"/><path d="M14 28h20l-2 13H16l-2-13Z"/><path d="M12 28h24"/>
+        </svg>
+      </span>
+      <strong>智慧植物照護系統</strong>
+    </div>
+    <p>讓每一次照護，都恰到好處</p>
+  </footer>
 
   <dialog id="authDialog" class="auth-dialog" aria-labelledby="authDialogTitle">
     <div class="auth-dialog-shell">
@@ -250,6 +235,39 @@
 
   <script>
     (() => {
+      document.documentElement.classList.add("js");
+
+      const siteHeader = document.querySelector(".site-header");
+      const revealItems = document.querySelectorAll(".reveal, .reveal-group > *");
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function updateHeader() {
+        siteHeader?.classList.toggle("is-scrolled", window.scrollY > 8);
+      }
+
+      document.querySelectorAll(".reveal-group").forEach((group) => {
+        Array.from(group.children).forEach((item, index) => {
+          item.style.setProperty("--reveal-delay", `${Math.min(index * 80, 240)}ms`);
+        });
+      });
+
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.14, rootMargin: "0px 0px -6%" });
+
+        revealItems.forEach((item) => revealObserver.observe(item));
+      }
+
+      updateHeader();
+      window.addEventListener("scroll", updateHeader, { passive: true });
+
       const dialog = document.getElementById("authDialog");
       const frame = document.getElementById("authDialogFrame");
       const closeButton = document.getElementById("authDialogClose");
