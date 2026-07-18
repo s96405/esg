@@ -30,8 +30,8 @@
     </nav>
 
     <div class="header-actions">
-      <a class="ghost-btn" href="login.html">登入</a>
-      <a class="primary-btn" href="register.html">註冊</a>
+      <a class="ghost-btn" href="login.html" data-auth-modal="login">登入</a>
+      <a class="primary-btn" href="register.html" data-auth-modal="register">註冊</a>
     </div>
   </header>
 
@@ -46,8 +46,8 @@
         </p>
 
         <div class="hero-actions">
-          <a class="primary-btn" href="login.html">登入</a>
-          <a class="ghost-btn" href="register.html">註冊</a>
+          <a class="primary-btn" href="login.html" data-auth-modal="login">登入</a>
+          <a class="ghost-btn" href="register.html" data-auth-modal="register">註冊</a>
           <a class="text-btn" href="#features">查看功能介紹</a>
         </div>
 
@@ -218,5 +218,116 @@
       </div>
     </section>
   </main>
+
+  <dialog id="authDialog" class="auth-dialog" aria-labelledby="authDialogTitle">
+    <div class="auth-dialog-shell">
+      <header class="auth-dialog-head">
+        <div class="auth-dialog-brand">
+          <span class="auth-dialog-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <path d="M24 27V15"/><path d="M24 19C18 19 14 15 14 9c6 0 10 4 10 10Z"/>
+              <path d="M24 16c0-6 4-10 10-10 0 6-4 10-10 10Z"/><path d="M14 28h20l-2 13H16l-2-13Z"/><path d="M12 28h24"/>
+            </svg>
+          </span>
+          <strong id="authDialogTitle">智慧植物照護系統</strong>
+        </div>
+
+        <div class="auth-dialog-tabs" role="tablist" aria-label="帳號功能">
+          <button type="button" role="tab" data-auth-switch="login">登入</button>
+          <button type="button" role="tab" data-auth-switch="register">註冊</button>
+        </div>
+
+        <button id="authDialogClose" class="auth-dialog-close" type="button" aria-label="關閉帳號視窗">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18"/>
+          </svg>
+        </button>
+      </header>
+
+      <iframe id="authDialogFrame" class="auth-dialog-frame" title="帳號登入" src="about:blank"></iframe>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      const dialog = document.getElementById("authDialog");
+      const frame = document.getElementById("authDialogFrame");
+      const closeButton = document.getElementById("authDialogClose");
+      const triggers = document.querySelectorAll("[data-auth-modal]");
+      const switches = document.querySelectorAll("[data-auth-switch]");
+
+      if (!dialog || !frame || !closeButton) return;
+
+      const modes = {
+        login: {
+          src: "login.html?embed=1",
+          title: "帳號登入"
+        },
+        register: {
+          src: "register.html?embed=1",
+          title: "帳號註冊"
+        }
+      };
+
+      function setMode(mode) {
+        const nextMode = modes[mode] ? mode : "login";
+        const config = modes[nextMode];
+        dialog.dataset.mode = nextMode;
+        frame.title = config.title;
+
+        if (!frame.src.endsWith(config.src)) {
+          frame.src = config.src;
+        }
+
+        switches.forEach((button) => {
+          const active = button.dataset.authSwitch === nextMode;
+          button.classList.toggle("active", active);
+          button.setAttribute("aria-selected", String(active));
+          button.tabIndex = active ? 0 : -1;
+        });
+      }
+
+      function openDialog(mode) {
+        setMode(mode);
+        document.body.classList.add("auth-dialog-open");
+        if (!dialog.open) dialog.showModal();
+      }
+
+      function closeDialog() {
+        if (dialog.open) dialog.close();
+      }
+
+      triggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          openDialog(trigger.dataset.authModal);
+        });
+      });
+
+      switches.forEach((button) => {
+        button.addEventListener("click", () => setMode(button.dataset.authSwitch));
+      });
+
+      closeButton.addEventListener("click", closeDialog);
+
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) closeDialog();
+      });
+
+      dialog.addEventListener("close", () => {
+        document.body.classList.remove("auth-dialog-open");
+        frame.src = "about:blank";
+      });
+
+      window.addEventListener("message", (event) => {
+        if (event.origin !== location.origin) return;
+        if (event.data?.type === "auth:switch") {
+          setMode(event.data.mode);
+        } else if (event.data?.type === "auth:close") {
+          closeDialog();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

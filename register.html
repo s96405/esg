@@ -6,8 +6,19 @@
 <meta name="theme-color" content="#edf4ee" />
 <title>註冊 | 智慧植物照護系統</title>
 <link rel="stylesheet" href="register.css" />
+<link rel="stylesheet" href="auth-embed.css" />
 </head>
 <body class="register-page">
+  <script>
+    if (new URLSearchParams(location.search).get("embed") === "1") {
+      document.body.classList.add("is-embedded");
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          window.parent.postMessage({ type: "auth:close" }, location.origin);
+        }
+      });
+    }
+  </script>
   <main class="register-shell">
     <section class="register-intro">
       <a class="brand" href="landing.html">
@@ -74,8 +85,8 @@
       </form>
 
       <div class="footer-links">
-        <a href="login.html">已有帳號？登入</a>
-        <a href="landing.html">回到系統介紹頁</a>
+        <a id="registerLoginLink" href="login.html">已有帳號？登入</a>
+        <a class="standalone-only" href="landing.html">回到系統介紹頁</a>
       </div>
     </section>
   </main>
@@ -95,6 +106,16 @@
     const confirmPasswordEl = document.getElementById("confirmPassword");
     const submitBtn = document.getElementById("submitBtn");
     const msgEl = document.getElementById("msg");
+    const isEmbedded = new URLSearchParams(location.search).get("embed") === "1";
+    const loginLink = document.getElementById("registerLoginLink");
+
+    if (isEmbedded && loginLink) {
+      loginLink.href = "login.html?embed=1";
+      loginLink.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.parent.postMessage({ type: "auth:switch", mode: "login" }, location.origin);
+      });
+    }
 
     function setMsg(text, kind = "") {
       msgEl.textContent = text;
@@ -191,7 +212,11 @@
 
         setMsg("註冊成功！請先前往電子郵件信箱完成驗證，再回到登入頁登入系統。", "ok");
         setTimeout(() => {
-          location.href = "login.html";
+          if (isEmbedded) {
+            window.parent.postMessage({ type: "auth:switch", mode: "login" }, location.origin);
+          } else {
+            location.href = "login.html";
+          }
         }, 3000);
       } catch (err) {
         console.error(err);

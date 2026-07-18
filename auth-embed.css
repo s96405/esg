@@ -1,0 +1,75 @@
+html:has(body.is-embedded){
+  min-height:100%;
+  background:#fff;
+}
+
+body.is-embedded{
+  min-height:100%;
+  background:#fff !important;
+  overflow-x:hidden;
+}
+
+body.is-embedded .standalone-only{
+  display:none !important;
+}
+
+body.login-page.is-embedded{
+  display:block !important;
+  height:auto;
+  min-height:100%;
+  padding:0 !important;
+  background:#fff !important;
+}
+
+body.login-page.is-embedded .card{
+  width:100% !important;
+  max-width:none !important;
+  min-height:100%;
+  padding:30px 34px 26px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#fff !important;
+  box-shadow:none !important;
+  animation:none !important;
+}
+
+body.login-page.is-embedded .entry-links{
+  justify-content:flex-start;
+}
+
+body.login-page.is-embedded .entry-links a,
+body.login-page.is-embedded .forgot-link{
+  color:#356b4d !important;
+}
+
+body.register-page.is-embedded .register-shell{
+  display:block;
+  min-height:0;
+  padding:0;
+}
+
+body.register-page.is-embedded .register-intro{
+  display:none;
+}
+
+body.register-page.is-embedded .register-card{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:24px 30px 28px;
+  border:0;
+  border-radius:0;
+  background:#fff;
+  box-shadow:none;
+}
+
+body.register-page.is-embedded .footer-links{
+  justify-content:flex-start;
+}
+
+@media (max-width: 640px){
+  body.login-page.is-embedded .card,
+  body.register-page.is-embedded .register-card{
+    padding:22px 20px 28px !important;
+  }
+}

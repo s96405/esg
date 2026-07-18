@@ -4,6 +4,10 @@ const SUPABASE_URL = "https://jmimieqvhrdpdvovorhx.supabase.co";
 const SUPABASE_KEY = "sb_publishable_23gcxoA6juzOJOQga7ZihQ_3kdW4wIc";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+function redirectToLanding(){
+  location.replace("landing.html");
+}
+
 export function getAppUser(){
   const rawAppUser = sessionStorage.getItem("appUser");
   if(!rawAppUser) return null;
@@ -26,14 +30,14 @@ export async function requireLogin(){
   if(sessionError){
     console.error(sessionError);
     sessionStorage.removeItem("appUser");
-    location.href = "login.html";
+    redirectToLanding();
     return null;
   }
 
   const authUser = sessionData?.session?.user;
   if(!authUser){
     sessionStorage.removeItem("appUser");
-    location.href = "login.html";
+    redirectToLanding();
     return null;
   }
 
@@ -46,21 +50,21 @@ export async function requireLogin(){
   if(profileError){
     console.error(profileError);
     sessionStorage.removeItem("appUser");
-    location.href = "login.html";
+    redirectToLanding();
     return null;
   }
 
   if(!profile){
     sessionStorage.removeItem("appUser");
     await supabase.auth.signOut();
-    location.href = "login.html";
+    redirectToLanding();
     return null;
   }
 
   if(profile.is_active === false){
     sessionStorage.removeItem("appUser");
     await supabase.auth.signOut();
-    location.href = "login.html";
+    redirectToLanding();
     return null;
   }
 
@@ -89,5 +93,5 @@ export async function logout(){
   }catch(error){
     console.error(error);
   }
-  location.href = "login.html";
+  redirectToLanding();
 }

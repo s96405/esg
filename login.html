@@ -158,8 +158,19 @@ button:active{
 }
 </style>
 <link rel="stylesheet" href="ui.css" />
+<link rel="stylesheet" href="auth-embed.css" />
 </head>
 <body class="login-page">
+  <script>
+    if (new URLSearchParams(location.search).get("embed") === "1") {
+      document.body.classList.add("is-embedded");
+      window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          window.parent.postMessage({ type: "auth:close" }, location.origin);
+        }
+      });
+    }
+  </script>
   <div class="card">
     <h2>智慧植物照護系統</h2>
     <div class="subtitle">請使用 Email 登入</div>
@@ -186,8 +197,8 @@ button:active{
     <button id="forgotBtn" class="forgot-link" type="button">忘記密碼？</button>
     <div id="msg" class="msg"></div>
     <div class="entry-links">
-      <a href="register.html">還沒有帳號？註冊</a>
-      <a href="landing.html">回到系統介紹頁</a>
+      <a id="loginRegisterLink" href="register.html">還沒有帳號？註冊</a>
+      <a class="standalone-only" href="landing.html">回到系統介紹頁</a>
     </div>
   </div>
 
@@ -205,6 +216,16 @@ button:active{
   const btn = document.getElementById("btn");
   const forgotBtn = document.getElementById("forgotBtn");
   const msgEl = document.getElementById("msg");
+  const isEmbedded = new URLSearchParams(location.search).get("embed") === "1";
+  const registerLink = document.getElementById("loginRegisterLink");
+
+  if (isEmbedded && registerLink) {
+    registerLink.href = "register.html?embed=1";
+    registerLink.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.parent.postMessage({ type: "auth:switch", mode: "register" }, location.origin);
+    });
+  }
 
   toggle.addEventListener("click",()=>{
     const show = pwd.type === "password";
@@ -216,7 +237,7 @@ button:active{
     msgEl.textContent = "登入成功，前往首頁...";
     msgEl.classList.add("ok");
     setTimeout(()=>{
-      location.href = "index.html";
+      window.top.location.href = "index.html";
     }, 600);
   }
 
