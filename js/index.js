@@ -1,4 +1,5 @@
 import { requireLogin, isAdmin, logout } from "../auth.js";
+import { uiIcon } from "./ui-icons.js";
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
 const appUser = await requireLogin();
@@ -29,22 +30,22 @@ const sideNav = document.getElementById("sideNav");
 const navItems = [
   {
     href: "index.html",
-    icon: "總",
+    icon: "dashboard",
     text: "儀表板"
   },
   {
     href: "control.html",
-    icon: "控",
+    icon: "control",
     text: "控制台"
   },
   {
     href: "history.html",
-    icon: "歷",
+    icon: "history",
     text: "歷史資料"
   },
   {
     href: "change_password.html",
-    icon: "密",
+    icon: "password",
     text: "修改密碼"
   }
 ];
@@ -52,7 +53,7 @@ const navItems = [
 if (isAdmin(appUser)) {
   navItems.push({
     href: "user.html",
-    icon: "人",
+    icon: "users",
     text: "使用者管理"
   });
 }
@@ -63,7 +64,7 @@ sideNav.innerHTML = navItems
 
     return `
       <a class="${active ? "active" : ""}" href="${item.href}">
-        <span class="ico">${item.icon}</span>
+        <span class="ico" aria-hidden="true">${uiIcon(item.icon)}</span>
         <span>${item.text}</span>
       </a>
     `;
@@ -180,6 +181,267 @@ function safeSoilNum(value) {
     : null;
 }
 
+const CARE_STATUS_LABELS = {
+  unknown: "無法判定",
+  danger: "需要處理",
+  warning: "需要注意",
+  healthy: "狀況良好"
+};
+
+function validMetric(value) {
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    return null;
+  }
+
+  return safeNum(value);
+}
+
+function buildCareSummary(analysis) {
+  if (!analysis) {
+    return "目前沒有足夠資料，暫時無法完整判定植物與設備狀態。";
+  }
+
+  if (analysis.noTelemetry || analysis.telemetryOffline) {
+    const imageNote = analysis.noCamera || analysis.cameraIncomplete
+      ? "目前也缺少完整影像分析資料。"
+      : analysis.cameraStatus === "danger"
+        ? "最後一次影像分析顯示葉面覆蓋率偏低。"
+        : "最後一次影像分析已有資料，但仍需設備恢復連線後再次確認。";
+    return `目前設備${analysis.noTelemetry ? "沒有感測資料" : "離線"}，暫時無法完整判斷植物狀態。${imageNote}建議恢復設備連線後再次確認。`;
+  }
+
+  if (analysis.noCamera || analysis.cameraIncomplete) {
+    return "目前影像分析資料不足，暫時無法完整判定植物狀態。設備感測資料可供參考，請確認影像分析資料是否正常產生。";
+  }
+
+  if (analysis.waterLow) {
+    return "目前水箱水位不足，可能影響自動澆水。請先補充水箱水量，並持續確認土壤濕度變化。";
+  }
+
+  if (analysis.soilDry) {
+    return "目前土壤濕度低於設定門檻，植物可能需要補充水分。請確認水箱水量與自動澆水功能是否正常。";
+  }
+
+  if (analysis.cameraStatus === "danger") {
+    return "最後一次影像分析顯示葉面覆蓋率偏低，目前需要進一步確認。建議檢查拍攝角度、環境光線與植物現況。";
+  }
+
+  if (analysis.cameraStatus === "warning") {
+    return "目前影像分析指標需要注意，但不代表病害診斷。建議持續觀察後續影像與環境資料變化。";
+  }
+
+  return "目前設備與照護狀態正常，未發現需要立即處理的問題。建議持續監測植物與環境變化。";
+}
+
+function buildCareAnalysis({
+  telemetry,
+  cameraMetrics,
+  moistOn,
+  now = new Date()
+}) {
+  const reasons = [];
+  const recommendations = [];
+  const cameraRows = Array.isArray(cameraMetrics)
+    ? cameraMetrics
+    : [];
+  const latestCamera = cameraRows.length
+    ? cameraRows[cameraRows.length - 1]
+    : null;
+  const latestLeaf = validMetric(latestCamera?.leaf_cover);
+  const cameraStatus = latestCamera?.status
+    ? String(latestCamera.status).toLowerCase()
+    : null;
+  const supportedCameraStatus = [
+    "healthy",
+    "normal",
+    "warning",
+    "danger"
+  ].includes(cameraStatus);
+  const telemetryTime = telemetry?.created_at
+    ? new Date(telemetry.created_at).getTime()
+    : NaN;
+  const nowTime = now instanceof Date
+    ? now.getTime()
+    : new Date(now).getTime();
+  const telemetryOffline = Boolean(telemetry) && (
+    !Number.isFinite(telemetryTime) ||
+    !Number.isFinite(nowTime) ||
+    (nowTime - telemetryTime) / 60000 >= 15
+  );
+  const noTelemetry = !telemetry;
+  const noCamera = !latestCamera;
+  const cameraIncomplete = Boolean(latestCamera) && (
+    !supportedCameraStatus ||
+    latestLeaf === null
+  );
+  const soil = safeSoilNum(telemetry?.soil);
+  const threshold = validMetric(moistOn) ?? 30;
+  const soilDry = soil !== null && soil < threshold;
+  const waterLow = telemetry?.tank === false;
+
+  if (noTelemetry) {
+    reasons.push({
+      title: "設備感測資料不足",
+      detail: "目前尚無設備回傳資料",
+      severity: "info"
+    });
+  } else if (telemetryOffline) {
+    reasons.push({
+      title: "設備感測資料逾時",
+      detail: "設備已超過 15 分鐘沒有回傳資料",
+      severity: "danger"
+    });
+  }
+
+  if (waterLow) {
+    reasons.push({ title: "水箱水位不足", detail: "目前水箱無足夠水量", severity: "danger" });
+  }
+
+  if (soilDry) {
+    reasons.push({ title: "土壤過乾", detail: "土壤濕度低於設定門檻", severity: "warning" });
+  }
+
+  if (noCamera || cameraIncomplete) {
+    reasons.push({ title: "影像分析資料不足", detail: "目前無法取得完整影像分析結果", severity: "info" });
+  } else if (cameraStatus === "warning") {
+    reasons.push({ title: "影像指標需要注意", detail: "最後一次影像分析狀態為 warning", severity: "warning" });
+  } else if (cameraStatus === "danger") {
+    reasons.push({ title: "葉面覆蓋率過低", detail: "最後一次影像分析狀態為 danger", severity: "danger" });
+  }
+
+  if (noTelemetry || telemetryOffline) {
+    recommendations.push({ title: "確認設備連線", detail: "請確認設備電源、Wi-Fi 與資料連線。", severity: "info" });
+  }
+
+  if (waterLow) {
+    recommendations.push({ title: "補充水箱水量", detail: "請補充水箱水量，避免幫浦空轉。", severity: "danger" });
+  }
+
+  if (soilDry && !waterLow) {
+    recommendations.push({ title: "確認自動澆水", detail: "目前土壤濕度偏低，請確認自動澆水是否正常運作。", severity: "warning" });
+  }
+
+  if (cameraStatus === "warning") {
+    recommendations.push({ title: "持續觀察影像", detail: "影像指標需要注意，建議持續觀察後續變化。", severity: "warning" });
+  }
+
+  if (cameraStatus === "danger") {
+    recommendations.push({ title: "再次確認影像", detail: "葉面覆蓋率偏低，建議檢查植物狀況、拍攝角度與環境光線。", severity: "danger" });
+  }
+
+  if (noCamera || cameraIncomplete) {
+    recommendations.push({ title: "確認影像資料", detail: "請確認影像分析資料是否正常產生。", severity: "info" });
+  }
+
+  const insufficientData =
+    noTelemetry ||
+    telemetryOffline ||
+    noCamera ||
+    cameraIncomplete;
+
+  let status = "healthy";
+
+  if (insufficientData) {
+    status = "unknown";
+  } else if (waterLow || cameraStatus === "danger") {
+    status = "danger";
+  } else if (soilDry || cameraStatus === "warning") {
+    status = "warning";
+  }
+
+  let score = null;
+
+  if (!insufficientData) {
+    score = 100;
+    if (telemetryOffline) score -= 40;
+    if (waterLow) score -= 30;
+    if (soilDry) score -= 20;
+    if (cameraStatus === "warning") score -= 10;
+    if (cameraStatus === "danger") score -= 25;
+    score = Math.max(0, score);
+  }
+
+  const validLeafRows = cameraRows
+    .map((row) => validMetric(row?.leaf_cover))
+    .filter((value) => value !== null);
+  let leafTrend = "insufficient";
+  let leafDelta = null;
+
+  if (validLeafRows.length >= 2) {
+    const current = validLeafRows[validLeafRows.length - 1];
+    const previous = validLeafRows[validLeafRows.length - 2];
+    leafDelta = current - previous;
+
+    if (leafDelta > 1) {
+      leafTrend = "up";
+    } else if (leafDelta < -1) {
+      leafTrend = "down";
+    } else {
+      leafTrend = "stable";
+    }
+  }
+
+  if (!reasons.length) {
+    reasons.push({ title: "目前無異常", detail: "未發現需要處理的狀況", severity: "healthy" });
+  }
+
+  if (!recommendations.length) {
+    recommendations.push({ title: "持續監測", detail: "目前無需特別處理，建議持續監測植物與設備狀況。", severity: "healthy" });
+  }
+
+  const factorCandidates = [];
+  if (noTelemetry) factorCandidates.push("設備無資料");
+  else if (telemetryOffline) factorCandidates.push("設備離線");
+  if (waterLow) factorCandidates.push("水位不足");
+  if (soilDry) factorCandidates.push("土壤過乾");
+  if (cameraStatus === "danger") factorCandidates.push("葉面覆蓋率過低");
+  else if (cameraStatus === "warning") factorCandidates.push("影像指標需注意");
+  if (noCamera || cameraIncomplete) factorCandidates.push("影像資料不足");
+
+  const telemetryDataStatus = {
+    state: noTelemetry ? "missing" : telemetryOffline ? "stale" : "normal",
+    label: noTelemetry ? "無資料" : telemetryOffline ? "逾時" : "正常",
+    detail: noTelemetry
+      ? "尚無更新時間"
+      : telemetryOffline
+        ? `逾時 ${Math.floor((nowTime - telemetryTime) / 60000)} 分鐘`
+        : `更新於 ${fmtTime(telemetry.created_at)}`
+  };
+  const imageDataStatus = {
+    state: noCamera || cameraIncomplete ? "missing" : "normal",
+    label: noCamera || cameraIncomplete ? "無資料" : "正常",
+    detail: latestCamera?.captured_at
+      ? `更新於 ${fmtTime(latestCamera.captured_at)}`
+      : "尚無更新時間"
+  };
+
+  const analysis = {
+    score,
+    status,
+    reasons,
+    recommendations,
+    leafTrend,
+    leafDelta,
+    primaryFactors: factorCandidates.slice(0, 2),
+    telemetryDataStatus,
+    imageDataStatus,
+    noTelemetry,
+    telemetryOffline,
+    noCamera,
+    cameraIncomplete,
+    cameraStatus,
+    soilDry,
+    waterLow
+  };
+
+  analysis.summary = buildCareSummary(analysis);
+  return analysis;
+}
+
 function formatAiStatus(status) {
   if (
     status === "healthy" ||
@@ -262,9 +524,6 @@ const statDryEl =
 const statNoWaterEl =
   document.getElementById("statNoWater");
 
-const alertsBodyEl =
-  document.getElementById("alertsBody");
-
 const lastRefreshEl =
   document.getElementById("lastRefresh");
 
@@ -281,9 +540,6 @@ const soilTrendCanvasEl =
   document.getElementById("soilTrendChart");
 
 let soilTrendChart = null;
-
-const alertsNowEl =
-  document.getElementById("alertsNow");
 
 const healthPanelEl =
   document.getElementById("healthPanel");
@@ -364,6 +620,39 @@ const aiChartEmptyEl =
 
 const aiMetricsCanvasEl =
   document.getElementById("aiMetricsChart");
+
+const careScoreEl =
+  document.getElementById("careScore");
+
+const careStatusEl =
+  document.getElementById("careStatus");
+
+const careStatusHintEl =
+  document.getElementById("careStatusHint");
+
+const careAiSummaryEl =
+  document.getElementById("careAiSummary");
+
+const careScoreBarEl =
+  document.getElementById("careScoreBar");
+
+const carePrimaryFactorsEl =
+  document.getElementById("carePrimaryFactors");
+
+const careDataStatusEl =
+  document.getElementById("careDataStatus");
+
+const careReasonsEl =
+  document.getElementById("careReasons");
+
+const careRecommendationsEl =
+  document.getElementById("careRecommendations");
+
+const leafTrendEl =
+  document.getElementById("leafTrend");
+
+const leafTrendDeltaEl =
+  document.getElementById("leafTrendDelta");
 
 let aiMetricsChart = null;
 
@@ -533,7 +822,7 @@ async function loadCameraMetrics(deviceId) {
     );
 
     renderCameraMetrics([]);
-    return;
+    return [];
   }
 
   const rows = [
@@ -541,6 +830,159 @@ async function loadCameraMetrics(deviceId) {
   ].reverse();
 
   renderCameraMetrics(rows);
+  return rows;
+}
+
+function renderCareList(element, items) {
+  if (!element) return;
+
+  element.replaceChildren(
+    ...items.map((item) => {
+      const row = document.createElement("div");
+      const marker = document.createElement("i");
+      const copy = document.createElement("span");
+      const title = document.createElement("b");
+      const detail = document.createElement("small");
+      row.className = `care-list-row ${item.severity || "info"}`;
+      marker.setAttribute("aria-hidden", "true");
+      title.textContent = item.title;
+      detail.textContent = item.detail;
+      copy.append(title, detail);
+      row.append(marker, copy);
+      return row;
+    })
+  );
+}
+
+function renderDataStatusRow(label, status) {
+  const row = document.createElement("div");
+  const icon = document.createElement("i");
+  const name = document.createElement("span");
+  const value = document.createElement("span");
+  const badge = document.createElement("b");
+  const detail = document.createElement("small");
+  row.className = "care-data-row";
+  icon.className = `care-data-icon ${label === "設備資料" ? "device" : "image"}`;
+  icon.setAttribute("aria-hidden", "true");
+  name.textContent = label;
+  badge.className = status.state;
+  badge.textContent = status.label;
+  detail.textContent = status.detail;
+  value.append(badge, detail);
+  row.append(icon, name, value);
+  return row;
+}
+
+function renderCareAnalysis(analysis) {
+  if (!analysis) return;
+
+  if (careScoreEl) {
+    if (analysis.score === null) {
+      careScoreEl.textContent = "—";
+    } else {
+      const unit = document.createElement("em");
+      unit.textContent = "分";
+      careScoreEl.replaceChildren(String(analysis.score), unit);
+    }
+
+    careScoreEl.parentElement.dataset.tone = analysis.score === null
+      ? "unknown"
+      : analysis.score < 50
+        ? "danger"
+        : analysis.score < 80
+          ? "warning"
+          : "healthy";
+  }
+
+  if (careScoreBarEl) {
+    careScoreBarEl.style.width = analysis.score === null
+      ? "0%"
+      : `${Math.min(100, Math.max(0, analysis.score))}%`;
+    careScoreBarEl.parentElement.hidden = analysis.score === null;
+  }
+
+  if (careAiSummaryEl) {
+    careAiSummaryEl.textContent = analysis.summary;
+  }
+
+  if (careStatusEl) {
+    careStatusEl.className = analysis.status || "unknown";
+    const dot = document.createElement("i");
+    dot.setAttribute("aria-hidden", "true");
+    careStatusEl.replaceChildren(
+      dot,
+      CARE_STATUS_LABELS[analysis.status] || CARE_STATUS_LABELS.unknown
+    );
+  }
+
+  if (careStatusHintEl) {
+    const statusHints = {
+      unknown: "資料不足，無法完整評估",
+      danger: "目前有需要立即處理的項目",
+      warning: "目前有需要持續注意的項目",
+      healthy: "目前未發現主要異常"
+    };
+    careStatusHintEl.textContent = statusHints[analysis.status] || statusHints.unknown;
+  }
+
+  if (carePrimaryFactorsEl) {
+    const factors = analysis.primaryFactors.length
+      ? analysis.primaryFactors
+      : ["目前無主要異常因素"];
+    carePrimaryFactorsEl.replaceChildren(
+      ...factors.map((factor) => {
+        const item = document.createElement("span");
+        if (factor.includes("離線") || factor.includes("無資料") || factor.includes("水位不足")) {
+          item.className = "danger";
+        } else if (factor.includes("過乾") || factor.includes("注意")) {
+          item.className = "warning";
+        } else if (factor.includes("不足")) {
+          item.className = "info";
+        } else {
+          item.className = "healthy";
+        }
+        item.textContent = factor;
+        return item;
+      })
+    );
+  }
+
+  if (careDataStatusEl) {
+    careDataStatusEl.replaceChildren(
+      renderDataStatusRow("設備資料", analysis.telemetryDataStatus),
+      renderDataStatusRow("影像資料", analysis.imageDataStatus)
+    );
+  }
+
+  renderCareList(careReasonsEl, analysis.reasons);
+  renderCareList(careRecommendationsEl, analysis.recommendations);
+
+  const trendLabels = {
+    insufficient: "資料不足",
+    up: "上升",
+    down: "下降",
+    stable: "穩定"
+  };
+
+  if (leafTrendEl) {
+    leafTrendEl.textContent =
+      trendLabels[analysis.leafTrend] || trendLabels.insufficient;
+    leafTrendEl.className = `leaf-trend-${analysis.leafTrend}`;
+  }
+
+  if (leafTrendDeltaEl) {
+    if (analysis.leafDelta === null) {
+      leafTrendDeltaEl.textContent = "少於兩筆有效資料";
+    } else if (analysis.leafTrend === "up") {
+      leafTrendDeltaEl.textContent =
+        `較上次增加 ${Math.abs(analysis.leafDelta).toFixed(1)}%`;
+    } else if (analysis.leafTrend === "down") {
+      leafTrendDeltaEl.textContent =
+        `較上次減少 ${Math.abs(analysis.leafDelta).toFixed(1)}%`;
+    } else {
+      leafTrendDeltaEl.textContent = "與上次相比穩定";
+    }
+  }
 }
 
 function renderCameraMetrics(rows) {
@@ -1155,6 +1597,12 @@ async function loadDashboard() {
 
   if (!deviceIds.length) {
   renderCameraMetrics([]);
+  renderCareAnalysis(buildCareAnalysis({
+    telemetry: null,
+    cameraMetrics: [],
+    moistOn: 30,
+    now: new Date()
+  }));
 
   if (soilTrendRangeEl) {
     soilTrendRangeEl.textContent = "尚無資料";
@@ -1170,18 +1618,9 @@ async function loadDashboard() {
     statDryEl.textContent = 0;
     statNoWaterEl.textContent = 0;
 
-    alertsBodyEl.innerHTML = `
-      <tr>
-        <td colspan="5" class="muted">
-          尚未綁定任何設備（user_devices 無資料）
-        </td>
-      </tr>
-    `;
-
     renderSoilTrendChart([], 30);
 
     avgSoilNowEl.textContent = "—";
-    alertsNowEl.textContent = "—";
 
     updateHealthOverview({
       total: 0,
@@ -1201,7 +1640,7 @@ async function loadDashboard() {
     return;
   }
 
-  await loadCameraMetrics(
+  const cameraMetrics = await loadCameraMetrics(
     deviceIds[0]
   );
 
@@ -1249,6 +1688,7 @@ async function loadDashboard() {
 
   const alertRows = [];
   const soilsForAvg = [];
+  let primaryTelemetry = null;
 
   for (const deviceId of deviceIds) {
     const {
@@ -1282,6 +1722,10 @@ async function loadDashboard() {
       telemetryRows[0]
         ? telemetryRows[0]
         : null;
+
+    if (deviceId === deviceIds[0]) {
+      primaryTelemetry = row;
+    }
 
     const timestamp =
       row?.created_at || null;
@@ -1454,108 +1898,10 @@ async function loadDashboard() {
         ) / deviceIds.length
       : 30;
 
-  if (!alertRows.length) {
-    alertsBodyEl.innerHTML = `
-      <tr>
-        <td colspan="5" class="muted">
-          目前沒有告警（全部正常）
-        </td>
-      </tr>
-    `;
-  } else {
-    alertRows.sort((a, b) => {
-      const score = (row) =>
-        (
-          row.types.includes("離線")
-            ? 100
-            : 0
-        ) +
-        (
-          row.types.includes("缺水")
-            ? 50
-            : 0
-        ) +
-        (
-          row.types.includes("過乾")
-            ? 10
-            : 0
-        );
-
-      return score(b) - score(a);
-    });
-
-    alertsBodyEl.innerHTML =
-      alertRows
-        .map((row) => {
-          const typeText =
-            row.types.join("、");
-
-          const badgeText =
-            row.badgeClass === "danger"
-              ? "嚴重"
-              : "注意";
-
-          return `
-            <tr>
-              <td data-label="設備">
-                <b>${row.device_id}</b>
-              </td>
-
-              <td data-label="狀態">
-                <span class="badge ${row.badgeClass}">
-                  ${badgeText} · ${typeText}
-                </span>
-              </td>
-
-              <td data-label="摘要" class="muted">
-                ${row.summary}
-              </td>
-
-              <td data-label="最後回傳" class="muted">
-                ${fmtTime(row.timestamp)}
-              </td>
-
-              <td data-label="操作">
-                <button
-                  class="btn primary"
-                  data-go="${row.device_id}"
-                  type="button"
-                >
-                  前往控制台
-                </button>
-              </td>
-            </tr>
-          `;
-        })
-        .join("");
-
-    alertsBodyEl
-      .querySelectorAll("[data-go]")
-      .forEach((button) => {
-        button.addEventListener(
-          "click",
-          () => {
-            const deviceId =
-              button.getAttribute(
-                "data-go"
-              );
-
-            location.href =
-              `control.html?device_id=${encodeURIComponent(
-                deviceId
-              )}`;
-          }
-        );
-      });
-  }
-
   avgSoilNowEl.textContent =
     avg === null
       ? "—"
       : `${avg.toFixed(1)}%`;
-
-  alertsNowEl.textContent =
-    `${alerts} 台`;
 
   updateHealthOverview({
     total: deviceIds.length,
@@ -1571,6 +1917,13 @@ async function loadDashboard() {
     waterOk,
     waterKnown
   });
+
+  renderCareAnalysis(buildCareAnalysis({
+    telemetry: primaryTelemetry,
+    cameraMetrics,
+    moistOn: moistOnMap[deviceIds[0]] ?? 30,
+    now: new Date()
+  }));
 
     /* =========================
    土壤濕度趨勢

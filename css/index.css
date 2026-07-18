@@ -1230,6 +1230,305 @@ textarea {
     }
 }
 
+/* 影像與照護分析整合版面：僅限儀表板 */
+body.dashboard-page .dashboard-charts {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body.dashboard-page .ai-analysis-card {
+    padding: 16px;
+    border-color: var(--aw-border, rgba(72, 91, 78, .20));
+    background: var(--aw-surface, #fff);
+    box-shadow: 0 5px 16px rgba(53, 77, 61, .06);
+}
+
+body.dashboard-page .ai-summary-card {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(63, 122, 79, .24);
+    border-radius: 10px;
+    background: rgba(63, 122, 79, .07);
+}
+
+body.dashboard-page .ai-summary-title {
+    margin-bottom: 5px;
+    color: var(--aw-success, var(--ok));
+    font-size: 14px;
+    font-weight: 900;
+}
+
+body.dashboard-page .ai-summary-card p {
+    margin: 0;
+    color: var(--aw-text, var(--txt));
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+body.dashboard-page .care-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+}
+
+body.dashboard-page .care-summary-item {
+    min-height: 142px;
+    padding: 13px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(53, 77, 61, .04);
+}
+
+body.dashboard-page .care-score-item > b {
+    font-size: 28px;
+}
+
+body.dashboard-page .care-score-track {
+    height: 6px;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--aw-surface-3, #e8ece8);
+}
+
+body.dashboard-page .care-score-track span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--aw-success, var(--ok));
+    transition: width .2s ease;
+}
+
+body.dashboard-page #careStatus {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+}
+
+body.dashboard-page #careStatus i,
+body.dashboard-page .care-list-row > i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    border-radius: 50%;
+    background: currentColor;
+}
+
+body.dashboard-page .care-factor-list {
+    display: grid;
+    gap: 7px;
+    margin-top: 9px;
+}
+
+body.dashboard-page .care-factor-list span {
+    padding-left: 11px;
+    border-left: 3px solid var(--aw-warning, var(--warn));
+    color: var(--aw-text-strong, var(--txt));
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.45;
+}
+
+body.dashboard-page .care-data-status {
+    display: grid;
+    gap: 7px;
+    margin-top: 8px;
+}
+
+body.dashboard-page .care-data-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+    font-size: 12px;
+}
+
+body.dashboard-page .care-data-row > span:last-child {
+    min-width: 0;
+}
+
+body.dashboard-page .care-data-row b {
+    display: inline-block;
+    margin: 0 6px 2px 0;
+    font-size: 12px;
+}
+
+body.dashboard-page .care-data-row b.normal { color: var(--aw-success, var(--ok)); }
+body.dashboard-page .care-data-row b.stale { color: var(--aw-danger, var(--danger)); }
+body.dashboard-page .care-data-row b.missing { color: var(--aw-info, var(--sub)); }
+
+body.dashboard-page .care-data-row small {
+    display: block;
+    color: var(--aw-muted, var(--sub));
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+body.dashboard-page .care-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: stretch;
+    margin-top: 12px;
+}
+
+body.dashboard-page .care-left-column {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+body.dashboard-page .care-detail-grid {
+    margin-top: 0;
+    gap: 10px;
+}
+
+body.dashboard-page .care-detail-item,
+body.dashboard-page .care-soil-card {
+    border-radius: 10px;
+    background: var(--aw-surface, #fff);
+}
+
+body.dashboard-page .care-detail-item:first-child {
+    border-color: rgba(184, 90, 75, .20);
+}
+
+body.dashboard-page .care-detail-item:nth-child(2) {
+    border-color: rgba(180, 116, 45, .22);
+}
+
+body.dashboard-page .care-list {
+    display: grid;
+    gap: 7px;
+    padding: 0;
+    list-style: none;
+}
+
+body.dashboard-page .care-list-row {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 8px;
+    border: 1px solid var(--aw-border, rgba(72, 91, 78, .14));
+    border-radius: 8px;
+    color: var(--aw-info, var(--sub));
+    background: var(--aw-surface-2, #f8faf8);
+}
+
+body.dashboard-page .care-list-row.warning { color: var(--aw-warning, var(--warn)); }
+body.dashboard-page .care-list-row.danger { color: var(--aw-danger, var(--danger)); }
+body.dashboard-page .care-list-row.healthy { color: var(--aw-success, var(--ok)); }
+
+body.dashboard-page .care-list-row span {
+    min-width: 0;
+}
+
+body.dashboard-page .care-list-row b,
+body.dashboard-page .care-list-row small {
+    display: block;
+    overflow-wrap: break-word;
+}
+
+body.dashboard-page .care-list-row b {
+    color: currentColor;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+body.dashboard-page .care-list-row small {
+    margin-top: 2px;
+    color: var(--aw-muted, var(--sub));
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+body.dashboard-page .care-section-label {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+body.dashboard-page .ai-metric-grid {
+    gap: 8px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item {
+    min-height: 112px;
+    padding: 11px;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item b {
+    font-size: 21px;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+body.dashboard-page .care-soil-card {
+    min-width: 0;
+    min-height: 330px;
+    padding: 13px 14px;
+    border: 1px solid var(--aw-border, rgba(72, 91, 78, .16));
+}
+
+body.dashboard-page .care-soil-card .soil-chart-wrapper {
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: none;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .care-summary-grid,
+    body.dashboard-page .ai-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.dashboard-page .care-content-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .ai-analysis-card {
+        padding: 12px;
+    }
+
+    body.dashboard-page .ai-analysis-card > .chart-head {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    body.dashboard-page .chart-head-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    body.dashboard-page .chart-range-select {
+        width: 100%;
+    }
+
+    body.dashboard-page .care-summary-grid,
+    body.dashboard-page .care-detail-grid,
+    body.dashboard-page .ai-metric-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.dashboard-page .care-summary-item {
+        min-height: 0;
+    }
+
+    body.dashboard-page .care-soil-card {
+        min-height: 270px;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: 240px !important;
+        min-height: 240px !important;
+    }
+}
+
 @media (max-width: 420px) {
     .topbar-title-main {
         font-size: 16px;
@@ -1263,7 +1562,7 @@ body.dashboard-page .wrap {
 
 body.dashboard-page .dashboard-charts {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    align-items: stretch;
+    align-items: start;
 }
 
 body.dashboard-page .dashboard-charts > .chart-card {
@@ -1277,4 +1576,2120 @@ body.dashboard-page .soil-chart-wrapper {
     height: auto !important;
     min-height: 0 !important;
     flex: 1 1 0;
+}
+
+/* 影像與照護分析：僅限儀表板 */
+body.dashboard-page .dashboard-charts > .ai-analysis-card {
+    height: auto;
+    min-height: max-content;
+    max-height: none;
+    overflow: visible;
+}
+
+body.dashboard-page .care-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 12px;
+}
+
+body.dashboard-page .care-summary-item,
+body.dashboard-page .care-detail-item {
+    min-width: 0;
+    height: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--aw-border, rgba(72, 91, 78, .16));
+    border-radius: 8px;
+    background: var(--aw-surface, #fff);
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+body.dashboard-page .care-summary-item span,
+body.dashboard-page .care-summary-item small {
+    display: block;
+    color: var(--aw-muted, var(--sub));
+}
+
+body.dashboard-page .care-summary-item span,
+body.dashboard-page .care-detail-title,
+body.dashboard-page .care-section-label {
+    font-size: 12px;
+    font-weight: 800;
+}
+
+body.dashboard-page .care-summary-item b {
+    display: block;
+    margin-top: 6px;
+    color: var(--aw-text-strong, var(--txt));
+    font-size: 20px;
+    font-weight: 900;
+}
+
+body.dashboard-page .care-summary-item small,
+body.dashboard-page .ai-metric-item small {
+    margin-top: 5px;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+body.dashboard-page #careStatus.healthy { color: var(--aw-success, var(--ok)); }
+body.dashboard-page #careStatus.warning { color: var(--aw-warning, var(--warn)); }
+body.dashboard-page #careStatus.danger { color: var(--aw-danger, var(--danger)); }
+body.dashboard-page #careStatus.unknown { color: var(--aw-info, var(--sub)); }
+
+body.dashboard-page .care-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+
+body.dashboard-page .care-detail-title {
+    margin-bottom: 6px;
+    color: var(--aw-text-strong, var(--txt));
+}
+
+body.dashboard-page .care-list {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--aw-text, var(--txt));
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+body.dashboard-page .care-list li + li {
+    margin-top: 3px;
+}
+
+body.dashboard-page .care-section-label {
+    margin-top: 12px;
+    color: var(--aw-muted, var(--sub));
+}
+
+body.dashboard-page .ai-metric-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+    margin-top: 7px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item {
+    display: flex;
+    min-width: 0;
+    min-height: 96px;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: visible;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item span,
+body.dashboard-page .ai-analysis-card .ai-metric-item b,
+body.dashboard-page .ai-analysis-card .ai-metric-item small {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+body.dashboard-page .ai-analysis-card #aiStatus {
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+body.dashboard-page .ai-metric-item small {
+    display: block;
+    color: var(--aw-muted, var(--sub));
+}
+
+body.dashboard-page .leaf-trend-up { color: var(--aw-success, var(--ok)); }
+body.dashboard-page .leaf-trend-down { color: var(--aw-warning, var(--warn)); }
+body.dashboard-page .leaf-trend-stable { color: var(--aw-primary-3, var(--accent)); }
+body.dashboard-page .leaf-trend-insufficient { color: var(--aw-info, var(--sub)); }
+
+@media (max-width: 900px) {
+    body.dashboard-page .ai-metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .care-summary-grid,
+    body.dashboard-page .care-detail-grid,
+    body.dashboard-page .ai-metric-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 最終版面優先序：覆蓋前一版固定雙欄趨勢圖設定 */
+body.dashboard-page .dashboard-charts {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+body.dashboard-page .dashboard-charts > .ai-analysis-card {
+    grid-column: 1 / -1 !important;
+    width: 100%;
+}
+
+body.dashboard-page .care-summary-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .care-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .care-summary-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* 2026 儀表板視覺方向：依核准預覽圖收斂為正式 SaaS 監控介面 */
+body.dashboard-page {
+    --dashboard-bg: #f3f6f2;
+    --dashboard-surface: #ffffff;
+    --dashboard-surface-soft: #f8faf7;
+    --dashboard-border: #dce5dc;
+    --dashboard-border-strong: #c7d5c9;
+    --dashboard-primary: #356b4d;
+    --dashboard-primary-hover: #2b5b40;
+    --dashboard-text: #17251c;
+    --dashboard-muted: #68756d;
+    background: var(--dashboard-bg) !important;
+}
+
+body.dashboard-page::before {
+    content: none !important;
+}
+
+body.dashboard-page .sidebar {
+    background: #fbfcfa !important;
+    border-right-color: var(--dashboard-border) !important;
+    box-shadow: none;
+}
+
+body.dashboard-page .side-top {
+    min-height: 78px;
+    border-bottom-color: var(--dashboard-border) !important;
+}
+
+body.dashboard-page .side-brand .name {
+    color: var(--dashboard-text) !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+}
+
+body.dashboard-page .nav a,
+body.dashboard-page .side-bottom a {
+    border-radius: 8px !important;
+    color: #435148 !important;
+    font-weight: 700;
+}
+
+body.dashboard-page .nav a:hover,
+body.dashboard-page .side-bottom a:hover {
+    background: #f2f6f1 !important;
+    border-color: var(--dashboard-border) !important;
+}
+
+body.dashboard-page .nav a.active {
+    background: #f0f6ef !important;
+    border-color: #a9c4ad !important;
+    box-shadow: none;
+    color: var(--dashboard-primary) !important;
+}
+
+body.dashboard-page .nav a.active::before {
+    box-shadow: none;
+    background: var(--dashboard-primary);
+}
+
+body.dashboard-page .nav .ico,
+body.dashboard-page .side-bottom .ico {
+    border: 0 !important;
+    background: transparent !important;
+    color: currentColor !important;
+}
+
+body.dashboard-page .nav .ico svg,
+body.dashboard-page .side-bottom .ico svg,
+body.dashboard-page .menu-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .topbar {
+    min-height: 64px;
+    background: rgba(255, 255, 255, .96) !important;
+    border-bottom-color: var(--dashboard-border) !important;
+    box-shadow: none;
+}
+
+body.dashboard-page .topbar-title-main {
+    color: var(--dashboard-text) !important;
+    font-size: 20px !important;
+    font-weight: 800 !important;
+}
+
+body.dashboard-page .user-pill {
+    background: #f7faf6 !important;
+    border-color: var(--dashboard-border) !important;
+    color: var(--dashboard-primary) !important;
+    font-weight: 700;
+}
+
+body.dashboard-page .menu-btn {
+    color: var(--dashboard-primary) !important;
+}
+
+body.dashboard-page .wrap {
+    max-width: 1420px;
+    margin-top: 18px !important;
+    padding-inline: 20px !important;
+}
+
+body.dashboard-page .frame {
+    gap: 14px;
+}
+
+body.dashboard-page .panel,
+body.dashboard-page .care-summary-item,
+body.dashboard-page .care-detail-item,
+body.dashboard-page .care-soil-card,
+body.dashboard-page .ai-metric-item {
+    border-color: var(--dashboard-border) !important;
+    background: var(--dashboard-surface) !important;
+    border-radius: 10px !important;
+    box-shadow: 0 1px 2px rgba(29, 48, 35, .035) !important;
+}
+
+body.dashboard-page .panel:hover,
+body.dashboard-page .care-summary-item:hover,
+body.dashboard-page .care-detail-item:hover,
+body.dashboard-page .care-soil-card:hover,
+body.dashboard-page .ai-metric-item:hover {
+    border-color: var(--dashboard-border-strong) !important;
+    box-shadow: 0 3px 10px rgba(29, 48, 35, .055) !important;
+}
+
+body.dashboard-page .dashboard-overview {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 12px;
+}
+
+body.dashboard-page .health-panel {
+    min-height: 176px;
+    padding: 16px 18px !important;
+    background: var(--dashboard-surface) !important;
+}
+
+body.dashboard-page .health-panel::after {
+    content: none;
+}
+
+body.dashboard-page .health-title {
+    color: var(--dashboard-text);
+    font-size: 23px;
+}
+
+body.dashboard-page .health-summary,
+body.dashboard-page .sensor-meta,
+body.dashboard-page .chart-sub,
+body.dashboard-page .trend-meta {
+    color: var(--dashboard-muted);
+}
+
+body.dashboard-page .health-meta-item,
+body.dashboard-page .sensor-item {
+    border-color: #e3e9e3;
+    background: var(--dashboard-surface-soft) !important;
+    border-radius: 8px;
+}
+
+body.dashboard-page .sensor-panel {
+    min-height: 176px;
+    padding: 12px !important;
+    background: var(--dashboard-surface) !important;
+}
+
+body.dashboard-page .sensor-item.ok { border-left: 3px solid var(--aw-success); }
+body.dashboard-page .sensor-item.warn { border-left: 3px solid var(--aw-warning); }
+body.dashboard-page .sensor-item.danger { border-left: 3px solid var(--aw-danger); }
+body.dashboard-page .sensor-item.info { border-left: 3px solid var(--aw-info); }
+
+body.dashboard-page .summary-strip {
+    padding: 0 !important;
+    overflow: hidden;
+    background: var(--dashboard-surface) !important;
+}
+
+body.dashboard-page .summary-item {
+    min-height: 68px;
+    padding: 11px 14px;
+    background: transparent !important;
+    border-right: 1px solid var(--dashboard-border);
+}
+
+body.dashboard-page .summary-item:last-child {
+    border-right: 0;
+}
+
+body.dashboard-page .ai-analysis-card {
+    padding: 18px !important;
+}
+
+body.dashboard-page .section-h {
+    color: var(--dashboard-text) !important;
+    font-size: 17px !important;
+    font-weight: 800 !important;
+}
+
+body.dashboard-page .chart-range-select {
+    min-height: 38px;
+    border-color: var(--dashboard-border) !important;
+    background: #fff !important;
+}
+
+body.dashboard-page .ai-summary-card {
+    border-color: #b9d2bc;
+    background: #f4f9f3;
+    border-radius: 10px;
+}
+
+body.dashboard-page .care-summary-item {
+    min-height: 128px;
+}
+
+body.dashboard-page .care-content-grid {
+    grid-template-columns: minmax(0, .96fr) minmax(0, 1.04fr);
+    gap: 14px;
+}
+
+body.dashboard-page .care-detail-item:first-child {
+    border-color: #edcbc6 !important;
+    background: #fffafa !important;
+}
+
+body.dashboard-page .care-detail-item:nth-child(2) {
+    border-color: #ead8b6 !important;
+    background: #fffdf8 !important;
+}
+
+body.dashboard-page .care-list-row {
+    border-color: #e3e8e3;
+    background: #fff !important;
+}
+
+body.dashboard-page .ai-metric-item {
+    min-height: 106px !important;
+}
+
+body.dashboard-page .care-soil-card .soil-chart-wrapper {
+    height: 320px !important;
+    min-height: 320px !important;
+}
+
+body.dashboard-page .notice {
+    border-color: var(--dashboard-border);
+    background: #f7f9f7 !important;
+}
+
+body.dashboard-page .alerts-panel {
+    padding: 14px 16px !important;
+}
+
+body.dashboard-page .table-wrap {
+    border-color: var(--dashboard-border);
+    border-radius: 8px;
+}
+
+body.dashboard-page .table th {
+    background: #f3f6f2 !important;
+    color: #536159 !important;
+}
+
+body.dashboard-page .table td {
+    background: #fff;
+}
+
+body.dashboard-page .alerts-panel .btn.primary {
+    background: #fff !important;
+    border-color: #9bbba2 !important;
+    color: var(--dashboard-primary) !important;
+}
+
+body.dashboard-page .alerts-panel .btn.primary:hover {
+    background: #f0f6ef !important;
+    border-color: var(--dashboard-primary) !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .dashboard-overview,
+    body.dashboard-page .care-content-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.dashboard-page .summary-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .topbar {
+        flex-wrap: nowrap;
+    }
+
+    body.dashboard-page .topbar-left {
+        min-width: 0;
+    }
+
+    body.dashboard-page .topbar-right {
+        width: auto;
+        margin-left: auto;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .user-pill {
+        max-width: 104px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    body.dashboard-page .wrap {
+        padding-inline: 12px !important;
+    }
+
+    body.dashboard-page .ai-analysis-card {
+        padding: 13px !important;
+    }
+
+    body.dashboard-page .summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.dashboard-page .summary-item:nth-child(2n) {
+        border-right: 0;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: 250px !important;
+        min-height: 250px !important;
+    }
+}
+
+/* 桌機低高度：維持單一視窗完整顯示，手機與平板仍使用頁面捲動 */
+@media (min-width: 901px) and (max-height: 1050px) {
+    body.dashboard-page {
+        height: 100vh;
+        overflow-y: hidden !important;
+    }
+
+    body.dashboard-page .main {
+        height: 100vh !important;
+        overflow: hidden !important;
+    }
+
+    body.dashboard-page .wrap {
+        height: calc(100vh - 74px) !important;
+        margin: 8px auto !important;
+        overflow: hidden !important;
+    }
+
+    body.dashboard-page .frame,
+    body.dashboard-page .dashboard-charts {
+        height: 100%;
+        min-height: 0;
+    }
+
+    body.dashboard-page .dashboard-charts > .ai-analysis-card {
+        display: flex;
+        height: 100% !important;
+        min-height: 0;
+        flex-direction: column;
+        padding: 12px !important;
+    }
+
+    body.dashboard-page .ai-analysis-card > .chart-head {
+        margin-bottom: 4px;
+    }
+
+    body.dashboard-page .ai-summary-card {
+        min-height: 108px;
+        padding: 12px 18px;
+    }
+
+    body.dashboard-page .ai-summary-title {
+        margin-bottom: 6px;
+    }
+
+    body.dashboard-page .ai-summary-card p {
+        line-height: 1.55;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        flex-basis: 260px;
+        gap: 14px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 82px;
+        height: 82px;
+    }
+
+    body.dashboard-page .ai-chart-illustration {
+        width: 140px;
+    }
+
+    body.dashboard-page .care-summary-grid,
+    body.dashboard-page .care-content-grid {
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    body.dashboard-page .care-summary-item {
+        min-height: 112px;
+        padding: 9px 12px;
+    }
+
+    body.dashboard-page .care-score-item > b {
+        margin-top: 6px;
+        font-size: 29px;
+    }
+
+    body.dashboard-page .care-score-track {
+        margin-top: 7px;
+    }
+
+    body.dashboard-page .care-score-item > small {
+        margin-top: 5px;
+    }
+
+    body.dashboard-page #careStatus {
+        margin-top: 8px;
+        font-size: 19px;
+    }
+
+    body.dashboard-page #careStatus i {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+    }
+
+    body.dashboard-page #careStatus i::after {
+        font-size: 20px;
+    }
+
+    body.dashboard-page .care-status-hint {
+        margin-top: 6px !important;
+        padding: 3px 7px;
+    }
+
+    body.dashboard-page .care-factor-list,
+    body.dashboard-page .care-data-status {
+        gap: 5px;
+        margin-top: 7px;
+    }
+
+    body.dashboard-page .care-factor-list span {
+        min-height: 20px;
+        padding: 1px 0 1px 25px;
+    }
+
+    body.dashboard-page .care-factor-list span::before {
+        width: 17px;
+        height: 17px;
+    }
+
+    body.dashboard-page .care-factor-list span::after {
+        top: 7px;
+        left: 5px;
+        width: 7px;
+        height: 7px;
+    }
+
+    body.dashboard-page .care-data-row {
+        gap: 5px;
+        font-size: 11px;
+    }
+
+    body.dashboard-page .care-data-row small {
+        font-size: 9px;
+        line-height: 1.2;
+    }
+
+    body.dashboard-page .care-content-grid {
+        flex: 1 1 auto;
+        min-height: 0;
+    }
+
+    body.dashboard-page .care-left-column,
+    body.dashboard-page .care-soil-card {
+        min-height: 0;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        gap: 8px;
+    }
+
+    body.dashboard-page .care-detail-item {
+        min-height: 0;
+        padding: 9px 11px;
+    }
+
+    body.dashboard-page .care-detail-title {
+        gap: 6px;
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+
+    body.dashboard-page .care-detail-title svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    body.dashboard-page .care-list {
+        gap: 3px;
+    }
+
+    body.dashboard-page .care-list-row {
+        min-height: 32px;
+        padding: 3px;
+    }
+
+    body.dashboard-page .care-list-row > i {
+        width: 15px;
+        height: 15px;
+        flex-basis: 15px;
+    }
+
+    body.dashboard-page .care-list-row > i::after {
+        width: 5px;
+        height: 5px;
+        margin: 3px;
+    }
+
+    body.dashboard-page .care-list-row b {
+        font-size: 11px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .care-list-row small {
+        margin-top: 1px;
+        font-size: 9px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .care-actions .care-list-row {
+        min-height: 27px;
+        padding: 4px 24px 4px 8px;
+    }
+
+    body.dashboard-page .care-section-label {
+        margin-top: 7px;
+        font-size: 13px;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        min-height: 82px !important;
+        padding: 8px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item b {
+        margin-top: 4px;
+        font-size: 19px;
+    }
+
+    body.dashboard-page .ai-metric-item small {
+        margin-top: 3px;
+        font-size: 9px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .notice {
+        margin-top: 5px;
+        padding-block: 5px;
+    }
+
+    body.dashboard-page .care-soil-card {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        padding: 11px 13px;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 1 1 auto;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 820px) {
+    body.dashboard-page .ai-analysis-card > .chart-head {
+        flex: 0 0 45px;
+        min-height: 45px;
+    }
+
+    body.dashboard-page .chart-head-actions .trend-meta {
+        display: none;
+    }
+
+    body.dashboard-page .ai-summary-card {
+        height: 96px;
+        min-height: 96px;
+        flex: 0 0 96px;
+        margin-top: 6px;
+        padding-block: 9px;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        flex-basis: 230px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 70px;
+        height: 70px;
+    }
+
+    body.dashboard-page .ai-chart-illustration {
+        width: 126px;
+    }
+
+    body.dashboard-page .care-summary-grid {
+        height: 120px;
+        min-height: 120px;
+        flex: 0 0 120px;
+        margin-top: 6px;
+    }
+
+    body.dashboard-page .care-summary-item {
+        height: 120px;
+        min-height: 0;
+        padding-block: 7px;
+    }
+
+    body.dashboard-page .care-content-grid {
+        margin-top: 6px;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        height: 158px;
+        min-height: 158px;
+        flex: 0 0 158px;
+        margin-top: 0;
+    }
+
+    body.dashboard-page .care-detail-item {
+        height: 158px;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.dashboard-page .care-section-label {
+        margin-top: 5px;
+        line-height: 18px;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        height: 78px;
+        min-height: 78px;
+        flex: 0 0 78px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        height: 78px;
+        min-height: 0 !important;
+        padding-block: 6px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item span {
+        margin-bottom: 2px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item b {
+        margin-top: 1px;
+        font-size: 17px;
+        line-height: 1.2;
+    }
+
+    body.dashboard-page .ai-metric-item small {
+        margin-top: 2px;
+        line-height: 1.15;
+    }
+
+    body.dashboard-page .notice {
+        height: 18px;
+        min-height: 18px;
+        padding-block: 2px;
+        line-height: 12px;
+    }
+}
+
+/* 健康與設備摘要：壓縮高度並提高掃描效率 */
+body.dashboard-page .dashboard-overview {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 0;
+}
+
+body.dashboard-page .health-panel,
+body.dashboard-page .sensor-panel {
+    height: 100%;
+    min-height: 0;
+}
+
+body.dashboard-page .health-panel {
+    padding: 16px 18px !important;
+    gap: 0;
+}
+
+body.dashboard-page .health-kicker {
+    margin-bottom: 14px;
+    font-size: 12px;
+}
+
+body.dashboard-page .health-title {
+    margin: 0 0 7px;
+    max-width: 760px;
+    font-size: 22px;
+    line-height: 1.28;
+}
+
+body.dashboard-page .health-summary {
+    max-width: 760px;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+body.dashboard-page .health-meta {
+    grid-template-columns: minmax(130px, .75fr) minmax(210px, 1.35fr);
+    gap: 8px;
+    width: min(100%, 540px);
+    margin-top: 14px;
+}
+
+body.dashboard-page .health-meta-item {
+    min-width: 0;
+    padding: 9px 11px;
+}
+
+body.dashboard-page .health-meta-item b {
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 1.25;
+}
+
+body.dashboard-page #healthUpdated {
+    font-size: 14px;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+body.dashboard-page .plant-visual {
+    display: none;
+}
+
+body.dashboard-page .sensor-panel {
+    padding: 10px !important;
+}
+
+body.dashboard-page .sensor-grid {
+    gap: 8px;
+}
+
+body.dashboard-page .sensor-item {
+    min-height: 78px;
+    padding: 10px 12px;
+}
+
+body.dashboard-page .sensor-value {
+    margin-top: 5px;
+    font-size: 19px;
+}
+
+body.dashboard-page .sensor-meta {
+    margin-top: 4px;
+    font-size: 11px;
+}
+
+body.dashboard-page .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0 !important;
+    overflow: visible;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body.dashboard-page .summary-item,
+body.dashboard-page .summary-item:last-child {
+    min-height: 62px;
+    padding: 10px 12px;
+    border: 1px solid var(--dashboard-border);
+    border-radius: 9px;
+    background: #fff !important;
+    box-shadow: 0 1px 2px rgba(29, 48, 35, .035);
+}
+
+body.dashboard-page .summary-item span {
+    font-size: 11px;
+}
+
+body.dashboard-page .summary-item b {
+    margin-top: 5px;
+    font-size: 23px;
+    line-height: 1;
+}
+
+@media (max-width: 1100px) {
+    body.dashboard-page .summary-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .dashboard-overview {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .health-meta {
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+    }
+
+    body.dashboard-page #healthUpdated {
+        white-space: normal;
+    }
+
+    body.dashboard-page .sensor-grid,
+    body.dashboard-page .summary-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.dashboard-page .summary-item:nth-child(2n) {
+        border-right: 1px solid var(--dashboard-border);
+    }
+}
+
+/* AI 摘要橫幅：保留舊資料節點，但以單一摘要建立頁面視覺焦點 */
+body.dashboard-page .dashboard-legacy-overview[hidden] {
+    display: none !important;
+}
+
+body.dashboard-page .ai-summary-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    min-height: 154px;
+    padding: 20px 24px;
+    overflow: hidden;
+    border: 1px solid #b9d2bc;
+    border-radius: 12px;
+    background: #f7fbf6;
+    box-shadow: 0 1px 2px rgba(29, 65, 40, .04);
+}
+
+body.dashboard-page .ai-summary-copy {
+    flex: 1 1 auto;
+    max-width: 760px;
+    min-width: 0;
+}
+
+body.dashboard-page .ai-summary-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #246b38;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+body.dashboard-page .ai-summary-title svg {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    fill: #3b8b4d;
+    stroke: #246b38;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .ai-summary-card p {
+    margin: 0;
+    color: #34443a;
+    font-size: 14px;
+    line-height: 1.85;
+    white-space: normal;
+}
+
+body.dashboard-page .ai-summary-visual {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 22px;
+    flex: 0 0 310px;
+    min-width: 0;
+}
+
+body.dashboard-page .ai-plant-illustration {
+    width: 112px;
+    height: 112px;
+    overflow: visible;
+}
+
+body.dashboard-page .ai-plant-stem {
+    fill: none;
+    stroke: #397a3d;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .ai-plant-leaf {
+    fill: #78b75e;
+    stroke: #5c9b4a;
+    stroke-width: 1.5;
+}
+
+body.dashboard-page .ai-plant-leaf-small {
+    fill: #85bd69;
+}
+
+body.dashboard-page .ai-plant-rim {
+    fill: #68a64e;
+    stroke: #579143;
+    stroke-width: 1.5;
+}
+
+body.dashboard-page .ai-plant-pot {
+    fill: #72ad54;
+    stroke: #579143;
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .ai-chart-illustration {
+    width: 162px;
+    height: auto;
+    filter: drop-shadow(0 4px 7px rgba(39, 74, 46, .08));
+}
+
+body.dashboard-page .ai-chart-card {
+    fill: #fff;
+    stroke: #dce7dc;
+    stroke-width: 2;
+}
+
+body.dashboard-page .ai-chart-bar {
+    fill: #edf5eb;
+}
+
+body.dashboard-page .ai-chart-line {
+    fill: none;
+    stroke: #c8dfc3;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .ai-chart-point {
+    fill: #a9cda2;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .ai-summary-card {
+        gap: 18px;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        gap: 12px;
+        flex-basis: 250px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 92px;
+        height: 92px;
+    }
+
+    body.dashboard-page .ai-chart-illustration {
+        width: 138px;
+    }
+}
+
+@media (max-width: 700px) {
+    body.dashboard-page .ai-summary-card {
+        align-items: flex-start;
+        min-height: 0;
+        padding: 18px;
+    }
+
+    body.dashboard-page .ai-summary-copy {
+        max-width: none;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        flex: 0 0 90px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 86px;
+        height: 86px;
+    }
+
+    body.dashboard-page .ai-chart-illustration {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    body.dashboard-page .ai-summary-card {
+        gap: 12px;
+        padding: 16px;
+    }
+
+    body.dashboard-page .ai-summary-title {
+        margin-bottom: 9px;
+    }
+
+    body.dashboard-page .ai-summary-card p {
+        font-size: 13px;
+        line-height: 1.75;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        flex-basis: 64px;
+        margin-top: 22px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+/* 照護分析內容：對齊參考圖的狀態卡、原因、建議與趨勢層級 */
+body.dashboard-page .care-summary-grid {
+    gap: 12px;
+}
+
+body.dashboard-page .care-summary-item {
+    min-height: 140px;
+    padding: 15px 16px;
+    border-color: #dce3dc;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(29, 48, 35, .045);
+}
+
+body.dashboard-page .care-summary-item > span {
+    color: #56645b;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+body.dashboard-page .care-score-item > b {
+    margin-top: 12px;
+    font-size: 34px;
+    line-height: 1;
+}
+
+body.dashboard-page .care-score-item > b em {
+    margin-left: 5px;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+body.dashboard-page .care-score-item[data-tone="danger"] > b { color: var(--aw-danger, #bf4e43); }
+body.dashboard-page .care-score-item[data-tone="warning"] > b { color: var(--aw-warning, #b77927); }
+body.dashboard-page .care-score-item[data-tone="healthy"] > b { color: var(--aw-success, #3f8754); }
+body.dashboard-page .care-score-item[data-tone="unknown"] > b { color: var(--aw-info, #4f8fa3); }
+
+body.dashboard-page .care-score-item[data-tone="danger"] .care-score-track span { background: var(--aw-danger, #bf4e43); }
+body.dashboard-page .care-score-item[data-tone="warning"] .care-score-track span { background: var(--aw-warning, #b77927); }
+body.dashboard-page .care-score-item[data-tone="healthy"] .care-score-track span { background: var(--aw-success, #3f8754); }
+
+body.dashboard-page .care-score-track {
+    margin-top: 12px;
+}
+
+body.dashboard-page .care-score-scale {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    color: #6d7971;
+    font-size: 10px;
+    line-height: 1;
+}
+
+body.dashboard-page .care-score-track[hidden] + .care-score-scale {
+    display: none;
+}
+
+body.dashboard-page .care-score-item > small {
+    margin-top: 9px;
+}
+
+body.dashboard-page #careStatus {
+    margin-top: 14px;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+body.dashboard-page #careStatus i {
+    position: relative;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #e1e5e7;
+    opacity: 1;
+}
+
+body.dashboard-page #careStatus i::after {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #34433a;
+    content: "?";
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 900;
+    opacity: 1;
+}
+
+body.dashboard-page #careStatus:not(.unknown) i {
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+    background: currentColor;
+    opacity: 1;
+}
+
+body.dashboard-page #careStatus:not(.unknown) i::after {
+    content: "";
+}
+
+body.dashboard-page .care-status-hint {
+    display: inline-block !important;
+    margin-top: 10px !important;
+    padding: 5px 9px;
+    border: 1px solid #e0e5e1;
+    border-radius: 6px;
+    background: #f6f8f6;
+    color: #68756d !important;
+}
+
+body.dashboard-page .care-factor-list {
+    gap: 11px;
+    margin-top: 14px;
+}
+
+body.dashboard-page .care-factor-list span {
+    position: relative;
+    min-height: 24px;
+    padding: 3px 0 3px 30px;
+    border-left: 0;
+    color: #344039;
+    line-height: 1.4;
+}
+
+body.dashboard-page .care-factor-list span::before {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    content: "";
+    opacity: .9;
+}
+
+body.dashboard-page .care-factor-list span::after {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+body.dashboard-page .care-factor-list span.danger { color: var(--aw-danger, #bf4e43); }
+body.dashboard-page .care-factor-list span.warning { color: var(--aw-warning, #b77927); }
+body.dashboard-page .care-factor-list span.info { color: var(--aw-info, #4f8fa3); }
+body.dashboard-page .care-factor-list span.healthy { color: var(--aw-success, #3f8754); }
+
+body.dashboard-page .care-data-status {
+    gap: 13px;
+    margin-top: 13px;
+}
+
+body.dashboard-page .care-data-row {
+    grid-template-columns: 22px auto minmax(0, 1fr);
+    gap: 7px;
+    align-items: center;
+}
+
+body.dashboard-page .care-data-icon {
+    position: relative;
+    display: block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+    color: var(--aw-info, #4f8fa3);
+}
+
+body.dashboard-page .care-data-icon.device::before {
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 2px;
+    height: 5px;
+    border-radius: 1px;
+    background: currentColor;
+    content: "";
+}
+
+body.dashboard-page .care-data-icon.device::after {
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    width: 5px;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    content: "";
+    transform: rotate(35deg);
+    transform-origin: left center;
+}
+
+body.dashboard-page .care-data-icon.image {
+    border-radius: 3px;
+}
+
+body.dashboard-page .care-data-icon.image::before {
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+body.dashboard-page .care-data-icon.image::after {
+    position: absolute;
+    left: 2px;
+    bottom: 2px;
+    width: 10px;
+    height: 7px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    content: "";
+    transform: rotate(-45deg) skew(10deg, 10deg);
+}
+
+body.dashboard-page .care-data-row > span:nth-child(2) {
+    color: #455148;
+    font-weight: 700;
+}
+
+body.dashboard-page .care-detail-grid {
+    gap: 12px;
+}
+
+body.dashboard-page .care-detail-item {
+    min-height: 178px;
+    padding: 14px 16px;
+    border-radius: 10px;
+}
+
+body.dashboard-page .care-detail-item:first-child {
+    border-color: #efc8c3 !important;
+    background: #fffafa !important;
+}
+
+body.dashboard-page .care-detail-item:nth-child(2) {
+    border-color: #ecd6ac !important;
+    background: #fffdf7 !important;
+}
+
+body.dashboard-page .care-detail-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+body.dashboard-page .care-detail-title svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+body.dashboard-page .care-detail-item:first-child .care-detail-title { color: var(--aw-danger, #bf4e43); }
+body.dashboard-page .care-detail-item:nth-child(2) .care-detail-title { color: var(--aw-warning, #b77927); }
+
+body.dashboard-page .care-list {
+    gap: 6px;
+    padding-left: 0;
+}
+
+body.dashboard-page .care-list-row {
+    min-height: 42px;
+    padding: 5px 4px;
+    border: 0;
+    background: transparent !important;
+}
+
+body.dashboard-page .care-list-row > i {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    margin-top: 2px;
+    border: 2px solid currentColor;
+    background: transparent;
+}
+
+body.dashboard-page .care-list-row > i::after {
+    display: block;
+    width: 6px;
+    height: 6px;
+    margin: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    content: "";
+}
+
+body.dashboard-page .care-list-row b {
+    font-size: 13px;
+}
+
+body.dashboard-page .care-list-row small {
+    font-size: 11px;
+}
+
+body.dashboard-page .care-actions .care-list-row {
+    position: relative;
+    min-height: 35px;
+    padding: 7px 26px 7px 10px;
+    border: 1px solid #e0e5e0;
+    border-radius: 7px;
+    background: #fff !important;
+}
+
+body.dashboard-page .care-actions .care-list-row::after {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 6px;
+    height: 6px;
+    border-top: 1.5px solid #768179;
+    border-right: 1.5px solid #768179;
+    content: "";
+    transform: translateY(-50%) rotate(45deg);
+}
+
+body.dashboard-page .care-actions .care-list-row > i {
+    width: 16px;
+    height: 16px;
+    flex-basis: 16px;
+}
+
+body.dashboard-page .care-actions .care-list-row > i::after {
+    width: 4px;
+    height: 4px;
+    margin: 4px;
+}
+
+body.dashboard-page .care-actions .care-list-row small {
+    display: none;
+}
+
+body.dashboard-page .care-section-label {
+    margin-top: 12px;
+    color: #26332b;
+    font-size: 15px;
+}
+
+body.dashboard-page .ai-metric-grid {
+    gap: 10px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item {
+    min-height: 112px !important;
+    padding: 13px;
+    border-radius: 9px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item b {
+    margin-top: 7px;
+    font-size: 23px;
+}
+
+body.dashboard-page .care-soil-card {
+    min-height: 0;
+    padding: 16px 18px;
+    border-radius: 10px;
+}
+
+body.dashboard-page .care-soil-card .soil-chart-wrapper {
+    height: 302px !important;
+    min-height: 302px !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .care-detail-item {
+        min-height: 0;
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .care-summary-item {
+        min-height: 0;
+    }
+
+    body.dashboard-page .care-detail-item {
+        padding: 13px;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: 250px !important;
+        min-height: 250px !important;
+    }
+}
+
+/* 低高度桌機最終優先序：覆蓋一般分析卡尺寸 */
+@media (min-width: 901px) and (max-height: 1050px) {
+    body.dashboard-page .care-summary-item {
+        min-height: 112px;
+        padding: 9px 12px;
+    }
+
+    body.dashboard-page .care-factor-list,
+    body.dashboard-page .care-data-status {
+        gap: 5px;
+        margin-top: 7px;
+    }
+
+    body.dashboard-page .care-data-row {
+        gap: 5px;
+        font-size: 11px;
+    }
+
+    body.dashboard-page .care-data-row small {
+        font-size: 9px;
+        line-height: 1.2;
+    }
+
+    body.dashboard-page .care-detail-item {
+        min-height: 0;
+        padding: 9px 11px;
+    }
+
+    body.dashboard-page .care-detail-title {
+        gap: 6px;
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+
+    body.dashboard-page .care-detail-title svg {
+        width: 17px;
+        height: 17px;
+    }
+
+    body.dashboard-page .care-list {
+        gap: 3px;
+    }
+
+    body.dashboard-page .care-list-row {
+        min-height: 32px;
+        padding: 3px;
+    }
+
+    body.dashboard-page .care-list-row > i {
+        width: 15px;
+        height: 15px;
+        flex-basis: 15px;
+    }
+
+    body.dashboard-page .care-list-row > i::after {
+        width: 5px;
+        height: 5px;
+        margin: 3px;
+    }
+
+    body.dashboard-page .care-list-row b {
+        font-size: 11px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .care-list-row small {
+        margin-top: 1px;
+        font-size: 9px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .care-actions .care-list-row {
+        min-height: 27px;
+        padding: 4px 24px 4px 8px;
+    }
+
+    body.dashboard-page .care-section-label {
+        margin-top: 7px;
+        font-size: 13px;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        min-height: 82px !important;
+        padding: 8px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item b {
+        margin-top: 4px;
+        font-size: 19px;
+    }
+
+    body.dashboard-page .ai-metric-item small {
+        margin-top: 3px;
+        font-size: 9px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .care-soil-card {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        padding: 11px 13px;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: auto !important;
+        min-height: 0 !important;
+        flex: 1 1 auto;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 820px) {
+    body.dashboard-page .care-summary-item {
+        height: 120px;
+        min-height: 0;
+        padding-block: 7px;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        height: 164px;
+        min-height: 164px;
+        flex-basis: 164px;
+    }
+
+    body.dashboard-page .care-detail-item {
+        height: 164px;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        height: 78px;
+        min-height: 0 !important;
+        padding-block: 6px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item span {
+        margin-bottom: 2px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item b {
+        margin-top: 1px;
+        font-size: 17px;
+        line-height: 1.2;
+    }
+
+    body.dashboard-page .ai-metric-item small {
+        margin-top: 2px;
+        line-height: 1.15;
+    }
+}
+
+/* 桌機取消 Header，將高度回補給分析卡片，避免內容過度緊縮 */
+@media (min-width: 901px) {
+    body.dashboard-page .topbar {
+        display: none;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 1050px) {
+    body.dashboard-page .wrap {
+        height: calc(100vh - 16px) !important;
+    }
+
+    body.dashboard-page .dashboard-charts > .ai-analysis-card {
+        padding: 14px !important;
+    }
+
+    body.dashboard-page .ai-summary-card {
+        height: 124px;
+        min-height: 124px;
+        flex: 0 0 124px;
+        padding: 14px 20px;
+    }
+
+    body.dashboard-page .ai-summary-title {
+        margin-bottom: 8px;
+    }
+
+    body.dashboard-page .ai-summary-card p {
+        line-height: 1.7;
+    }
+
+    body.dashboard-page .ai-summary-visual {
+        flex-basis: 280px;
+        gap: 18px;
+    }
+
+    body.dashboard-page .ai-plant-illustration {
+        width: 90px;
+        height: 90px;
+    }
+
+    body.dashboard-page .ai-chart-illustration {
+        width: 146px;
+    }
+
+    body.dashboard-page .care-summary-grid {
+        height: 136px;
+        min-height: 136px;
+        flex: 0 0 136px;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    body.dashboard-page .care-summary-item {
+        height: 136px;
+        min-height: 0;
+        padding: 12px 14px;
+    }
+
+    body.dashboard-page .care-score-item > b {
+        margin-top: 8px;
+        font-size: 31px;
+    }
+
+    body.dashboard-page .care-score-track {
+        margin-top: 8px;
+    }
+
+    body.dashboard-page #careStatus {
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    body.dashboard-page #careStatus i {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    body.dashboard-page .care-factor-list,
+    body.dashboard-page .care-data-status {
+        gap: 8px;
+        margin-top: 9px;
+    }
+
+    body.dashboard-page .care-data-row {
+        gap: 7px;
+        font-size: 12px;
+    }
+
+    body.dashboard-page .care-data-row small {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    body.dashboard-page .care-content-grid {
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        height: 190px;
+        min-height: 190px;
+        flex: 0 0 190px;
+        gap: 10px;
+        margin-top: 0;
+    }
+
+    body.dashboard-page .care-detail-item {
+        height: 190px;
+        min-height: 0;
+        padding: 12px 14px;
+        overflow: hidden;
+    }
+
+    body.dashboard-page .care-detail-title {
+        gap: 7px;
+        margin-bottom: 7px;
+        font-size: 14px;
+    }
+
+    body.dashboard-page .care-detail-title svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    body.dashboard-page .care-list {
+        gap: 4px;
+    }
+
+    body.dashboard-page .care-list-row {
+        min-height: 35px;
+        padding: 4px;
+    }
+
+    body.dashboard-page .care-list-row b {
+        font-size: 12px;
+        line-height: 1.35;
+    }
+
+    body.dashboard-page .care-list-row small {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    body.dashboard-page .care-actions .care-list-row {
+        min-height: 31px;
+        padding: 5px 25px 5px 9px;
+    }
+
+    body.dashboard-page .care-section-label {
+        margin-top: 9px;
+        font-size: 14px;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        height: 96px;
+        min-height: 96px;
+        flex: 0 0 96px;
+        gap: 8px;
+        margin-top: 6px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        height: 96px;
+        min-height: 0 !important;
+        padding: 10px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item span {
+        margin-bottom: 4px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item b {
+        margin-top: 2px;
+        font-size: 20px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .ai-metric-item small {
+        margin-top: 3px;
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    body.dashboard-page .notice {
+        height: auto;
+        min-height: 26px;
+        margin-top: 7px;
+        padding-block: 5px;
+        line-height: 1.35;
+    }
+}
+
+@media (min-width: 901px) and (max-height: 820px) {
+    body.dashboard-page .ai-summary-card {
+        height: 112px;
+        min-height: 112px;
+        flex-basis: 112px;
+    }
+
+    body.dashboard-page .care-summary-grid {
+        height: 128px;
+        min-height: 128px;
+        flex-basis: 128px;
+        margin-top: 8px;
+    }
+
+    body.dashboard-page .care-summary-item {
+        height: 128px;
+    }
+
+    body.dashboard-page .care-content-grid {
+        margin-top: 8px;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        height: 178px;
+        min-height: 178px;
+        flex-basis: 178px;
+    }
+
+    body.dashboard-page .care-detail-item {
+        height: 178px;
+        padding: 10px 12px;
+    }
+
+    body.dashboard-page .care-list-row {
+        min-height: 32px;
+        padding-block: 3px;
+    }
+
+    body.dashboard-page .care-actions .care-list-row {
+        min-height: 29px;
+        padding-block: 4px;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        height: 88px;
+        min-height: 88px;
+        flex-basis: 88px;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        height: 88px;
+        padding: 8px;
+    }
+}
+
+/* 桌機改回自然內容高度，超出視窗時由整頁正常上下捲動 */
+@media (min-width: 901px) {
+    body.dashboard-page {
+        height: auto !important;
+        min-height: 100vh;
+        overflow-y: auto !important;
+    }
+
+    body.dashboard-page .main {
+        height: auto !important;
+        min-height: 100vh;
+        overflow: visible !important;
+    }
+
+    body.dashboard-page .wrap {
+        height: auto !important;
+        margin: 12px auto 28px !important;
+        overflow: visible !important;
+    }
+
+    body.dashboard-page .frame,
+    body.dashboard-page .dashboard-charts {
+        height: auto !important;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    body.dashboard-page .dashboard-charts > .ai-analysis-card {
+        height: auto !important;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    body.dashboard-page .ai-summary-card {
+        height: auto;
+        min-height: 154px;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .care-summary-grid {
+        height: auto;
+        min-height: 0;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .care-summary-item {
+        height: auto;
+        min-height: 140px;
+    }
+
+    body.dashboard-page .care-content-grid {
+        min-height: 0;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .care-detail-grid {
+        height: auto;
+        min-height: 0;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .care-detail-item {
+        height: auto;
+        min-height: 178px;
+        overflow: visible;
+    }
+
+    body.dashboard-page .ai-metric-grid {
+        height: auto;
+        min-height: 0;
+        flex: 0 0 auto;
+    }
+
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        height: auto;
+        min-height: 112px !important;
+    }
+
+    body.dashboard-page .care-soil-card {
+        height: auto;
+        min-height: 0;
+    }
+
+    body.dashboard-page .care-soil-card .soil-chart-wrapper {
+        height: 302px !important;
+        min-height: 302px !important;
+        flex: 0 0 302px;
+    }
 }

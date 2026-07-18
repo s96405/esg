@@ -20,8 +20,7 @@ body{
   margin:0;
   color:var(--text);
   font-family:"Microsoft JhengHei",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:
-    linear-gradient(180deg, rgba(231,241,229,.95), rgba(244,248,242,.98) 48%, rgba(240,245,247,.98));
+  background:#f3f6f2;
   overflow-x:hidden;
 }
 
@@ -53,11 +52,12 @@ a{color:inherit;}
   border-radius:14px;
   display:grid;
   place-items:center;
-  background:linear-gradient(135deg, rgba(95,143,99,.16), rgba(95,143,164,.14));
+  background:#f0f6ef;
   border:1px solid rgba(95,143,99,.18);
   color:var(--green);
-  font-weight:700;
+  color:#356b4d;
 }
+.brand-mark svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
 .brand-copy strong{display:block;font-size:15px;line-height:1.2;}
 .brand-copy small{display:block;color:var(--muted);font-size:11px;margin-top:2px;letter-spacing:.04em;}
 
@@ -104,7 +104,7 @@ a{color:inherit;}
 .primary-btn{
   color:#fff;
   border:1px solid rgba(77,119,82,.22);
-  background:linear-gradient(135deg, #6f9c73, #8ab0a1);
+  background:#356b4d;
   box-shadow:0 10px 24px rgba(95,143,99,.16);
 }
 .text-btn{
