@@ -216,44 +216,23 @@
 
                     <div class="dashboard-charts">
 
-                        <section class="panel chart-card ai-analysis-card">
+                        <section class="ai-analysis-card ai-analysis-streamlined">
 
-                            <div class="chart-head">
-
-                                <div>
-                                    <div class="section-h">影像與照護分析</div>
-                                    <div class="chart-sub">
-                                        依影像、感測器與設備狀態進行規則型整理
-                                    </div>
-                                </div>
-
-                                <div class="chart-head-actions">
-
-                                    <select id="aiChartRange" class="chart-range-select" aria-label="選擇影像分析資料範圍">
-                                        <option value="24">最近 24 筆</option>
-                                        <option value="48">最近 48 筆</option>
-                                        <option value="96">最近 96 筆</option>
-                                        <option value="168">最近 7 天</option>
-                                    </select>
-
-                                    <div class="trend-meta" id="aiMetricTime">
-                                        —
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="ai-summary-card">
+                            <section class="ai-summary-card" aria-labelledby="careSummaryTitle">
                                 <div class="ai-summary-copy">
-                                    <div class="ai-summary-title">
-                                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                            <path d="M12 3.5c.7 4.2 2.3 5.8 6.5 6.5-4.2.7-5.8 2.3-6.5 6.5-.7-4.2-2.3-5.8-6.5-6.5 4.2-.7 5.8-2.3 6.5-6.5Z" />
-                                            <path d="M19 3v4M21 5h-4" />
-                                        </svg>
-                                        <span>AI 摘要</span>
+                                    <div class="ai-summary-heading">
+                                        <div class="ai-summary-title" id="careSummaryTitle">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                                <path d="M12 3.5c.7 4.2 2.3 5.8 6.5 6.5-4.2.7-5.8 2.3-6.5 6.5-.7-4.2-2.3-5.8-6.5-6.5 4.2-.7 5.8-2.3 6.5-6.5Z" />
+                                                <path d="M19 3v4M21 5h-4" />
+                                            </svg>
+                                            <span>AI 摘要</span>
+                                        </div>
+                                        <b id="careStatus" class="unknown"><i aria-hidden="true"></i>資料不足</b>
                                     </div>
                                     <p id="careAiSummary">正在整理現有設備與影像分析結果。</p>
+                                    <div id="carePrimaryFactors" class="ai-summary-factors">資料讀取中</div>
+                                    <div id="careDataStatus" class="ai-summary-data-status">資料讀取中</div>
                                 </div>
 
                                 <div class="ai-summary-visual" aria-hidden="true">
@@ -277,136 +256,79 @@
                                         <circle class="ai-chart-point" cx="131" cy="25" r="3" />
                                     </svg>
                                 </div>
-                            </div>
+                            </section>
 
-                            <div class="care-summary-grid">
-
-                                <div class="care-summary-item care-score-item">
-                                    <span>綜合照護評分</span>
-                                    <b id="careScore">—</b>
-                                    <div class="care-score-track" aria-hidden="true">
-                                        <span id="careScoreBar"></span>
-                                    </div>
-                                    <div class="care-score-scale" aria-hidden="true">
-                                        <span>0</span>
-                                        <span>100</span>
-                                    </div>
-                                    <small>規則型評分，非疾病診斷</small>
-                                </div>
-
-                                <div class="care-summary-item">
-                                    <span>綜合狀態</span>
-                                    <b id="careStatus" class="unknown"><i aria-hidden="true"></i>無法判定</b>
-                                    <small id="careStatusHint" class="care-status-hint">資料不足，無法完整評估</small>
-                                </div>
-
-                                <div class="care-summary-item">
-                                    <span>主要影響因素</span>
-                                    <div id="carePrimaryFactors" class="care-factor-list">資料讀取中</div>
-                                </div>
-
-                                <div class="care-summary-item">
-                                    <span>資料狀態</span>
-                                    <div id="careDataStatus" class="care-data-status">資料讀取中</div>
-                                </div>
-
-                            </div>
-
-                            <div class="care-content-grid">
-
-                                <div class="care-left-column">
-
-                                    <div class="care-detail-grid">
-
-                                        <div class="care-detail-item">
-                                            <div class="care-detail-title">
-                                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                                    <path d="M12 3 2.8 20h18.4L12 3Z" />
-                                                    <path d="M12 9v5M12 17.5v.1" />
-                                                </svg>
-                                                <span>異常原因</span>
-                                            </div>
-                                            <div id="careReasons" class="care-list">
-                                                <div class="care-list-row info">資料讀取中</div>
-                                            </div>
+                            <section class="care-attention-panel" id="careAttentionPanel" aria-labelledby="careAttentionTitle" hidden>
+                                <div class="section-h" id="careAttentionTitle">需要注意的事項</div>
+                                <div class="care-attention-grid">
+                                    <div class="care-attention-column">
+                                        <div class="care-detail-title">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                                <path d="M12 3 2.8 20h18.4L12 3Z" />
+                                                <path d="M12 9v5M12 17.5v.1" />
+                                            </svg>
+                                            <span>觀察原因</span>
                                         </div>
-
-                                        <div class="care-detail-item">
-                                            <div class="care-detail-title">
-                                                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                                                    <path d="M9 18h6M10 22h4" />
-                                                    <path d="M8.2 14.5A7 7 0 1 1 15.8 14.5C14.7 15.3 14 16.2 14 18h-4c0-1.8-.7-2.7-1.8-3.5Z" />
-                                                </svg>
-                                                <span>照護建議</span>
-                                            </div>
-                                            <div id="careRecommendations" class="care-list care-actions">
-                                                <div class="care-list-row info">資料讀取中</div>
-                                            </div>
+                                        <div id="careReasons" class="care-list">
+                                            <div class="care-list-row info">資料讀取中</div>
                                         </div>
-
                                     </div>
 
-                                    <div class="care-section-label">分析依據</div>
-
-                                    <div class="ai-metric-grid">
-
-                                        <div class="ai-metric-item">
-                                            <span>葉面覆蓋率</span>
-                                            <b id="aiLeafCover">—</b>
-                                            <small>影像中的葉面覆蓋比例</small>
+                                    <div class="care-attention-column">
+                                        <div class="care-detail-title">
+                                            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                                <path d="M9 18h6M10 22h4" />
+                                                <path d="M8.2 14.5A7 7 0 1 1 15.8 14.5C14.7 15.3 14 16.2 14 18h-4c0-1.8-.7-2.7-1.8-3.5Z" />
+                                            </svg>
+                                            <span>照護建議</span>
                                         </div>
-
-                                        <div class="ai-metric-item">
-                                            <span>紅色區域比例</span>
-                                            <b id="aiRedRatio">—</b>
-                                            <small>僅顯示，不參與評分</small>
+                                        <div id="careRecommendations" class="care-list care-actions">
+                                            <div class="care-list-row info">資料讀取中</div>
                                         </div>
+                                    </div>
+                                </div>
+                            </section>
 
-                                        <div class="ai-metric-item">
-                                            <span>分析狀態</span>
-                                            <b id="aiStatus">—</b>
-                                            <small>依現有影像狀態欄位顯示</small>
-                                        </div>
-
-                                        <div class="ai-metric-item">
-                                            <span>葉面覆蓋率趨勢</span>
-                                            <b id="leafTrend">資料不足</b>
-                                            <small id="leafTrendDelta">少於兩筆有效資料</small>
-                                        </div>
-
+                            <section class="care-image-chart-card" aria-labelledby="imageTrendTitle">
+                                <div class="chart-head image-trend-head">
+                                    <div>
+                                        <div class="section-h" id="imageTrendTitle">影像分析趨勢</div>
+                                        <div class="chart-sub">Leaf Cover 與 Red Ratio 的近期變化；Red Ratio 僅供顯示</div>
                                     </div>
 
-                                    <div class="notice" id="aiMetricNotice">
-                                        等待影像分析資料
+                                    <div class="image-trend-toolbar">
+                                        <div class="image-trend-values" aria-label="最新影像分析數值">
+                                            <span>
+                                                <small>Leaf Cover</small>
+                                                <b id="aiLeafCover">—</b>
+                                            </span>
+                                            <span>
+                                                <small>Red Ratio</small>
+                                                <b id="aiRedRatio">—</b>
+                                            </span>
+                                        </div>
+
+                                        <div class="chart-head-actions">
+                                            <select id="aiChartRange" class="chart-range-select" aria-label="選擇影像分析資料範圍">
+                                                <option value="24">最近 24 筆</option>
+                                                <option value="48">最近 48 筆</option>
+                                                <option value="96">最近 96 筆</option>
+                                                <option value="168">最近 7 天</option>
+                                            </select>
+                                            <div class="trend-meta" id="aiMetricTime">—</div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <section class="care-soil-card" aria-labelledby="soilTrendTitle">
-
-                                    <div class="chart-head">
-
-                                        <div>
-                                            <div class="section-h" id="soilTrendTitle">土壤濕度趨勢</div>
-                                            <div class="chart-sub" id="soilTrendRange">近 1 小時</div>
-                                        </div>
-
-                                        <div class="trend-meta" id="avgSoilNow">—</div>
-
+                                <div class="ai-chart-wrapper">
+                                    <canvas id="aiMetricsChart" aria-label="影像分析趨勢圖"></canvas>
+                                    <div class="chart-empty" id="aiChartEmpty" hidden>
+                                        尚無影像分析資料
                                     </div>
+                                </div>
 
-                                    <div class="soil-chart-wrapper">
-                                        <canvas id="soilTrendChart" aria-label="土壤濕度趨勢圖"></canvas>
-
-                                        <div class="chart-empty" id="soilChartEmpty" hidden>
-                                            尚無土壤濕度資料
-                                        </div>
-                                    </div>
-
-                                    <span id="lastRefresh" hidden>—</span>
-
-                                </section>
-
-                            </div>
+                                <div class="notice" id="aiMetricNotice">等待影像分析資料</div>
+                            </section>
 
                         </section>
 

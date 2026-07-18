@@ -1743,6 +1743,41 @@ body.dashboard-page .care-summary-grid {
     }
 }
 
+/* 影像分析趨勢：沿用既有 camera_metrics 查詢與 Chart.js */
+body.dashboard-page .care-image-chart-card {
+    grid-column: 1 / -1;
+    min-width: 0;
+    padding: 13px 14px;
+    border: 1px solid var(--aw-border, rgba(72, 91, 78, .16));
+    border-radius: 10px;
+    background: var(--aw-surface, #fff);
+}
+
+body.dashboard-page .care-image-chart-card .ai-chart-wrapper {
+    height: 280px !important;
+    min-height: 280px !important;
+    flex: 0 0 280px;
+}
+
+body.dashboard-page .image-chart-note {
+    margin: 8px 2px 0;
+    color: var(--aw-muted, var(--sub));
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .care-image-chart-card {
+        padding: 12px;
+    }
+
+    body.dashboard-page .care-image-chart-card .ai-chart-wrapper {
+        height: 230px !important;
+        min-height: 230px !important;
+        flex-basis: 230px;
+    }
+}
+
 @media (max-width: 560px) {
     body.dashboard-page .care-summary-grid {
         grid-template-columns: minmax(0, 1fr);
@@ -3691,5 +3726,653 @@ body.dashboard-page .care-soil-card .soil-chart-wrapper {
         height: 302px !important;
         min-height: 302px !important;
         flex: 0 0 302px;
+    }
+}
+
+/* =========================================================
+   儀表板高級感最終視覺層
+   僅收斂材質、層級與響應式，不變更資料或功能
+========================================================= */
+body.dashboard-page {
+    --lux-bg: #f1f2ec;
+    --lux-surface: #fffefa;
+    --lux-surface-soft: #f7f8f3;
+    --lux-border: rgba(55, 78, 62, .16);
+    --lux-border-strong: rgba(55, 78, 62, .28);
+    --lux-text: #19271e;
+    --lux-muted: #6b766e;
+    --lux-green: #315f43;
+    --lux-green-soft: #edf3ea;
+    --lux-shadow: 0 16px 42px rgba(38, 53, 42, .075);
+    background: linear-gradient(180deg, #f6f6f1 0%, var(--lux-bg) 48%, #e9eee6 100%) !important;
+    color: var(--lux-text);
+}
+
+body.dashboard-page .sidebar {
+    background: rgba(250, 250, 246, .96) !important;
+    border-right: 1px solid var(--lux-border) !important;
+    box-shadow: 8px 0 30px rgba(38, 53, 42, .035);
+}
+
+body.dashboard-page .side-top {
+    padding: 18px 16px !important;
+    border-bottom-color: var(--lux-border) !important;
+}
+
+body.dashboard-page .brand-icon {
+    border-color: rgba(49, 95, 67, .18);
+    background: #f0f4ed;
+    color: var(--lux-green);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .72);
+}
+
+body.dashboard-page .nav {
+    padding: 18px 12px !important;
+    gap: 8px !important;
+}
+
+body.dashboard-page .nav a,
+body.dashboard-page .side-bottom a {
+    min-height: 46px;
+    padding-inline: 14px;
+    border-radius: 9px !important;
+    color: #4c5a51 !important;
+}
+
+body.dashboard-page .nav a.active {
+    border-color: rgba(49, 95, 67, .26) !important;
+    background: #f4f7f1 !important;
+    color: var(--lux-green) !important;
+    box-shadow: 0 7px 18px rgba(42, 67, 49, .055);
+}
+
+body.dashboard-page .side-bottom {
+    border-top-color: var(--lux-border) !important;
+}
+
+body.dashboard-page .wrap {
+    width: min(100%, 1500px);
+    padding-inline: 24px !important;
+}
+
+body.dashboard-page .ai-analysis-card {
+    padding: 22px !important;
+    border: 1px solid var(--lux-border-strong) !important;
+    border-radius: 14px !important;
+    background: rgba(255, 254, 250, .97) !important;
+    box-shadow: var(--lux-shadow) !important;
+}
+
+body.dashboard-page .ai-analysis-card > .chart-head {
+    min-height: 58px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--lux-border);
+}
+
+body.dashboard-page .section-h {
+    color: var(--lux-text) !important;
+    font-size: 18px !important;
+    font-weight: 850 !important;
+}
+
+body.dashboard-page .chart-sub,
+body.dashboard-page .trend-meta {
+    color: var(--lux-muted) !important;
+}
+
+body.dashboard-page .chart-range-select {
+    min-height: 40px;
+    border-color: var(--lux-border-strong) !important;
+    border-radius: 8px;
+    background: var(--lux-surface) !important;
+    color: #3e4d43;
+    box-shadow: 0 2px 7px rgba(42, 57, 46, .035);
+}
+
+body.dashboard-page .ai-summary-card {
+    min-height: 158px;
+    margin-top: 16px;
+    padding: 22px 26px;
+    border-color: rgba(68, 111, 76, .23) !important;
+    border-radius: 12px;
+    background: linear-gradient(110deg, #f5f9f2 0%, #fbfcf8 58%, #eef4eb 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .88);
+}
+
+body.dashboard-page .ai-summary-title {
+    color: var(--lux-green);
+}
+
+body.dashboard-page .ai-summary-card p {
+    max-width: 780px;
+    color: #3e4d43;
+}
+
+body.dashboard-page .care-summary-grid {
+    gap: 14px;
+    margin-top: 16px;
+}
+
+body.dashboard-page .care-summary-item {
+    min-height: 148px;
+    padding: 17px 18px;
+    border: 1px solid var(--lux-border) !important;
+    border-radius: 11px !important;
+    background: var(--lux-surface) !important;
+    box-shadow: 0 7px 20px rgba(39, 55, 43, .045) !important;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+body.dashboard-page .care-summary-item:hover {
+    border-color: var(--lux-border-strong) !important;
+    box-shadow: 0 10px 26px rgba(39, 55, 43, .065) !important;
+}
+
+body.dashboard-page .care-summary-item > span {
+    color: #5b675f;
+    font-size: 13px;
+}
+
+body.dashboard-page .care-score-track {
+    background: #e8ece6;
+}
+
+body.dashboard-page .care-content-grid {
+    gap: 14px;
+    margin-top: 16px;
+}
+
+body.dashboard-page .care-detail-grid {
+    gap: 12px;
+}
+
+body.dashboard-page .care-detail-item,
+body.dashboard-page .care-soil-card,
+body.dashboard-page .care-image-chart-card,
+body.dashboard-page .ai-metric-item {
+    border: 1px solid var(--lux-border) !important;
+    border-radius: 11px !important;
+    background: var(--lux-surface) !important;
+    box-shadow: 0 6px 18px rgba(39, 55, 43, .035) !important;
+}
+
+body.dashboard-page .care-detail-item:first-child {
+    border-color: rgba(176, 92, 78, .25) !important;
+    background: #fffaf8 !important;
+}
+
+body.dashboard-page .care-detail-item:nth-child(2) {
+    border-color: rgba(168, 120, 63, .26) !important;
+    background: #fffdf7 !important;
+}
+
+body.dashboard-page .care-actions .care-list-row {
+    border-color: rgba(55, 78, 62, .14);
+    background: rgba(255, 255, 252, .92) !important;
+}
+
+body.dashboard-page .care-section-label {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #314137;
+    font-size: 15px;
+}
+
+body.dashboard-page .care-section-label::after {
+    height: 1px;
+    flex: 1;
+    background: var(--lux-border);
+    content: "";
+}
+
+body.dashboard-page .ai-metric-grid {
+    gap: 10px;
+    margin-top: 9px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item {
+    min-height: 116px !important;
+    padding: 14px;
+}
+
+body.dashboard-page .ai-analysis-card .ai-metric-item b {
+    color: var(--lux-text);
+}
+
+body.dashboard-page .care-soil-card,
+body.dashboard-page .care-image-chart-card {
+    padding: 18px 20px;
+}
+
+body.dashboard-page .soil-chart-wrapper,
+body.dashboard-page .ai-chart-wrapper {
+    border-color: rgba(55, 78, 62, .13) !important;
+    border-radius: 9px;
+    background: #fdfdf9 !important;
+}
+
+body.dashboard-page .notice,
+body.dashboard-page .image-chart-note {
+    color: var(--lux-muted);
+}
+
+body.dashboard-page .notice {
+    border-color: var(--lux-border);
+    border-radius: 8px;
+    background: var(--lux-surface-soft) !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .wrap {
+        padding-inline: 18px !important;
+    }
+
+    body.dashboard-page .ai-analysis-card {
+        padding: 18px !important;
+    }
+
+    body.dashboard-page .care-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .wrap {
+        padding-inline: 12px !important;
+    }
+
+    body.dashboard-page .ai-analysis-card {
+        padding: 13px !important;
+        border-radius: 11px !important;
+    }
+
+    body.dashboard-page .ai-summary-card {
+        min-height: 0;
+        margin-top: 12px;
+        padding: 16px;
+    }
+
+    body.dashboard-page .care-summary-grid,
+    body.dashboard-page .care-detail-grid,
+    body.dashboard-page .ai-metric-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    body.dashboard-page .care-summary-item,
+    body.dashboard-page .care-detail-item,
+    body.dashboard-page .ai-analysis-card .ai-metric-item {
+        min-height: 0 !important;
+    }
+
+    body.dashboard-page .care-soil-card,
+    body.dashboard-page .care-image-chart-card {
+        padding: 14px;
+    }
+}
+
+/* 影像分析趨勢：獨立整列顯示 */
+body.dashboard-page .care-content-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+body.dashboard-page .care-left-column {
+    min-width: 0;
+    width: 100%;
+}
+
+body.dashboard-page .care-trend-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
+}
+
+body.dashboard-page .care-trend-grid > .care-image-chart-card {
+    display: flex;
+    flex-direction: column;
+    grid-column: auto;
+    min-width: 0;
+    height: 100%;
+}
+
+body.dashboard-page .care-trend-grid .ai-chart-wrapper {
+    flex: 0 0 300px;
+    height: 300px !important;
+    min-height: 300px !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .care-trend-grid .ai-chart-wrapper {
+        flex-basis: 270px;
+        height: 270px !important;
+        min-height: 270px !important;
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .care-trend-grid .ai-chart-wrapper {
+        flex-basis: 230px;
+        height: 230px !important;
+        min-height: 230px !important;
+    }
+}
+
+/* =========================================================
+   精簡儀表板：摘要、條件式注意事項、影像趨勢
+========================================================= */
+body.dashboard-page .dashboard-charts > .ai-analysis-streamlined {
+    display: grid;
+    grid-column: 1 / -1;
+    gap: 16px;
+    min-width: 0;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body.dashboard-page .ai-analysis-streamlined .ai-summary-card {
+    min-height: 0;
+    margin: 0;
+    padding: 20px 24px;
+}
+
+body.dashboard-page .ai-summary-heading {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+body.dashboard-page .ai-summary-heading #careStatus {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+body.dashboard-page .ai-analysis-streamlined .ai-summary-card p {
+    max-width: 900px;
+    margin: 12px 0 0;
+}
+
+body.dashboard-page .ai-summary-factors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 14px;
+    color: var(--lux-muted);
+    font-size: 12px;
+}
+
+body.dashboard-page .ai-summary-factors::before {
+    color: #657269;
+    content: "觀察重點";
+    font-weight: 750;
+}
+
+body.dashboard-page .ai-summary-factors > span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 3px 9px;
+    border: 1px solid var(--lux-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .62);
+    color: #536158;
+    font-weight: 700;
+}
+
+body.dashboard-page .ai-summary-factors > span.warning,
+body.dashboard-page .ai-summary-factors > span.danger {
+    border-color: rgba(168, 120, 63, .3);
+    background: #fffaf0;
+    color: #8b632f;
+}
+
+body.dashboard-page .ai-summary-factors > span.info {
+    color: #58727b;
+}
+
+body.dashboard-page .ai-summary-data-status {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 11px;
+    border-top: 1px solid rgba(55, 78, 62, .12);
+}
+
+body.dashboard-page .ai-summary-data-status .care-data-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: 12px;
+}
+
+body.dashboard-page .ai-summary-data-status .care-data-icon {
+    display: none;
+}
+
+body.dashboard-page .ai-summary-data-status .care-data-row > span {
+    display: inline-flex;
+    gap: 5px;
+    align-items: center;
+}
+
+body.dashboard-page .ai-summary-data-status .care-data-row > span:first-of-type {
+    color: #657269;
+    font-weight: 750;
+}
+
+body.dashboard-page .ai-summary-data-status .care-data-row small {
+    color: var(--lux-muted);
+    font-size: 11px;
+}
+
+body.dashboard-page .care-attention-panel {
+    padding: 18px 20px;
+    border: 1px solid rgba(168, 120, 63, .24);
+    border-radius: 11px;
+    background: #fffdf8;
+    box-shadow: 0 6px 18px rgba(39, 55, 43, .035);
+}
+
+body.dashboard-page .care-attention-panel[hidden] {
+    display: none !important;
+}
+
+body.dashboard-page .care-attention-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 13px;
+}
+
+body.dashboard-page .care-attention-column {
+    min-width: 0;
+    padding-right: 20px;
+}
+
+body.dashboard-page .care-attention-column + .care-attention-column {
+    padding-right: 0;
+    padding-left: 20px;
+    border-left: 1px solid rgba(55, 78, 62, .13);
+}
+
+body.dashboard-page .care-attention-panel .care-list {
+    margin-top: 8px;
+}
+
+body.dashboard-page .care-attention-panel .care-list-row,
+body.dashboard-page .care-attention-panel .care-actions .care-list-row {
+    padding: 9px 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body.dashboard-page .care-attention-panel .care-list-row + .care-list-row {
+    border-top: 1px solid rgba(55, 78, 62, .1) !important;
+}
+
+body.dashboard-page .ai-analysis-streamlined .care-image-chart-card {
+    grid-column: auto;
+    min-width: 0;
+    padding: 18px 20px;
+}
+
+body.dashboard-page .image-trend-head {
+    gap: 20px;
+    align-items: flex-start;
+}
+
+body.dashboard-page .image-trend-toolbar {
+    display: flex;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+body.dashboard-page .image-trend-values {
+    display: flex;
+    align-items: center;
+}
+
+body.dashboard-page .image-trend-values > span {
+    display: grid;
+    gap: 2px;
+    min-width: 104px;
+    padding: 0 14px;
+    border-left: 1px solid rgba(55, 78, 62, .13);
+}
+
+body.dashboard-page .image-trend-values small {
+    color: var(--lux-muted);
+    font-size: 11px;
+}
+
+body.dashboard-page .image-trend-values b {
+    color: var(--lux-text);
+    font-size: 22px;
+    line-height: 1.15;
+}
+
+body.dashboard-page .image-trend-values > span:last-child b {
+    color: #9a5149;
+}
+
+body.dashboard-page .ai-analysis-streamlined .ai-chart-wrapper {
+    flex: 0 0 330px;
+    height: 330px !important;
+    min-height: 330px !important;
+    margin-top: 14px;
+}
+
+body.dashboard-page .ai-analysis-streamlined .notice {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border: 0;
+    background: transparent !important;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .ai-analysis-streamlined .ai-summary-card,
+    body.dashboard-page .care-attention-panel,
+    body.dashboard-page .ai-analysis-streamlined .care-image-chart-card {
+        padding: 16px;
+    }
+
+    body.dashboard-page .image-trend-head,
+    body.dashboard-page .image-trend-toolbar {
+        align-items: flex-start;
+    }
+
+    body.dashboard-page .image-trend-head {
+        flex-direction: column;
+    }
+
+    body.dashboard-page .image-trend-toolbar {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    body.dashboard-page .ai-analysis-streamlined .ai-chart-wrapper {
+        flex-basis: 280px;
+        height: 280px !important;
+        min-height: 280px !important;
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .dashboard-charts > .ai-analysis-streamlined {
+        gap: 10px;
+    }
+
+    body.dashboard-page .ai-analysis-streamlined .ai-summary-card,
+    body.dashboard-page .care-attention-panel,
+    body.dashboard-page .ai-analysis-streamlined .care-image-chart-card {
+        padding: 14px;
+    }
+
+    body.dashboard-page .ai-summary-heading {
+        align-items: flex-start;
+    }
+
+    body.dashboard-page .ai-analysis-streamlined .ai-summary-visual {
+        display: none;
+    }
+
+    body.dashboard-page .ai-summary-data-status,
+    body.dashboard-page .image-trend-toolbar,
+    body.dashboard-page .image-trend-toolbar .chart-head-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    body.dashboard-page .care-attention-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.dashboard-page .care-attention-column,
+    body.dashboard-page .care-attention-column + .care-attention-column {
+        padding: 0;
+        border-left: 0;
+    }
+
+    body.dashboard-page .care-attention-column + .care-attention-column {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(55, 78, 62, .13);
+    }
+
+    body.dashboard-page .image-trend-values {
+        width: 100%;
+    }
+
+    body.dashboard-page .image-trend-values > span {
+        flex: 1 1 50%;
+        min-width: 0;
+        padding: 0 10px;
+    }
+
+    body.dashboard-page .image-trend-values > span:first-child {
+        padding-left: 0;
+        border-left: 0;
+    }
+
+    body.dashboard-page .ai-analysis-streamlined .ai-chart-wrapper {
+        flex-basis: 230px;
+        height: 230px !important;
+        min-height: 230px !important;
     }
 }

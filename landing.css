@@ -304,11 +304,15 @@ main{
 .alert-icon::after{left:12px;bottom:2px;width:7px;height:2px;border-radius:2px;background:currentColor;}
 .stat-label,.stat-note{display:block;color:var(--muted);font-size:11px;line-height:1.45;}
 .stat-card strong{display:block;margin:7px 0 4px;font-size:14px;line-height:1.35;}
-.care-record{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:12px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:var(--surface-soft);}
+.care-record{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:12px;padding:14px 16px;border:1px solid var(--line);border-radius:8px;background:linear-gradient(90deg,var(--surface-soft),#f5f7f1);}
 .care-record span,.care-record strong{display:block;}
 .care-record span{color:var(--muted);font-size:11px;}
 .care-record strong{margin-top:5px;font-size:13px;}
-.care-record svg{width:min(42%,220px);fill:none;stroke:#718b75;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.care-record svg{width:min(42%,220px);fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.care-record .trend-grid{stroke:rgba(113,139,117,.24);stroke-width:1;stroke-dasharray:3 5;}
+.care-record .trend-area{fill:rgba(113,139,117,.11);stroke:none;}
+.care-record .trend-line{stroke:#718b75;stroke-width:2.2;}
+.care-record .trend-point{fill:#fff;stroke:#5f7d65;stroke-width:2;}
 
 .value-strip{
   display:grid;

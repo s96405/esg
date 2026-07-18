@@ -127,11 +127,16 @@
 
               <div class="care-record">
                 <div>
-                  <span>照護紀錄</span>
-                  <strong>最近狀態與操作集中呈現</strong>
+                  <span>影像分析趨勢</span>
+                  <strong>葉面覆蓋率變化集中呈現</strong>
                 </div>
                 <svg viewBox="0 0 220 64" aria-hidden="true" focusable="false">
-                  <path d="M4 52c24-3 24-20 49-21s26 16 49 12 29-30 52-27 26 22 62 11"/>
+                  <path class="trend-grid" d="M4 18h212M4 38h212M4 58h212"/>
+                  <path class="trend-area" d="M4 52c24-3 24-20 49-21s26 16 49 12 29-30 52-27 26 22 62 11v31H4Z"/>
+                  <path class="trend-line" d="M4 52c24-3 24-20 49-21s26 16 49 12 29-30 52-27 26 22 62 11"/>
+                  <circle class="trend-point" cx="53" cy="31" r="3"/>
+                  <circle class="trend-point" cx="154" cy="16" r="3"/>
+                  <circle class="trend-point" cx="216" cy="27" r="3"/>
                 </svg>
               </div>
             </div>
