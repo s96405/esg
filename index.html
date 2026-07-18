@@ -130,54 +130,6 @@
 
                         </section>
 
-                        <section class="panel sensor-panel">
-
-                            <div class="sensor-grid">
-
-                                <div class="sensor-item info" id="soilSignal">
-                                    <div class="sensor-label">土壤濕度</div>
-                                    <div class="sensor-value" id="soilSignalValue">
-                                        —
-                                    </div>
-                                    <div class="sensor-meta" id="soilSignalMeta">
-                                        等待資料
-                                    </div>
-                                </div>
-
-                                <div class="sensor-item ok" id="waterSignal">
-                                    <div class="sensor-label">水箱水位</div>
-                                    <div class="sensor-value" id="waterSignalValue">
-                                        —
-                                    </div>
-                                    <div class="sensor-meta" id="waterSignalMeta">
-                                        等待資料
-                                    </div>
-                                </div>
-
-                                <div class="sensor-item info" id="autoSignal">
-                                    <div class="sensor-label">自動澆水</div>
-                                    <div class="sensor-value" id="autoSignalValue">
-                                        —
-                                    </div>
-                                    <div class="sensor-meta" id="autoSignalMeta">
-                                        等待資料
-                                    </div>
-                                </div>
-
-                                <div class="sensor-item ok" id="connectionSignal">
-                                    <div class="sensor-label">設備連線</div>
-                                    <div class="sensor-value" id="connectionSignalValue">
-                                        —
-                                    </div>
-                                    <div class="sensor-meta" id="connectionSignalMeta">
-                                        等待資料
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </section>
-
                     </div>
 
                     <div class="summary-strip panel dashboard-legacy-overview" hidden>
@@ -258,6 +210,39 @@
                                 </div>
                             </section>
 
+                            <section class="sensor-overview-panel" aria-labelledby="sensorOverviewTitle">
+                                <div>
+                                    <div class="section-h" id="sensorOverviewTitle">感測器狀態</div>
+                                    <div class="chart-sub">集中查看目前環境與設備回傳資訊</div>
+                                </div>
+
+                                <div class="sensor-grid">
+                                    <div class="sensor-item info" id="soilSignal">
+                                        <div class="sensor-label">土壤濕度</div>
+                                        <div class="sensor-value" id="soilSignalValue">—</div>
+                                        <div class="sensor-meta" id="soilSignalMeta">等待資料</div>
+                                    </div>
+
+                                    <div class="sensor-item ok" id="waterSignal">
+                                        <div class="sensor-label">水箱水位</div>
+                                        <div class="sensor-value" id="waterSignalValue">—</div>
+                                        <div class="sensor-meta" id="waterSignalMeta">等待資料</div>
+                                    </div>
+
+                                    <div class="sensor-item ok" id="connectionSignal">
+                                        <div class="sensor-label">設備連線</div>
+                                        <div class="sensor-value" id="connectionSignalValue">—</div>
+                                        <div class="sensor-meta" id="connectionSignalMeta">等待資料</div>
+                                    </div>
+
+                                    <div class="sensor-item info" id="autoSignal">
+                                        <div class="sensor-label">模式</div>
+                                        <div class="sensor-value" id="autoSignalValue">—</div>
+                                        <div class="sensor-meta" id="autoSignalMeta">等待資料</div>
+                                    </div>
+                                </div>
+                            </section>
+
                             <section class="care-attention-panel" id="careAttentionPanel" aria-labelledby="careAttentionTitle" hidden>
                                 <div class="section-h" id="careAttentionTitle">需要注意的事項</div>
                                 <div class="care-attention-grid">
@@ -297,6 +282,16 @@
                                     </div>
 
                                     <div class="image-trend-toolbar">
+                                        <label class="plant-selector" for="currentPlant">
+                                            <span>目前植物</span>
+                                            <select id="currentPlant" aria-describedby="currentPlantHint">
+                                                <option value="red-coral" selected>紅珊瑚萵苣</option>
+                                                <option value="green-coral" disabled>綠珊瑚萵苣（尚無資料）</option>
+                                                <option value="fushan" disabled>福山萵苣（尚無資料）</option>
+                                            </select>
+                                            <small id="currentPlantHint">目前影像資料屬於紅珊瑚萵苣</small>
+                                        </label>
+
                                         <div class="image-trend-values" aria-label="最新影像分析數值">
                                             <span>
                                                 <small>Leaf Cover</small>

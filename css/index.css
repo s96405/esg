@@ -4376,3 +4376,167 @@ body.dashboard-page .ai-analysis-streamlined .notice {
         min-height: 230px !important;
     }
 }
+
+/* 感測器狀態：單一區塊內以分隔線呈現四項即時資訊 */
+body.dashboard-page .sensor-overview-panel {
+    min-width: 0;
+    padding: 18px 20px;
+    border: 1px solid var(--lux-border);
+    border-radius: 11px;
+    background: var(--lux-surface);
+    box-shadow: 0 6px 18px rgba(39, 55, 43, .035);
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 14px;
+    border-top: 1px solid rgba(55, 78, 62, .13);
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-item {
+    min-width: 0;
+    min-height: 104px;
+    padding: 14px 16px;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-item + .sensor-item {
+    border-left: 1px solid rgba(55, 78, 62, .13) !important;
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-label {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    color: #5f6c64;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-label::before {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: #76909a;
+    content: "";
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-item.ok .sensor-label::before {
+    background: var(--aw-success, #3f8a59);
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-item.warn .sensor-label::before {
+    background: var(--aw-warning, #b77a2e);
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-item.danger .sensor-label::before {
+    background: var(--aw-danger, #b45449);
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-value {
+    margin-top: 10px;
+    color: var(--lux-text);
+    font-size: 24px;
+    line-height: 1.15;
+}
+
+body.dashboard-page .sensor-overview-panel .sensor-meta {
+    margin-top: 5px;
+    color: var(--lux-muted);
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+body.dashboard-page .plant-selector {
+    display: grid;
+    grid-template-columns: auto minmax(150px, 190px);
+    gap: 3px 8px;
+    align-items: center;
+    min-width: 0;
+    color: #5f6c64;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+body.dashboard-page .plant-selector select {
+    min-width: 0;
+    min-height: 38px;
+    padding: 7px 30px 7px 10px;
+    border: 1px solid var(--lux-border-strong);
+    border-radius: 8px;
+    background: var(--lux-surface);
+    color: var(--lux-text);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+body.dashboard-page .plant-selector select:focus-visible {
+    border-color: var(--aw-primary, #3f7652);
+    outline: 2px solid rgba(63, 118, 82, .18);
+    outline-offset: 1px;
+}
+
+body.dashboard-page .plant-selector small {
+    grid-column: 2;
+    color: var(--lux-muted);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+    body.dashboard-page .sensor-overview-panel {
+        padding: 16px;
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-item:nth-child(3) {
+        border-left: 0 !important;
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-item:nth-child(n + 3) {
+        border-top: 1px solid rgba(55, 78, 62, .13) !important;
+    }
+}
+
+@media (max-width: 560px) {
+    body.dashboard-page .sensor-overview-panel {
+        padding: 14px;
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-item,
+    body.dashboard-page .sensor-overview-panel .sensor-item + .sensor-item {
+        min-height: 0;
+        padding: 12px 0;
+        border-left: 0 !important;
+    }
+
+    body.dashboard-page .sensor-overview-panel .sensor-item + .sensor-item {
+        border-top: 1px solid rgba(55, 78, 62, .13) !important;
+    }
+
+    body.dashboard-page .plant-selector {
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+    }
+
+    body.dashboard-page .plant-selector select,
+    body.dashboard-page .plant-selector small {
+        grid-column: 1;
+        width: 100%;
+    }
+}
