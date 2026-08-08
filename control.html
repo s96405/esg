@@ -812,6 +812,15 @@ body{
       .from("device_cfg")
       .upsert([{ device_id: deviceId, moist_on: on, moist_off: off, pump_ms: ms, updated_at: new Date().toISOString() }], { onConflict: "device_id" });
 
+    if(error){
+      console.error("device_cfg upsert error:", error);
+      console.error("device_cfg upsert error fields:", {
+        code: error.code,
+        message: error.message,
+        details: error.details,
+        hint: error.hint
+      });
+    }
     cfgMsg.textContent = error ? "儲存失敗" : "已儲存";
     cfgMsg.style.color = error ? "#f97373" : "#22c55e";
   }
