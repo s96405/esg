@@ -5,3 +5,5 @@
 #define LINE_TARGET_ID "YOUR_LINE_TARGET_ID"
 #define SUPABASE_URL "https://YOUR_PROJECT.supabase.co"
 #define SUPABASE_KEY "YOUR_SUPABASE_PUBLISHABLE_KEY"
+#define WIFI_SSID "your_wifi"
+#define WIFI_PASSWORD "your_password"

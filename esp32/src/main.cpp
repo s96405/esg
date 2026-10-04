@@ -36,6 +36,7 @@ const int SOIL_WET = 1200;
 
 /* ========= 輪詢設定 ========= */
 const unsigned long WIFI_RECONNECT_MS = 10000;
+const unsigned long WIFI_CONNECT_TIMEOUT_MS = 20000;
 const unsigned long COMMAND_POLL_MS = 2000;
 const unsigned long TELEMETRY_POST_MS = 5000;
 const unsigned long CONFIG_POLL_MS = 10000;
@@ -144,18 +145,77 @@ void connectWiFi()
 
     if (!wifiManagerReady)
     {
+        Serial.print("[WIFI] Connecting to configured SSID: ");
+        Serial.println(WIFI_SSID);
+        Serial.print("[WIFI] Configured password length: ");
+        Serial.println(String(WIFI_PASSWORD).length());
+
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+
+        unsigned long connectStartedAt = millis();
+        unsigned long lastStatusPrintAt = connectStartedAt;
+        while (WiFi.status() != WL_CONNECTED && millis() - connectStartedAt < WIFI_CONNECT_TIMEOUT_MS)
+        {
+            delay(250);
+            unsigned long statusNow = millis();
+            if (statusNow - lastStatusPrintAt >= 1000)
+            {
+                lastStatusPrintAt = statusNow;
+                Serial.print("[WIFI] status = ");
+                Serial.println(WiFi.status());
+            }
+        }
+
+        if (WiFi.status() == WL_CONNECTED)
+        {
+            wifiManagerReady = true;
+            wifiFailCount = 0;
+            Serial.println("[WIFI] Connected with configured credentials");
+            Serial.print("[WIFI] SSID = ");
+            Serial.println(WiFi.SSID());
+            Serial.print("[WIFI] IP = ");
+            Serial.println(WiFi.localIP());
+            return;
+        }
+
+        Serial.println("[WIFI] Configured connection timed out");
+        Serial.print("[WIFI] Final status = ");
+        Serial.println(WiFi.status());
+        Serial.print("[WIFI] RSSI = ");
+        Serial.println(WiFi.RSSI());
+
+        Serial.println("[WIFI] Scanning nearby networks...");
+        int networkCount = WiFi.scanNetworks();
+        Serial.print("[WIFI] Networks found = ");
+        Serial.println(networkCount);
+        for (int i = 0; i < networkCount; i++)
+        {
+            Serial.print("[WIFI] SSID = ");
+            Serial.print(WiFi.SSID(i));
+            Serial.print(", RSSI = ");
+            Serial.print(WiFi.RSSI(i));
+            Serial.print(", Encryption = ");
+            Serial.println(static_cast<int>(WiFi.encryptionType(i)));
+        }
+
+        Serial.println("[WIFI] Starting WiFiManager portal");
+
         wm.setDebugOutput(true);
         wm.setConfigPortalTimeout(180);
         wm.setConnectTimeout(20);
         wm.setWiFiAutoReconnect(true);
         wm.setRestorePersistent(true);
 
-        bool ok = wm.autoConnect(WIFI_AP_NAME);
+        bool ok = wm.startConfigPortal(WIFI_AP_NAME);
         if (ok)
         {
             wifiManagerReady = true;
             wifiFailCount = 0;
-            Serial.print("[WIFI] Connected, IP = ");
+            Serial.println("[WIFI] Connected through WiFiManager portal");
+            Serial.print("[WIFI] SSID = ");
+            Serial.println(WiFi.SSID());
+            Serial.print("[WIFI] IP = ");
             Serial.println(WiFi.localIP());
             return;
         }

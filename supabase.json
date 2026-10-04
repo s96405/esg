@@ -1,0 +1,2183 @@
+{
+    "enums": [
+    ],
+    "views": [
+    ],
+    "grants": [
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "app_users",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "camera_metrics",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "config",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "config",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "config",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "config",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cfg",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "device_cmd",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "telemetry",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "anon",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "authenticated",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "postgres",
+            "grantable": "YES",
+            "privilege": "UPDATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "DELETE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "INSERT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "REFERENCES"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "SELECT"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRIGGER"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "TRUNCATE"
+        },
+        {
+            "table": "user_devices",
+            "grantee": "service_role",
+            "grantable": "NO",
+            "privilege": "UPDATE"
+        }
+    ],
+    "tables": [
+        {
+            "owner": "postgres",
+            "table": "app_users",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "camera_metrics",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "config",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "device_cfg",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "device_cmd",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "telemetry",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        },
+        {
+            "owner": "postgres",
+            "table": "user_devices",
+            "schema": "public",
+            "comment": null,
+            "rls_forced": false,
+            "rls_enabled": true
+        }
+    ],
+    "columns": [
+        {
+            "table": "app_users",
+            "column": "id",
+            "default": null,
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int8",
+            "data_type": "bigint"
+        },
+        {
+            "table": "app_users",
+            "column": "username",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "app_users",
+            "column": "password",
+            "default": null,
+            "nullable": "NO",
+            "position": 3,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "app_users",
+            "column": "display_name",
+            "default": null,
+            "nullable": "YES",
+            "position": 4,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "app_users",
+            "column": "role",
+            "default": "'user'::text",
+            "nullable": "NO",
+            "position": 5,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "app_users",
+            "column": "created_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 6,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "app_users",
+            "column": "auth_user_id",
+            "default": null,
+            "nullable": "YES",
+            "position": 7,
+            "udt_name": "uuid",
+            "data_type": "uuid"
+        },
+        {
+            "table": "app_users",
+            "column": "email",
+            "default": null,
+            "nullable": "YES",
+            "position": 8,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "app_users",
+            "column": "updated_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 9,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "app_users",
+            "column": "is_active",
+            "default": "true",
+            "nullable": "NO",
+            "position": 10,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "id",
+            "default": "nextval('camera_metrics_id_seq'::regclass)",
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int8",
+            "data_type": "bigint"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "device_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "captured_at",
+            "default": null,
+            "nullable": "NO",
+            "position": 3,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "leaf_cover",
+            "default": null,
+            "nullable": "YES",
+            "position": 4,
+            "udt_name": "numeric",
+            "data_type": "numeric"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "red_ratio",
+            "default": null,
+            "nullable": "YES",
+            "position": 5,
+            "udt_name": "numeric",
+            "data_type": "numeric"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "status",
+            "default": null,
+            "nullable": "YES",
+            "position": 6,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "image_path",
+            "default": null,
+            "nullable": "YES",
+            "position": 7,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "created_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 8,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "config",
+            "column": "id",
+            "default": null,
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "config",
+            "column": "soil_limit",
+            "default": null,
+            "nullable": "YES",
+            "position": 2,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "config",
+            "column": "vbat_limit",
+            "default": null,
+            "nullable": "YES",
+            "position": 3,
+            "udt_name": "numeric",
+            "data_type": "numeric"
+        },
+        {
+            "table": "device_cfg",
+            "column": "device_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "device_cfg",
+            "column": "moist_on",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "device_cfg",
+            "column": "moist_off",
+            "default": null,
+            "nullable": "NO",
+            "position": 3,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "device_cfg",
+            "column": "pump_ms",
+            "default": null,
+            "nullable": "NO",
+            "position": 4,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "device_cfg",
+            "column": "updated_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 5,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "device_cfg",
+            "column": "notify_enabled",
+            "default": "true",
+            "nullable": "YES",
+            "position": 6,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "device_cmd",
+            "column": "id",
+            "default": null,
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int8",
+            "data_type": "bigint"
+        },
+        {
+            "table": "device_cmd",
+            "column": "device_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "device_cmd",
+            "column": "pump",
+            "default": "false",
+            "nullable": "NO",
+            "position": 3,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "device_cmd",
+            "column": "created_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 4,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "device_cmd",
+            "column": "auto",
+            "default": "false",
+            "nullable": "YES",
+            "position": 5,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "device_cmd",
+            "column": "created_by",
+            "default": "auth.uid()",
+            "nullable": "YES",
+            "position": 6,
+            "udt_name": "uuid",
+            "data_type": "uuid"
+        },
+        {
+            "table": "telemetry",
+            "column": "id",
+            "default": "nextval('telemetry_id_seq'::regclass)",
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int8",
+            "data_type": "bigint"
+        },
+        {
+            "table": "telemetry",
+            "column": "device_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "text",
+            "data_type": "text"
+        },
+        {
+            "table": "telemetry",
+            "column": "ts",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 3,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "telemetry",
+            "column": "soil",
+            "default": null,
+            "nullable": "YES",
+            "position": 4,
+            "udt_name": "int4",
+            "data_type": "integer"
+        },
+        {
+            "table": "telemetry",
+            "column": "tank",
+            "default": null,
+            "nullable": "YES",
+            "position": 5,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "telemetry",
+            "column": "pump",
+            "default": null,
+            "nullable": "YES",
+            "position": 6,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "telemetry",
+            "column": "vbat",
+            "default": null,
+            "nullable": "YES",
+            "position": 7,
+            "udt_name": "float4",
+            "data_type": "real"
+        },
+        {
+            "table": "telemetry",
+            "column": "auto",
+            "default": null,
+            "nullable": "YES",
+            "position": 8,
+            "udt_name": "bool",
+            "data_type": "boolean"
+        },
+        {
+            "table": "telemetry",
+            "column": "created_at",
+            "default": "now()",
+            "nullable": "YES",
+            "position": 9,
+            "udt_name": "timestamptz",
+            "data_type": "timestamp with time zone"
+        },
+        {
+            "table": "user_devices",
+            "column": "user_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 1,
+            "udt_name": "int8",
+            "data_type": "bigint"
+        },
+        {
+            "table": "user_devices",
+            "column": "device_id",
+            "default": null,
+            "nullable": "NO",
+            "position": 2,
+            "udt_name": "text",
+            "data_type": "text"
+        }
+    ],
+    "indexes": [
+        {
+            "table": "app_users",
+            "definition": "CREATE UNIQUE INDEX app_users_auth_user_id_key ON public.app_users USING btree (auth_user_id)",
+            "index_name": "app_users_auth_user_id_key"
+        },
+        {
+            "table": "app_users",
+            "definition": "CREATE UNIQUE INDEX app_users_email_key ON public.app_users USING btree (email)",
+            "index_name": "app_users_email_key"
+        },
+        {
+            "table": "app_users",
+            "definition": "CREATE UNIQUE INDEX app_users_pkey ON public.app_users USING btree (id)",
+            "index_name": "app_users_pkey"
+        },
+        {
+            "table": "app_users",
+            "definition": "CREATE UNIQUE INDEX app_users_username_key ON public.app_users USING btree (username)",
+            "index_name": "app_users_username_key"
+        },
+        {
+            "table": "camera_metrics",
+            "definition": "CREATE UNIQUE INDEX camera_metrics_pkey ON public.camera_metrics USING btree (id)",
+            "index_name": "camera_metrics_pkey"
+        },
+        {
+            "table": "camera_metrics",
+            "definition": "CREATE UNIQUE INDEX camera_metrics_unique_record ON public.camera_metrics USING btree (device_id, captured_at, image_path)",
+            "index_name": "camera_metrics_unique_record"
+        },
+        {
+            "table": "config",
+            "definition": "CREATE UNIQUE INDEX config_pkey ON public.config USING btree (id)",
+            "index_name": "config_pkey"
+        },
+        {
+            "table": "device_cfg",
+            "definition": "CREATE UNIQUE INDEX device_cfg_pkey ON public.device_cfg USING btree (device_id)",
+            "index_name": "device_cfg_pkey"
+        },
+        {
+            "table": "device_cmd",
+            "definition": "CREATE UNIQUE INDEX device_cmd_pkey ON public.device_cmd USING btree (id)",
+            "index_name": "device_cmd_pkey"
+        },
+        {
+            "table": "telemetry",
+            "definition": "CREATE UNIQUE INDEX telemetry_pkey ON public.telemetry USING btree (id)",
+            "index_name": "telemetry_pkey"
+        },
+        {
+            "table": "user_devices",
+            "definition": "CREATE UNIQUE INDEX user_devices_pkey ON public.user_devices USING btree (user_id, device_id)",
+            "index_name": "user_devices_pkey"
+        }
+    ],
+    "realtime": [
+    ],
+    "triggers": [
+    ],
+    "functions": [
+        {
+            "language": "sql",
+            "security": "SECURITY DEFINER",
+            "arguments": "",
+            "definition": "CREATE OR REPLACE FUNCTION public.current_app_role()\n RETURNS text\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select role\n  from public.app_users\n  where auth_user_id = auth.uid()\n  limit 1\n$function$\n",
+            "return_type": "text",
+            "function_name": "current_app_role"
+        },
+        {
+            "language": "sql",
+            "security": "SECURITY DEFINER",
+            "arguments": "",
+            "definition": "CREATE OR REPLACE FUNCTION public.is_app_admin()\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\n  select coalesce(public.current_app_role() = 'admin', false)\n$function$\n",
+            "return_type": "boolean",
+            "function_name": "is_app_admin"
+        },
+        {
+            "language": "plpgsql",
+            "security": "SECURITY DEFINER",
+            "arguments": "",
+            "definition": "CREATE OR REPLACE FUNCTION public.rls_auto_enable()\n RETURNS event_trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  cmd record;\nBEGIN\n  FOR cmd IN\n    SELECT *\n    FROM pg_event_trigger_ddl_commands()\n    WHERE command_tag IN ('CREATE TABLE', 'CREATE TABLE AS', 'SELECT INTO')\n      AND object_type IN ('table','partitioned table')\n  LOOP\n     IF cmd.schema_name IS NOT NULL AND cmd.schema_name IN ('public') AND cmd.schema_name NOT IN ('pg_catalog','information_schema') AND cmd.schema_name NOT LIKE 'pg_toast%' AND cmd.schema_name NOT LIKE 'pg_temp%' THEN\n      BEGIN\n        EXECUTE format('alter table if exists %s enable row level security', cmd.object_identity);\n        RAISE LOG 'rls_auto_enable: enabled RLS on %', cmd.object_identity;\n      EXCEPTION\n        WHEN OTHERS THEN\n          RAISE LOG 'rls_auto_enable: failed to enable RLS on %', cmd.object_identity;\n      END;\n     ELSE\n        RAISE LOG 'rls_auto_enable: skip % (either system schema or not in enforced list: %.)', cmd.object_identity, cmd.schema_name;\n     END IF;\n  END LOOP;\nEND;\n$function$\n",
+            "return_type": "event_trigger",
+            "function_name": "rls_auto_enable"
+        }
+    ],
+    "constraints": [
+        {
+            "table": "app_users",
+            "column": null,
+            "constraint_name": "2200_17668_10_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "app_users",
+            "column": null,
+            "constraint_name": "2200_17668_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "app_users",
+            "column": null,
+            "constraint_name": "2200_17668_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "app_users",
+            "column": null,
+            "constraint_name": "2200_17668_3_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "app_users",
+            "column": null,
+            "constraint_name": "2200_17668_5_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "app_users",
+            "column": "id",
+            "constraint_name": "app_users_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "app_users",
+            "column": "username",
+            "constraint_name": "app_users_username_key",
+            "constraint_type": "UNIQUE"
+        },
+        {
+            "table": "camera_metrics",
+            "column": null,
+            "constraint_name": "2200_18088_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "camera_metrics",
+            "column": null,
+            "constraint_name": "2200_18088_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "camera_metrics",
+            "column": null,
+            "constraint_name": "2200_18088_3_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "id",
+            "constraint_name": "camera_metrics_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "image_path",
+            "constraint_name": "camera_metrics_unique_record",
+            "constraint_type": "UNIQUE"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "device_id",
+            "constraint_name": "camera_metrics_unique_record",
+            "constraint_type": "UNIQUE"
+        },
+        {
+            "table": "camera_metrics",
+            "column": "captured_at",
+            "constraint_name": "camera_metrics_unique_record",
+            "constraint_type": "UNIQUE"
+        },
+        {
+            "table": "config",
+            "column": null,
+            "constraint_name": "2200_17589_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "config",
+            "column": "id",
+            "constraint_name": "config_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "device_cfg",
+            "column": null,
+            "constraint_name": "2200_17594_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cfg",
+            "column": null,
+            "constraint_name": "2200_17594_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cfg",
+            "column": null,
+            "constraint_name": "2200_17594_3_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cfg",
+            "column": null,
+            "constraint_name": "2200_17594_4_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cfg",
+            "column": "device_id",
+            "constraint_name": "device_cfg_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "device_cmd",
+            "column": null,
+            "constraint_name": "2200_17600_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cmd",
+            "column": null,
+            "constraint_name": "2200_17600_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cmd",
+            "column": null,
+            "constraint_name": "2200_17600_3_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "device_cmd",
+            "column": "id",
+            "constraint_name": "device_cmd_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "telemetry",
+            "column": null,
+            "constraint_name": "2200_17610_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "telemetry",
+            "column": null,
+            "constraint_name": "2200_17610_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "telemetry",
+            "column": "id",
+            "constraint_name": "telemetry_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "user_devices",
+            "column": null,
+            "constraint_name": "2200_17618_1_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "user_devices",
+            "column": null,
+            "constraint_name": "2200_17618_2_not_null",
+            "constraint_type": "CHECK"
+        },
+        {
+            "table": "user_devices",
+            "column": "device_id",
+            "constraint_name": "user_devices_pkey",
+            "constraint_type": "PRIMARY KEY"
+        },
+        {
+            "table": "user_devices",
+            "column": "user_id",
+            "constraint_name": "user_devices_pkey",
+            "constraint_type": "PRIMARY KEY"
+        }
+    ],
+    "foreign_keys": [
+    ],
+    "rls_policies": [
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "app_users",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "(role = 'user'::text)",
+            "policy_name": "allow anon register user"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "app_users",
+            "using": "is_app_admin()",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "app_users_select_admin_all"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "app_users",
+            "using": "is_app_admin()",
+            "command": "UPDATE",
+            "permissive": "PERMISSIVE",
+            "with_check": "is_app_admin()",
+            "policy_name": "app_users_update_admin"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "app_users",
+            "using": "(auth.uid() = auth_user_id)",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "authenticated users can read own profile"
+        },
+        {
+            "roles": [
+                "anon",
+                "authenticated"
+            ],
+            "table": "camera_metrics",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "camera_metrics_insert"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "camera_metrics",
+            "using": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = camera_metrics.device_id))))",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "camera_metrics_select_own_device"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "config",
+            "using": "true",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "allow anon select config"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cfg",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "allow anon insert device_cfg"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cfg",
+            "using": "true",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "allow anon select device_cfg"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cfg",
+            "using": "true",
+            "command": "UPDATE",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "allow anon update device_cfg"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "device_cfg",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cfg.device_id))))",
+            "policy_name": "device_cfg_insert_own_device"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "device_cfg",
+            "using": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cfg.device_id))))",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "device_cfg_select_own_device"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "device_cfg",
+            "using": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cfg.device_id))))",
+            "command": "UPDATE",
+            "permissive": "PERMISSIVE",
+            "with_check": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cfg.device_id))))",
+            "policy_name": "device_cfg_update_own_device"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cmd",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "allow anon insert device_cmd"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cmd",
+            "using": "true",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "allow anon select device_cmd"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "device_cmd",
+            "using": "true",
+            "command": "UPDATE",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "allow anon update device_cmd"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "device_cmd",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cmd.device_id))))",
+            "policy_name": "device_cmd_insert_own_device"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "device_cmd",
+            "using": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = device_cmd.device_id))))",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "device_cmd_select_own_device"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "telemetry",
+            "using": null,
+            "command": "INSERT",
+            "permissive": "PERMISSIVE",
+            "with_check": "true",
+            "policy_name": "allow anon insert telemetry"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "telemetry",
+            "using": "true",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "allow anon select telemetry"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "telemetry",
+            "using": "(EXISTS ( SELECT 1\n   FROM (user_devices ud\n     JOIN app_users au ON ((au.id = ud.user_id)))\n  WHERE ((au.auth_user_id = auth.uid()) AND (ud.device_id = telemetry.device_id))))",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "telemetry_select_own_device"
+        },
+        {
+            "roles": [
+                "anon"
+            ],
+            "table": "user_devices",
+            "using": "true",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "allow anon read user_devices"
+        },
+        {
+            "roles": [
+                "authenticated"
+            ],
+            "table": "user_devices",
+            "using": "(EXISTS ( SELECT 1\n   FROM app_users au\n  WHERE ((au.id = user_devices.user_id) AND (au.auth_user_id = auth.uid()))))",
+            "command": "SELECT",
+            "permissive": "PERMISSIVE",
+            "with_check": null,
+            "policy_name": "user_devices_select_own"
+        }
+    ],
+    "check_constraints": [
+    ],
+    "auth_relationships": [
+    ]
+}
