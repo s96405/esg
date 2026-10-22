@@ -279,6 +279,371 @@ body{
 }
 </style>
 <link rel="stylesheet" href="ui.css" />
+<style>
+/* 設備控制台專用視覺層：不影響其他頁面 */
+body.control-page .main{
+  min-width:0;
+  overflow:auto;
+}
+body.control-page .topbar{
+  min-height:72px;
+  padding-block:12px !important;
+}
+body.control-page .topbar-title-main{
+  font-size:20px !important;
+}
+body.control-page .topbar-title-sub{
+  margin-top:3px;
+  font-size:12px;
+}
+body.control-page .control-user-info{
+  display:flex;
+  align-items:stretch;
+  gap:6px;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+}
+body.control-page .control-user-item{
+  min-width:92px;
+  padding:7px 10px;
+  border:1px solid var(--aw-border);
+  border-radius:var(--aw-radius-sm);
+  background:var(--aw-surface);
+}
+body.control-page .control-user-item:first-child{min-width:132px;}
+body.control-page .control-user-label{
+  display:block;
+  color:var(--aw-muted);
+  font-size:10px;
+  font-weight:700;
+  line-height:1.2;
+}
+body.control-page .control-user-value{
+  display:block;
+  margin-top:2px;
+  color:var(--aw-text-strong);
+  font-size:12px;
+  font-weight:800;
+  line-height:1.3;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+body.control-page .control-wrap{
+  height:auto;
+  min-height:calc(100vh - 96px);
+  max-width:1160px !important;
+  margin:20px auto 32px !important;
+  overflow:visible;
+}
+body.control-page .control-panel{
+  height:auto;
+  display:block;
+  padding:20px !important;
+  overflow:visible;
+  border:1px solid var(--aw-border) !important;
+  border-radius:var(--aw-radius) !important;
+  background:var(--aw-surface) !important;
+  box-shadow:var(--aw-shadow-sm) !important;
+}
+body.control-page .control-device-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin:0;
+  padding:0 0 16px;
+  border-bottom:1px solid var(--aw-border);
+}
+body.control-page .control-kicker{
+  margin:0 0 4px;
+  color:var(--aw-primary);
+  font-size:11px;
+  font-weight:800;
+}
+body.control-page .device-id{
+  color:var(--aw-text-strong) !important;
+  font-size:22px !important;
+  font-weight:900;
+}
+body.control-page .time{
+  margin-top:5px;
+  color:var(--aw-muted) !important;
+  font-size:12px;
+}
+body.control-page .badge{
+  min-height:30px;
+  padding:5px 10px !important;
+  gap:6px;
+}
+body.control-page .badge::before{
+  content:"";
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:currentColor;
+}
+body.control-page .badge.unknown{
+  background:var(--aw-surface-2) !important;
+  border-color:var(--aw-border) !important;
+  color:var(--aw-muted) !important;
+}
+body.control-page .control-block-heading{
+  margin-bottom:12px;
+}
+body.control-page .control-block-title{
+  margin:0;
+  color:var(--aw-text-strong);
+  font-size:16px;
+  font-weight:900;
+}
+body.control-page .control-block-note{
+  margin:3px 0 0;
+  color:var(--aw-muted);
+  font-size:12px;
+  line-height:1.5;
+}
+body.control-page .control-status-section{
+  padding:18px 0 0;
+}
+body.control-page .control-status-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:10px;
+  padding:0;
+  border:0;
+  background:transparent;
+}
+body.control-page .control-status-grid .row{
+  min-width:0;
+  min-height:88px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:8px;
+  margin:0;
+  padding:13px 14px;
+  border:1px solid var(--aw-border);
+  border-radius:var(--aw-radius);
+  background:var(--aw-surface-2);
+}
+body.control-page .control-status-grid .row:first-child,
+body.control-page .control-status-grid .row:last-child{
+  padding:13px 14px;
+  border:1px solid var(--aw-border);
+}
+body.control-page .control-status-grid .row span:first-child{
+  color:var(--aw-muted);
+  font-size:12px;
+  font-weight:700;
+}
+body.control-page .control-status-grid .row .value{
+  width:100%;
+  color:var(--aw-text-strong) !important;
+  font-size:18px;
+  font-weight:900;
+  text-align:left;
+}
+body.control-page .control-status-grid .row.active.ok{
+  border-color:rgba(63,122,79,.28);
+  background:var(--aw-success-soft);
+}
+body.control-page .control-status-grid .row.active.warn{
+  border-color:rgba(166,111,45,.25);
+  background:var(--aw-warning-soft);
+}
+body.control-page .control-status-grid .row.active.info{
+  border-color:rgba(79,143,163,.22);
+  background:var(--aw-info-soft);
+}
+body.control-page .control-action-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:16px;
+  padding:0;
+  border:0;
+}
+body.control-page .control-section,
+body.control-page .control-action-grid .control-section:first-child,
+body.control-page .control-action-grid .control-section:last-child{
+  margin:0 !important;
+  padding:16px !important;
+  border:1px solid var(--aw-border) !important;
+  border-radius:var(--aw-radius);
+  background:#fff;
+}
+body.control-page .section-title{
+  margin-bottom:4px;
+  color:var(--aw-text-strong);
+  font-size:15px !important;
+  font-weight:900 !important;
+}
+body.control-page .section-title::before{content:none;}
+body.control-page .section-note{
+  min-height:36px;
+  margin:0 0 12px;
+  color:var(--aw-muted);
+  font-size:12px;
+  line-height:1.5;
+}
+body.control-page .btn-group{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px !important;
+}
+body.control-page .btn,
+body.control-page .btn-primary{
+  min-height:40px !important;
+  padding:8px 12px !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+}
+body.control-page .control-command,
+body.control-page #btnPumpOn,
+body.control-page #btnPumpOff{
+  background:var(--aw-surface) !important;
+  border-color:var(--aw-border-strong) !important;
+  color:var(--aw-text-strong) !important;
+}
+body.control-page #btnPumpOn:hover:not(:disabled){
+  background:var(--aw-success-soft) !important;
+  border-color:rgba(63,122,79,.34) !important;
+  color:var(--aw-primary-3) !important;
+}
+body.control-page #btnPumpOff:hover:not(:disabled){
+  background:var(--aw-danger-soft) !important;
+  border-color:rgba(169,82,69,.30) !important;
+  color:var(--aw-danger) !important;
+}
+body.control-page #pumpHint{
+  display:block !important;
+  margin-top:9px;
+  min-height:18px;
+}
+body.control-page .control-config-card{
+  margin-top:16px;
+  padding:16px !important;
+  border:1px solid var(--aw-border) !important;
+  border-radius:var(--aw-radius) !important;
+  background:#fff !important;
+  box-shadow:none !important;
+}
+body.control-page .control-config-card .card-title{
+  margin-bottom:3px;
+  color:var(--aw-text-strong);
+  font-size:15px;
+  font-weight:900;
+}
+body.control-page .control-config-card .grid3{
+  gap:12px !important;
+  margin-top:14px;
+}
+body.control-page .field label{
+  display:block;
+}
+body.control-page .label{
+  margin-bottom:6px;
+  color:var(--aw-text);
+  font-size:13px !important;
+  font-weight:800;
+}
+body.control-page .hint{
+  margin-top:5px;
+  color:var(--aw-muted);
+  font-size:11px;
+  line-height:1.45;
+}
+body.control-page input{
+  min-height:42px;
+  padding:8px 10px !important;
+  border-color:var(--aw-border) !important;
+  background:var(--aw-surface) !important;
+}
+body.control-page input:focus{
+  border-color:var(--aw-primary) !important;
+  box-shadow:var(--aw-focus);
+  outline:0;
+}
+body.control-page .actions{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+body.control-page .control-bottom-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:12px;
+  margin-top:16px;
+  padding:0;
+}
+body.control-page .control-bottom-grid .control-section{
+  padding:16px !important;
+  color:var(--aw-text);
+}
+body.control-page .control-bottom-grid .section-title{
+  color:var(--aw-text-strong) !important;
+  font-size:15px !important;
+}
+body.control-page .msg{
+  min-height:18px;
+  margin-top:8px;
+  color:var(--aw-muted) !important;
+  font-size:12px;
+  line-height:1.5;
+}
+body.control-page #sysMsg{
+  margin-top:12px;
+  padding:10px 12px;
+  border-radius:var(--aw-radius-sm);
+  background:var(--aw-surface-2);
+}
+
+@media (max-width:900px){
+  body.control-page .main{height:auto;overflow:visible;}
+  body.control-page .topbar-right{width:auto;}
+  body.control-page .control-user-info{flex-wrap:wrap;justify-content:flex-end;}
+  body.control-page .control-status-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+  body.control-page .control-wrap{min-height:0;margin-top:14px !important;}
+}
+@media (max-width:640px){
+  body.control-page .topbar{align-items:flex-start;}
+  body.control-page .topbar-right{width:100%;}
+  body.control-page .control-user-info{
+    width:100%;
+    display:grid;
+    grid-template-columns:1.3fr 1fr .8fr;
+  }
+  body.control-page .control-user-item,
+  body.control-page .control-user-item:first-child{min-width:0;}
+  body.control-page .control-panel{padding:14px !important;}
+  body.control-page .control-device-header{align-items:flex-start;}
+  body.control-page .device-id{font-size:20px !important;}
+  body.control-page .control-status-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  body.control-page .control-status-grid .row{
+    min-height:82px;
+    flex-direction:column !important;
+    align-items:flex-start !important;
+  }
+  body.control-page .control-action-grid,
+  body.control-page .control-bottom-grid{grid-template-columns:1fr;}
+  body.control-page .btn-group{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+  body.control-page .actions{align-items:stretch !important;}
+}
+@media (max-width:420px){
+  body.control-page .control-user-info{grid-template-columns:1fr;}
+  body.control-page .control-status-grid{grid-template-columns:1fr;}
+  body.control-page .control-status-grid .row{min-height:72px;}
+  body.control-page .btn-group{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body class="control-page">
 <div class="app-shell">
@@ -317,46 +682,67 @@ body{
         </div>
       </div>
       <div class="topbar-right">
-        <div id="topInfo" class="user-pill"></div>
+        <div id="topInfo" class="user-pill control-user-info" aria-label="目前設備與使用者資訊">
+          <div class="control-user-item">
+            <span class="control-user-label">設備</span>
+            <span class="control-user-value" id="topDevice">—</span>
+          </div>
+          <div class="control-user-item">
+            <span class="control-user-label">帳號</span>
+            <span class="control-user-value" id="topAccount">—</span>
+          </div>
+          <div class="control-user-item">
+            <span class="control-user-label">權限</span>
+            <span class="control-user-value" id="topRole">—</span>
+          </div>
+        </div>
       </div>
     </div>
 
   <div class="wrap control-wrap">
     <div class="panel control-panel">
-      <div class="title-row">
+      <div class="title-row control-device-header">
         <div>
+          <p class="control-kicker">即時設備資訊</p>
           <div class="device-id" id="deviceTitle">設備控制台</div>
           <div class="time" id="timeVal">最後更新：—</div>
         </div>
-        <div id="statusBadge" class="badge offline">離線</div>
+        <div id="statusBadge" class="badge unknown">狀態確認中</div>
       </div>
 
-      <div class="control-status-grid">
-        <div class="row">
-          <span>土壤濕度</span>
-          <span class="value" id="soilVal">—</span>
+      <section class="control-status-section" aria-labelledby="deviceStatusTitle">
+        <div class="control-block-heading">
+          <h2 class="control-block-title" id="deviceStatusTitle">設備狀態</h2>
+          <p class="control-block-note">感測數值來自設備最近一次回傳，尚未取得資料時顯示「—」。</p>
         </div>
-        <div class="row">
-          <span>水位</span>
-          <span class="value" id="tankVal">—</span>
+        <div class="control-status-grid">
+          <div class="row">
+            <span>土壤濕度</span>
+            <span class="value" id="soilVal">—</span>
+          </div>
+          <div class="row">
+            <span>水箱水位</span>
+            <span class="value" id="tankVal">—</span>
+          </div>
+          <div class="row">
+            <span>水泵狀態</span>
+            <span class="value" id="pumpVal">—</span>
+          </div>
+          <div class="row">
+            <span>運行模式</span>
+            <span class="value" id="modeVal">—</span>
+          </div>
+          <div class="row">
+            <span>LINE 通知</span>
+            <span class="value" id="notifyVal">—</span>
+          </div>
         </div>
-        <div class="row">
-          <span>水泵</span>
-          <span class="value" id="pumpVal">—</span>
-        </div>
-        <div class="row">
-          <span>模式</span>
-          <span class="value" id="modeVal">—</span>
-        </div>
-        <div class="row">
-          <span>通知</span>
-          <span class="value" id="notifyVal">—</span>
-        </div>
-      </div>
+      </section>
 
       <div class="control-action-grid">
         <div class="section control-section">
-          <div class="section-title">模式切換</div>
+          <div class="section-title">運行模式</div>
+          <p class="section-note">選擇設備的自動照護或手動控制模式。</p>
           <div class="btn-group">
             <button class="btn" id="btnAuto">切換為自動模式</button>
             <button class="btn" id="btnManual">切換為手動模式</button>
@@ -365,9 +751,10 @@ body{
 
         <div class="section control-section">
           <div class="section-title">水泵手動控制</div>
+          <p class="section-note">指令送出後仍需等待設備回傳狀態，不代表水泵已立即動作。</p>
           <div class="btn-group">
-            <button class="btn primary" id="btnPumpOn">手動開啟水泵</button>
-            <button class="btn danger" id="btnPumpOff">手動關閉水泵</button>
+            <button class="btn control-command" id="btnPumpOn">送出開啟指令</button>
+            <button class="btn control-command" id="btnPumpOff">送出關閉指令</button>
           </div>
           <div class="msg" id="pumpHint"></div>
         </div>
@@ -375,21 +762,22 @@ body{
 
       <div class="card control-config-card">
         <div class="card-title">自動澆水設定</div>
+        <p class="control-block-note">設定自動模式的啟動條件、停止條件與單次澆水時間。</p>
         <div class="grid3">
           <div class="field">
-            <div class="label">開始澆水（moist_on %）</div>
+            <label class="label" for="mo_on">開始澆水濕度（%）</label>
             <input id="mo_on" type="number" min="0" max="100" />
-            <div class="hint">土壤濕度低於此值時啟動</div>
+            <div class="hint">土壤濕度低於此數值時啟動澆水。</div>
           </div>
           <div class="field">
-            <div class="label">停止澆水（moist_off %）</div>
+            <label class="label" for="mo_off">停止澆水濕度（%）</label>
             <input id="mo_off" type="number" min="0" max="100" />
-            <div class="hint">土壤濕度高於此值時停止</div>
+            <div class="hint">土壤濕度高於此數值時停止澆水。</div>
           </div>
           <div class="field">
-            <div class="label">澆水時間（pump_ms）</div>
+            <label class="label" for="pump_ms">單次澆水時間（毫秒）</label>
             <input id="pump_ms" type="number" min="500" step="500" />
-            <div class="hint">單位：毫秒</div>
+            <div class="hint">每次啟動水泵的持續時間，最低 500 毫秒。</div>
           </div>
         </div>
         <div class="actions">
@@ -401,6 +789,7 @@ body{
       <div class="control-bottom-grid">
         <div class="section control-section">
           <div class="section-title">LINE 推播通知</div>
+          <p class="section-note">管理設備缺水或土壤過乾時的通知設定。</p>
           <div class="btn-group">
             <button class="btn toggle" id="btnNotifyOn">啟用通知</button>
             <button class="btn toggle" id="btnNotifyOff">關閉通知</button>
@@ -410,6 +799,7 @@ body{
 
         <div class="section control-section">
           <div class="section-title">系統訊息</div>
+          <p class="section-note">顯示指令送出、設定更新及資料讀取結果。</p>
           <div class="msg" id="sysMsg"></div>
         </div>
       </div>
@@ -492,7 +882,9 @@ body{
   const modeVal = document.getElementById("modeVal");
   const notifyVal = document.getElementById("notifyVal");
   const timeVal = document.getElementById("timeVal");
-  const topInfo = document.getElementById("topInfo");
+  const topDevice = document.getElementById("topDevice");
+  const topAccount = document.getElementById("topAccount");
+  const topRole = document.getElementById("topRole");
   const sysMsg = document.getElementById("sysMsg");
   const pumpHint = document.getElementById("pumpHint");
   const notifyMsg = document.getElementById("notifyMsg");
@@ -677,12 +1069,15 @@ body{
     };
   }
 
+  topDevice.textContent = deviceId || "未選擇";
+  topAccount.textContent = appUser.username || appUser.email || "—";
+  topRole.textContent = appUser.role || "—";
+
   if (!deviceId){
     showDevicePicker();
   } else {
     rememberDevice(deviceId);
     deviceTitle.textContent = `設備：${deviceId}`;
-    topInfo.textContent = `${deviceId}｜${appUser.username}（${appUser.role}）`;
   }
 
   function fmtTime(ts){
